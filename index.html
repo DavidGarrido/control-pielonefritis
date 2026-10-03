@@ -1376,10 +1376,34 @@
   function recipeMissing(r) {
     return r.ingredients.filter(function (ing) { return !marketHas(ing, true); });
   }
-  function activeRecipePool(ids) {
-    var active = activeRecipes().map(function (r) { return r.id; });
-    var filtered = ids.filter(function (id) { return active.indexOf(id) !== -1; });
-    return filtered.length ? filtered : ids;
+  function classifyRecipe(r) {
+    var t = normalize((r.name || "") + " " + (r.purpose || "") + " " + (r.ingredients || []).join(" "));
+    var slots = [];
+    if (/(avena|yogur|granola|huevo|tostada|pan|arepa|cereal|desayuno|fruta)/.test(t)) slots.push("Desayuno");
+    if (/(agua|infusion|jugo|batido|smoothie|limonada|aromatic|bebida|manzanilla|jengibre|te )/.test(t)) {
+      slots.push("Media mañana");
+      if (/(manzanilla|infusion|jengibre|calma)/.test(t)) slots.push("Cena");
+    }
+    if (/(salmon|lenteja|garbanzo|pollo|carne|pescado|arroz|ensalada|guiso|horno|almuerzo|principal|tortilla)/.test(t)) {
+      slots.push("Almuerzo");
+      slots.push("Cena");
+    }
+    if (/(sopa|crema|caldo|ligero|vapor|verduras|cena)/.test(t)) slots.push("Cena");
+    return slots.filter(function (s, i) { return slots.indexOf(s) === i; });
+  }
+
+  function buildPools() {
+    var active = activeRecipes();
+    var ids = active.map(function (r) { return r.id; });
+    if (!ids.length) ids = allRecipes().map(function (r) { return r.id; });
+    var pools = { "Desayuno": [], "Media mañana": [], "Almuerzo": [], "Cena": [] };
+    active.forEach(function (r) {
+      var slots = classifyRecipe(r);
+      if (!slots.length) slots = ["Desayuno", "Media mañana", "Almuerzo", "Cena"];
+      slots.forEach(function (s) { if (pools[s] && pools[s].indexOf(r.id) === -1) pools[s].push(r.id); });
+    });
+    Object.keys(pools).forEach(function (s) { if (!pools[s].length) pools[s] = ids.slice(); });
+    return pools;
   }
   function recipeOptions(selected) {
     var list = activeRecipes();
@@ -1492,12 +1516,7 @@
   }
 
   function suggestWeek() {
-    var pools = {
-      "Desayuno": activeRecipePool(["r3", "r7"]),
-      "Media mañana": activeRecipePool(["r1", "r8"]),
-      "Almuerzo": activeRecipePool(["r4", "r5", "r6"]),
-      "Cena": activeRecipePool(["r5", "r6", "r2"])
-    };
+    var pools = buildPools();
     var cal = {};
     DAYS.forEach(function (day, i) {
       MEALS.forEach(function (meal) {
@@ -1514,14 +1533,14 @@
     var cal = getCal();
     var have = getMarket().filter(function (i) { return i.done; }).map(function (i) { return normalize(i.name); });
     function avail(r) {
-      if (!have.length) return 0;
+      if (!have.length || !r.ingredients || !r.ingredients.length) return 0;
       var n = r.ingredients.filter(function (ing) {
         var x = normalize(ing);
         return have.some(function (h) { return h.indexOf(x) !== -1 || x.indexOf(h) !== -1; });
       }).length;
       return n / r.ingredients.length;
     }
-    var pools = { "Desayuno": activeRecipePool(["r3", "r7"]), "Media mañana": activeRecipePool(["r1", "r8"]), "Almuerzo": activeRecipePool(["r4", "r5", "r6"]), "Cena": activeRecipePool(["r5", "r6", "r2"]) };
+    var pools = buildPools();
     var filled = 0, kept = 0;
     DAYS.forEach(function (day, i) {
       MEALS.forEach(function (meal) {
@@ -2388,14 +2407,14 @@
   function planWeekFromAvailable() {
     var have = getMarket().filter(function (i) { return i.done; }).map(function (i) { return normalize(i.name); });
     function avail(r) {
-      if (!have.length) return 0;
+      if (!have.length || !r.ingredients || !r.ingredients.length) return 0;
       var n = r.ingredients.filter(function (ing) {
         var x = normalize(ing);
         return have.some(function (h) { return h.indexOf(x) !== -1 || x.indexOf(h) !== -1; });
       }).length;
       return n / r.ingredients.length;
     }
-    var pools = { "Desayuno": activeRecipePool(["r3", "r7"]), "Media mañana": activeRecipePool(["r1", "r8"]), "Almuerzo": activeRecipePool(["r4", "r5", "r6"]), "Cena": activeRecipePool(["r5", "r6", "r2"]) };
+    var pools = buildPools();
     var cal = {};
     DAYS.forEach(function (day, i) {
       MEALS.forEach(function (meal) {
