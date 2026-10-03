@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de alimentación, suplementos, recetario y control — Pielonefritis crónica, dolor persistente y lumbago</title>
+<style>
+  :root {
+    --paper: #F6F5F1;
+    --surface: #FFFFFF;
+    --ink: #222723;
+    --ink-soft: #4A514B;
+    --muted: #757C74;
+    --line: #E4E2DB;
+    --line-strong: #D3D0C7;
+    --sage: #587A6A;
+    --sage-soft: #718F80;
+    --sage-wash: #EDF1ED;
+    --clay: #8A6D3B;
+    --clay-wash: #F4EEE1;
+    --stone: #6E6A62;
+    --shadow: 0 1px 2px rgba(34,39,35,0.04), 0 8px 24px rgba(34,39,35,0.05);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "kern" 1;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  header.hero {
+    padding: 72px 0 40px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+
+  .lede {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 680px;
+    margin: 0 0 28px;
+  }
+
+  .context {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    margin-top: 8px;
+  }
+
+  .chip {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .chip strong { color: var(--ink); font-weight: 600; }
+
+  /* Table of contents */
+  nav.toc {
+    margin: 0 0 48px;
+    padding: 22px 26px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  nav.toc h3 {
+    margin: 0 0 14px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  nav.toc ol {
+    list-style: none;
+    counter-reset: toc;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 36px;
+  }
+
+  nav.toc li {
+    counter-increment: toc;
+    padding: 5px 0;
+    font-size: 14px;
+    break-inside: avoid;
+  }
+
+  nav.toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: Georgia, serif;
+    color: var(--sage);
+    margin-right: 10px;
+    font-size: 12px;
+  }
+
+  nav.toc a { color: var(--ink-soft); border: none; }
+  nav.toc a:hover { color: var(--sage); }
+
+  /* Disclaimer */
+  .notice {
+    background: var(--clay-wash);
+    border: 1px solid #E7DCC2;
+    border-left: 3px solid var(--clay);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 0 0 56px;
+    font-size: 14.5px;
+    color: #5F4A22;
+  }
+
+  .notice strong { color: #4A3918; }
+
+  /* Section */
+  section { margin-bottom: 64px; scroll-margin-top: 24px; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+
+  .sec-num {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    color: var(--sage);
+    font-variant-numeric: tabular-nums;
+    min-width: 26px;
+  }
+
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 25px;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+    margin: 32px 0 12px;
+    color: var(--ink);
+  }
+
+  h4 { color: var(--ink); }
+
+  p { margin: 0 0 14px; color: var(--ink-soft); }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage-soft); }
+  a:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* Cards grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, box-shadow .15s ease;
+    break-inside: avoid;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(34,39,35,0.05), 0 14px 34px rgba(34,39,35,0.08);
+  }
+
+  .card .icon {
+    font-size: 22px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 12px;
+    color: var(--sage);
+  }
+
+  .card h4 {
+    margin: 0 0 8px;
+    font-size: 15.5px;
+    font-weight: 650;
+    color: var(--ink);
+  }
+
+  .card p { font-size: 14px; margin: 0; }
+
+  /* Evidence tag */
+  .tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 650;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+  }
+  .tag.a { background: var(--sage-wash); color: #3C5A4C; border: 1px solid #D5E0D8; }
+  .tag.b { background: #EEF0EA; color: #5A6147; border: 1px solid #DEE1D5; }
+  .tag.c { background: #F0EEE9; color: var(--stone); border: 1px solid #E0DDD5; }
+  .tag.caution { background: var(--clay-wash); color: #6E551F; border: 1px solid #E7DCC2; }
+
+  /* Table */
+  .table-scroll { overflow-x: auto; margin-top: 8px; border-radius: var(--radius); border: 1px solid var(--line); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--surface);
+    min-width: 640px;
+  }
+
+  thead th {
+    text-align: left;
+    font-weight: 650;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 16px;
+    background: #FBFAF7;
+    border-bottom: 1px solid var(--line-strong);
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #FCFBF8; }
+  tbody td strong { color: var(--ink); font-weight: 600; }
+
+  /* Lists */
+  ul.clean { list-style: none; padding: 0; margin: 0; }
+
+  ul.clean li {
+    position: relative;
+    padding: 11px 0 11px 30px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    break-inside: avoid;
+  }
+
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 17px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sage);
+    opacity: .65;
+  }
+
+  ul.warn li::before { background: var(--clay); }
+  ul.clean li strong { color: var(--ink); font-weight: 600; }
+
+  /* Research / case cards */
+  .case {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    break-inside: avoid;
+  }
+
+  .case .source {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 650;
+    margin-bottom: 8px;
+  }
+
+  .case h4 { margin: 0 0 8px; font-size: 16px; }
+  .case p { font-size: 14.5px; margin: 0 0 10px; }
+  .case p:last-child { margin-bottom: 0; }
+
+  .case .finding {
+    border-left: 2px solid var(--line-strong);
+    padding-left: 16px;
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  blockquote {
+    margin: 14px 0 0;
+    padding: 14px 18px;
+    background: var(--sage-wash);
+    border-radius: 10px;
+    border-left: 3px solid var(--sage-soft);
+    font-size: 14.5px;
+    color: #3C5146;
+    font-style: italic;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  /* Recipe cards */
+  .recipe {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    break-inside: avoid;
+  }
+
+  .recipe .r-head {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .recipe .r-head h4 {
+    margin: 0 0 4px;
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--ink);
+  }
+
+  .recipe .r-meta {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .recipe .r-purpose {
+    flex-shrink: 0;
+    font-size: 10.5px;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #3C5A4C;
+    background: var(--sage-wash);
+    border: 1px solid #D5E0D8;
+    border-radius: 5px;
+    padding: 4px 9px;
+    white-space: nowrap;
+  }
+
+  .recipe .r-body {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 0;
+  }
+
+  .recipe .r-ing {
+    padding: 18px 24px;
+    border-right: 1px solid var(--line);
+    background: #FCFBF8;
+  }
+
+  .recipe .r-ing h5,
+  .recipe .r-steps h5 {
+    margin: 0 0 10px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 650;
+  }
+
+  .recipe ul.ing { list-style: none; margin: 0; padding: 0; }
+  .recipe ul.ing li {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding: 4px 0 4px 16px;
+    position: relative;
+  }
+  .recipe ul.ing li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 12px;
+    width: 5px;
+    height: 1px;
+    background: var(--sage-soft);
+  }
+
+  .recipe .r-steps { padding: 18px 24px; }
+  .recipe ol.steps { margin: 0; padding-left: 18px; }
+  .recipe ol.steps li {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+  .recipe ol.steps li:last-child { margin-bottom: 0; }
+
+  .recipe .r-why {
+    padding: 14px 24px 18px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+    background: #FBFAF7;
+  }
+  .recipe .r-why strong { color: var(--sage); font-weight: 650; }
+
+  /* Checklist */
+  .checklist {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 24px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    break-inside: avoid;
+  }
+
+  .checklist h4 {
+    margin: 18px 0 4px;
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--ink);
+  }
+
+  ul.todo { list-style: none; margin: 0; padding: 0; }
+
+  ul.todo li {
+    position: relative;
+    padding: 9px 0 9px 30px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+    break-inside: avoid;
+  }
+
+  ul.todo li:last-child { border-bottom: none; }
+
+  ul.todo li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  ul.todo li strong { color: var(--ink); font-weight: 600; }
+
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: 1px;
+  }
+  .pill.due { background: var(--clay-wash); color: #6E551F; border: 1px solid #E7DCC2; }
+  .pill.routine { background: var(--sage-wash); color: #3C5A4C; border: 1px solid #D5E0D8; }
+
+  /* Callout */
+  .callout {
+    background: var(--sage-wash);
+    border: 1px solid #D5E0D8;
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-size: 14px;
+    color: #3C5146;
+    margin-top: 20px;
+    break-inside: avoid;
+  }
+
+  .callout strong { color: #2E423A; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  footer h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 14px; }
+
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer li { padding: 5px 0; }
+
+  .fineprint { margin-top: 28px; font-size: 12px; color: #9A9E97; line-height: 1.6; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 640px) {
+    .recipe .r-body { grid-template-columns: 1fr; }
+    .recipe .r-ing { border-right: none; border-bottom: 1px solid var(--line); }
+    nav.toc ol { columns: 1; }
+  }
+
+  /* ---------- PRINT / PDF ---------- */
+  @page {
+    size: A4;
+    margin: 16mm 14mm 18mm;
+  }
+
+  @media print {
+    :root {
+      --paper: #fff;
+    }
+
+    html, body {
+      background: #fff !important;
+      font-size: 11.5pt;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    /* Hero becomes compact cover block */
+    header.hero {
+      padding: 0 0 18px;
+      margin-bottom: 20px;
+    }
+
+    h1 { font-size: 26pt; }
+    .lede { font-size: 11.5pt; }
+    h2 { font-size: 16pt; }
+    h3 { font-size: 12pt; margin: 20px 0 8px; }
+    p, li { font-size: 10.5pt; }
+
+    /* Keep backgrounds/colors when printing */
+    .card, .case, .recipe, .checklist, .notice, .callout, .chip,
+    nav.toc, thead th, .tag, .pill, blockquote, .recipe .r-ing,
+    .recipe .r-why {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .card, .case, .recipe, .checklist, nav.toc {
+      box-shadow: none;
+      border: 1px solid var(--line-strong);
+    }
+
+    .card:hover { transform: none; }
+
+    /* Page break control */
+    .break-before { break-before: page; page-break-before: always; }
+    .card, .case, .recipe, .checklist, .callout, .notice,
+    ul.clean li, ul.todo li, table tr, blockquote {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    section { margin-bottom: 30px; break-inside: auto; }
+    .sec-head { break-after: avoid; }
+    h2, h3, h4 { break-after: avoid; }
+
+    a { color: var(--sage); border-bottom: none; }
+
+    table { min-width: 0; font-size: 9pt; }
+    thead th { padding: 8px 10px; font-size: 8pt; }
+    tbody td { padding: 8px 10px; }
+
+    .recipe .r-body { grid-template-columns: 1fr 1.5fr; }
+    .recipe .r-head, .recipe .r-ing, .recipe .r-steps, .recipe .r-why { padding: 12px 16px; }
+
+    nav.toc { break-inside: avoid; }
+
+    /* Hide interactive-only hints if any */
+    .no-print { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Guía informativa · uso personal</p>
+    <h1>Alimentación, suplementos,<br>recetario y control</h1>
+    <p class="lede">Investigación de casos reales y evidencia, listado de alimentos y suplementos, recetario práctico y checklist de seguimiento para <strong>pielonefritis crónica con reflujo</strong>, <strong>dolor persistente somatomorfo</strong> y <strong>lumbago mecánico</strong>. Pensado como apoyo a lo que ya te ordenó tu médico, no como reemplazo.</p>
+    <div class="context">
+      <span class="chip"><strong>Perfil:</strong> mujer, 30 años</span>
+      <span class="chip"><strong>N110</strong> Pielonefritis crónica con reflujo</span>
+      <span class="chip"><strong>F454</strong> Dolor persistente somatomorfo</span>
+      <span class="chip"><strong>M54.5</strong> Lumbago mecánico</span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h3>Contenido</h3>
+    <ol>
+      <li><a href="#hidratacion">Hidratación — la base</a></li>
+      <li><a href="#renal">Prevención de infección urinaria</a></li>
+      <li><a href="#hierro">Hierro y anemia</a></li>
+      <li><a href="#antiinflamatorio">Dolor y lumbago mecánico</a></li>
+      <li><a href="#tabla">Tabla resumen de suplementos</a></li>
+      <li><a href="#investigacion">Investigación: casos y evidencia</a></li>
+      <li><a href="#recetario">Recetario</a></li>
+      <li><a href="#checklist">Checklist de seguimiento</a></li>
+      <li><a href="#compra">Lista de mercado</a></li>
+      <li><a href="#precauciones">Interacciones y alarmas</a></li>
+      <li><a href="#fuentes">Fuentes consultadas</a></li>
+    </ol>
+  </nav>
+
+  <div class="notice">
+    <strong>Importante antes de comprar nada.</strong> Con un diagnóstico renal en curso, algunos suplementos "naturales" pueden dañar el riñón o interactuar con tus medicamentos (nitrofurantoína, meloxicam, acetaminofén, hierro IV). Ningún alimento ni suplemento cura por sí solo una infección urinaria ni una pielonefritis activa. Antes de agregar cualquier producto, muéstralo a tu médico tratante; si tienes la creatinina o la filtración glomerular alteradas, el riñón manda sobre todo lo demás. Las recetas de esta guía son generales y de bajo riesgo, pero si tu médico te restringió potasio, sodio, proteína o líquidos, ajústalas con él. Si aparece fiebre alta, vómito, dolor lumbar fuerte o sangre en orina, ve a urgencias — no lo manejes con dieta.
+  </div>
+
+  <!-- 1 -->
+  <section id="hidratacion">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Hidratación — la base de todo</h2>
+    </div>
+    <p>Es lo único con consenso casi unánime en ITU recurrente y en salud renal. Aumentar el volumen de líquido reduce la adhesión de bacterias a la vejiga y ayuda a vaciar el tracto urinario.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag a">Evidencia alta</span>
+        <span class="icon">◍</span>
+        <h4>Agua</h4>
+        <p>Meta orientativa: 1,5 a 2 L/día, salvo que tu médico te haya restringido líquidos. Reparte durante el día; no de golpe.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◍</span>
+        <h4>Jugo de arándano rojo</h4>
+        <p>Busca presentaciones con <strong>40 mg de PAC por 125 ml</strong>. El jugo comercial azucarado tiene poco arándano real.</p>
+      </div>
+      <div class="card">
+        <span class="tag caution">Precaución</span>
+        <span class="icon">◍</span>
+        <h4>Infusiones suaves</h4>
+        <p>Manzanilla, menta, jengibre: bien toleradas. Evita bebidas con mucha cafeína o alcohol, que irritan la vejiga.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="renal">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Prevención de infección urinaria</h2>
+    </div>
+    <p>Aquí el objetivo no es "curar", sino reducir el número de episodios nuevos. La evidencia más sólida apunta a productos de arándano y a hábitos, no a grandes dietas.</p>
+
+    <h3>Alimentos y productos</h3>
+    <div class="grid">
+      <div class="card">
+        <span class="tag a">Evidencia alta</span>
+        <span class="icon">◆</span>
+        <h4>Arándano rojo (cranberry)</h4>
+        <p>Metaanálisis de +20 ensayos y 3.091 pacientes: hasta 54% menos probabilidad de ITU. Cochrane 2023 (50 ensayos): ~26% menos recurrencia en mujeres. Presentación: jugo con PAC suficiente, cápsulas o polvo.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◆</span>
+        <h4>Probióticos (Lactobacillus)</h4>
+        <p>Ayudan a recuperar la flora vaginal/intestinal tras antibióticos. Toma separado del antibiótico, al menos 2 horas.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◆</span>
+        <h4>Fibra y frutas cítricas</h4>
+        <p>Favorecen tránsito intestinal; el estreñimiento empeora la función vesical. Naranja, mandarina, kiwi, avena.</p>
+      </div>
+      <div class="card">
+        <span class="tag c">Evidencia baja</span>
+        <span class="icon">◆</span>
+        <h4>D-manosa</h4>
+        <p>Se usa en ITU recurrente por E. coli, sobre todo como prevención. No sustituye antibiótico. Consultar antes.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Ojo:</strong> el jugo de arándano <em>no mata bacterias ya presentes</em> ni cura una infección activa. Su papel es preventivo. Retrasar el antibiótico creyendo que el jugo basta es justamente lo que puede llevar la infección al riñón.
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="hierro">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Hierro y anemia</h2>
+    </div>
+    <p>En tus órdenes aparece hierro sacarato IV y sulfato ferroso. El hierro de los alimentos mejora absorción si se combina bien; no reemplaza la vía intravenosa si tu médico la indicó.</p>
+
+    <h3>Alimentos ricos en hierro</h3>
+    <div class="grid">
+      <div class="card">
+        <span class="tag a">Hierro hemo</span>
+        <span class="icon">●</span>
+        <h4>Carnes rojas, hígado, pollo, pescado</h4>
+        <p>El hierro hemo se absorbe mucho mejor que el vegetal. Modera las carnes rojas procesadas.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Hierro no hemo</span>
+        <span class="icon">●</span>
+        <h4>Lentejas, garbanzo, espinaca, ajonjolí</h4>
+        <p>Combínalos con vitamina C (limón, naranja, pimiento) para duplicar la absorción.</p>
+      </div>
+      <div class="card">
+        <span class="tag caution">Bloquea absorción</span>
+        <span class="icon">●</span>
+        <h4>Café, té, lácteos, calcio</h4>
+        <p>No los tomes junto al hierro. Sepáralos 1–2 horas, especialmente si tomas la tableta de sulfato ferroso.</p>
+      </div>
+      <div class="card">
+        <span class="tag caution">Precaución renal</span>
+        <span class="icon">●</span>
+        <h4>Exceso de hierro</h4>
+        <p>No dupliques dosis ni sumes varios suplementos con hierro sin control. Puede acumularse y ser tóxico.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Cómo tomar el sulfato ferroso:</strong> en ayunas o con jugo cítrico, no con café/té/lácteos. Puede causar estreñimiento y heces oscuras (normal). Si te cae mal al estómago, tómalo con un poco de comida, sabiendo que absorbe algo menos.
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="antiinflamatorio">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Dolor persistente y lumbago mecánico</h2>
+    </div>
+    <p>Aquí el mayor respaldo no está en pastillas sino en fisioterapia, actividad y sueño. La nutrición ayuda de forma modesta y como complemento.</p>
+
+    <h3>Alimentos con perfil antiinflamatorio</h3>
+    <div class="grid">
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◇</span>
+        <h4>Omega-3</h4>
+        <p>Salmón, sardina, atún, chía, linaza, nueces. Pueden reducir dolor e inflamación de forma leve en dolor crónico.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◇</span>
+        <h4>Cúrcuma (curcumina)</h4>
+        <p>Con pimienta negra mejora absorción. Evidencia moderada en dolor articular. No combinar con anticoagulantes.</p>
+      </div>
+      <div class="card">
+        <span class="tag b">Evidencia media</span>
+        <span class="icon">◇</span>
+        <h4>Magnesio</h4>
+        <p>Citrato o glicinato por la noche; puede ayudar con calambres y sueño. Precaución si hay función renal reducida.</p>
+      </div>
+      <div class="card">
+        <span class="tag a">Evidencia alta</span>
+        <span class="icon">◇</span>
+        <h4>Vitamina D</h4>
+        <p>Déficit frecuente en dolor crónico. Mejor medir nivel y reponer con indicación médica que autoprescribir dosis altas.</p>
+      </div>
+      <div class="card">
+        <span class="tag a">Evidencia alta</span>
+        <span class="icon">◇</span>
+        <h4>Dieta tipo mediterránea</h4>
+        <p>Verduras, frutas, legumbres, aceite de oliva, pescado. Patrón más asociado a menos inflamación y mejor salud renal.</p>
+      </div>
+      <div class="card">
+        <span class="tag caution">Evitar</span>
+        <span class="icon">◇</span>
+        <h4>Ultraprocesados y azúcar</h4>
+        <p>Refrescos, frituras, embutidos: se asocian a más inflamación y peor control del dolor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="tabla">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>Tabla resumen de suplementos</h2>
+    </div>
+    <p>Dosis orientativas de referencia general; <strong>no</strong> son una prescripción. Ajústalas con tu médico según tu función renal y tus otros medicamentos.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Suplemento</th>
+            <th>Para qué</th>
+            <th>Presentación / dosis referencial</th>
+            <th>Evidencia</th>
+            <th>Precaución principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Arándano rojo (cranberry)</strong></td>
+            <td>Prevención de ITU recurrente</td>
+            <td>40 mg PAC / 125 ml jugo, 1–2 veces/día; o cápsula con ≥ 240 mg PAC</td>
+            <td><span class="tag a" style="margin:0">Alta</span></td>
+            <td>Interactúa con warfarina; no usar contra infección activa</td>
+          </tr>
+          <tr>
+            <td><strong>Probióticos</strong></td>
+            <td>Recuperar flora tras antibiótico</td>
+            <td>Cápsula multicepa; separada ≥ 2 h del antibiótico</td>
+            <td><span class="tag b" style="margin:0">Media</span></td>
+            <td>Precaución en inmunosupresión</td>
+          </tr>
+          <tr>
+            <td><strong>D-manosa</strong></td>
+            <td>Prevención ITU por E. coli</td>
+            <td>500 mg–2 g/día en polvo, según indicación</td>
+            <td><span class="tag c" style="margin:0">Baja</span></td>
+            <td>No sustituye antibiótico en infección activa</td>
+          </tr>
+          <tr>
+            <td><strong>Sulfato ferroso</strong></td>
+            <td>Anemia / déficit de hierro</td>
+            <td>Ya formulado: 300 mg; seguir la orden médica</td>
+            <td><span class="tag a" style="margin:0">Alta</span></td>
+            <td>Estreñimiento; separar de café/té/lácteos/calcio</td>
+          </tr>
+          <tr>
+            <td><strong>Omega-3 (EPA/DHA)</strong></td>
+            <td>Dolor e inflamación</td>
+            <td>1–2 g/día de EPA+DHA</td>
+            <td><span class="tag b" style="margin:0">Media</span></td>
+            <td>Precaución con anticoagulantes</td>
+          </tr>
+          <tr>
+            <td><strong>Curcumina</strong></td>
+            <td>Dolor articular / inflamación</td>
+            <td>500 mg con pimienta negra; o formulación con absorción mejorada</td>
+            <td><span class="tag b" style="margin:0">Media</span></td>
+            <td>Evitar con anticoagulantes; ajustar en problema biliar</td>
+          </tr>
+          <tr>
+            <td><strong>Magnesio</strong></td>
+            <td>Calambres, sueño</td>
+            <td>200–400 mg por la noche (citrato/glicinato)</td>
+            <td><span class="tag b" style="margin:0">Media</span></td>
+            <td>Puede acumularse si hay falla renal — consultar</td>
+          </tr>
+          <tr>
+            <td><strong>Vitamina D</strong></td>
+            <td>Dolor crónico, hueso</td>
+            <td>Según nivel sérico; dosis médica</td>
+            <td><span class="tag a" style="margin:0">Alta</span></td>
+            <td>No dosis altas sin medir nivel</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6 INVESTIGACIÓN -->
+  <section id="investigacion" class="break-before">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Investigación: casos reales y evidencia</h2>
+    </div>
+    <p>Resumen de lo encontrado en estudios, reportes y testimonios públicos sobre cada uno de los diagnósticos. Se cita la fuente y el hallazgo concreto.</p>
+
+    <h3>Pielonefritis crónica y reflujo</h3>
+
+    <div class="case">
+      <span class="source">Manual MSD / Merck — Nefropatía por reflujo</span>
+      <h4>El daño es cicatriz; el objetivo es evitar recaídas</h4>
+      <p>La nefropatía por reflujo se caracteriza por cicatrices renales y atrofia del parénquima causadas por inflamación aguda repetida. Se asocia fuertemente al reflujo vesicoureteral de la infancia.</p>
+      <div class="finding">Tratamiento: corregir la obstrucción si existe + terapia antibiótica a largo plazo (trimetoprima/sulfametoxazol, trimetoprima, una fluoroquinolona o <strong>nitrofurantoína</strong>) cuando las infecciones son frecuentes. La mayoría conserva función renal adecuada ≥ 20 años tras el inicio, pero cada brote de pielonefritis aguda deteriora más el riñón.</div>
+    </div>
+
+    <div class="case">
+      <span class="source">Doctoralia — respuestas de urólogos a paciente real</span>
+      <h4>"Pielonefritis crónica en el ultrasonido con orina normal"</h4>
+      <p>Paciente con reporte de pielonefritis crónica en ecografía, dolor de cintura y parcial de orina normal. Cuatro urólogos respondieron de forma coincidente.</p>
+      <blockquote>
+        "Los cambios que suelen reportarse como pielonefritis crónica en el ultrasonido suelen ser cicatrices de infecciones previas. Si tu examen de orina está normal, el objetivo es evitar nuevos cuadros infecciosos. Acude al urólogo para buscar la causa que favorece las infecciones."
+        <cite>Dr. Oscar Magaña · Urólogo</cite>
+      </blockquote>
+      <div class="finding">Aprendizaje: el diagnóstico por ecografía puede estar sobrediagnosticado. Lo que manda es el examen de orina, el urocultivo y la valoración por urología. La nitrofurantoína (Macrodantina) fue el antibiótico sugerido en ese caso.</div>
+    </div>
+
+    <div class="case">
+      <span class="source">Universidad Bond, Australia — Moro et al., 2024 (European Urology Focus)</span>
+      <h4>Jugo de arándano rojo: metaanálisis de +20 ensayos, 3.091 pacientes</h4>
+      <div class="finding">
+        Reducción de hasta <strong>54%</strong> en probabilidad de ITU · <strong>59%</strong> menos necesidad de antibióticos · disminución significativa de los síntomas. El compuesto activo son las proantocianidinas (PAC), que impiden que E. coli se adhiera a la vejiga. Beber más agua también ayudó, aunque menos que el jugo.
+      </div>
+    </div>
+
+    <div class="case">
+      <span class="source">Cochrane Database of Systematic Reviews, 2023</span>
+      <h4>50 ensayos, 8.857 participantes</h4>
+      <div class="finding">Los productos de arándano (jugo, tabletas o polvo) probablemente reducen el riesgo de ITU sintomática en mujeres con infección recurrente en un <strong>~26%</strong> (RR 0,74), y también en niños y personas con riesgo tras una intervención. La calidad de la evidencia es moderada a baja.</div>
+    </div>
+
+    <div class="case">
+      <span class="source">Estudio GerHogar Cysticlean® — Revista Colombiana de Nefrología</span>
+      <h4>160 pacientes adultos mayores con cistitis recurrente por E. coli</h4>
+      <div class="finding">Extracto de arándano con <strong>240 mg de PAC por cápsula</strong> tuvo éxito en <strong>81,6%</strong> (primer episodio) y <strong>82,0%</strong> (casos recurrentes frecuentes).</div>
+    </div>
+
+    <div class="callout">
+      <strong>Límite importante:</strong> TopDoctors y AARP lo recalcan — tomar mucho jugo <em>no cura</em> una infección activa ni mata bacterias ya presentes. Sirve para prevenir. Retrasar el antibiótico esperando que el arándano resuelva es lo que puede hacer que la infección suba al riñón. Cohorte de las 3 conclusiones: (1) es preventivo, (2) no sustituye tratamiento, (3) el jugo comercial azucarado no tiene PAC suficiente.
+    </div>
+
+    <h3 style="margin-top:40px">Lumbago mecánico — testimonios de fisioterapia</h3>
+
+    <div class="case">
+      <span class="source">IJHSR 2017 — Caso publicado</span>
+      <h4>Hombre de 42 años con lumbago mecánico agudo izquierdo</h4>
+      <div class="finding">Terapia manual integrada: movilizaciones de Maitland, técnica de Mulligan (movimiento con movilización), manipulación de alta velocidad y ejercicios de extensión de McKenzie con activación de core (puente, prone on elbow, lumbar rolls, flexión activa). <strong>En 3 sesiones en una semana</strong> recuperó movilidad completa sin dolor.</div>
+    </div>
+
+    <div class="case">
+      <span class="source">FisioPR / IPA Physio / RK Physiocare — testimonios públicos</span>
+      <h4>Patrón común de recuperación</h4>
+      <p>Casos con ciática, hernia discal y dolor lumbar crónico de años que evitaron cirugía o volvieron a la actividad:</p>
+      <ul class="clean">
+        <li>"Tenía dolor lumbar crónico por años. Identificaron debilidad de core y me dieron ejercicios específicos. <strong>En 4 semanas el dolor bajó mucho.</strong>"</li>
+        <li>"Dolor tan severo que no podía ni sentarme; con terapia manual funcional volví a controlar mi vida."</li>
+        <li>"Después de 2 años sin poder ponerme un calcetín, en una sesión volví a agacharme."</li>
+      </ul>
+      <div class="finding">Se repite el mismo denominador: no fue solo la pastilla (meloxicam/acetaminofén calman mientras), sino <strong>activación de core, movilización, corrección postural y constancia</strong>. Eso coincide con la orden de "terapia para lumbago mecánico" y "terapia física" de este caso.</div>
+    </div>
+
+    <h3 style="margin-top:40px">F454 — Dolor persistente somatomorfo</h3>
+
+    <div class="case">
+      <span class="source">Mayo Clinic · MSD/Merck · MedlinePlus</span>
+      <h4>Dolor crónico con respuesta desproporcionada</h4>
+      <p>Se caracteriza por uno o más síntomas orgánicos crónicos (el más frecuente, dolor) con preocupación y angustia desproporcionadas, consultas repetidas y dificultad para funcionar en la vida diaria. La reacción al síntoma importa más que la causa física.</p>
+      <div class="finding">
+        <strong>Lo que los casos reportan como útil:</strong> antidepresivos para síndromes de dolor crónico; compresas frías/calientes; fisioterapia; técnicas de distracción; masajes; centros y grupos de apoyo; psicoterapia. MedlinePlus advierte que los analgésicos comunes "generalmente no son efectivos y pueden tener efectos secundarios serios". Muchos pacientes al inicio rechazan el componente de salud mental porque sienten el dolor como puramente físico — y ahí se estanca la mejoría.
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Cómo se relacionan los tres diagnósticos:</strong> el dolor lumbar mecánico es real y responde a fisioterapia; el diagnóstico F454 sugiere que la percepción del dolor está amplificada por el sistema nervioso y el estrés. Por eso la estrategia con más respaldo en casos reales combina <em>movimiento gradual + manejo del estrés/sueño + alimentación antiinflamatoria</em>, y no aumenta analgésicos indefinidamente.
+    </div>
+  </section>
+
+  <!-- 7 RECETARIO -->
+  <section id="recetario" class="break-before">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>Recetario</h2>
+    </div>
+    <p>Ocho preparaciones sencillas alineadas con los objetivos de cada diagnóstico: hidratación, prevención de ITU, absorción de hierro y perfil antiinflamatorio. Ingredientes de mercado normal.</p>
+
+    <div class="callout" style="margin-top:0;margin-bottom:20px">
+      <strong>Nota renal:</strong> si tu médico restringió potasio, fíjate en las recetas marcadas con ingredientes altos en potasio (espinaca, aguacate, plátano, frutos secos) y modera la porción. Si restringió sodio, no agregues sal y usa especias en su lugar.
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Agua aromatizada de arándano y limón</h4>
+          <p class="r-meta">5 min · 1,5 L · sin azúcar</p>
+        </div>
+        <span class="r-purpose">Hidratación + ITU</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1,5 L de agua</li>
+            <li>1/2 taza de arándanos rojos frescos o congelados</li>
+            <li>1 limón en rodajas</li>
+            <li>Hojas de menta fresca</li>
+            <li>Hielo (opcional)</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Lava los arándanos y el limón.</li>
+            <li>Machaca levemente los arándanos para liberar sus compuestos.</li>
+            <li>Agrega todo al agua, revuelve y deja reposar 10 min en frío.</li>
+            <li>Bebe a lo largo del día, reponiendo el agua.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> aumenta el volumen de orina (arrastra bacterias) y aporta proantocianidinas del arándano más vitamina C del limón.</div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Infusión de jengibre y manzanilla</h4>
+          <p class="r-meta">8 min · 1 taza · tibia</p>
+        </div>
+        <span class="r-purpose">Vejiga + calma</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1 cm de jengibre fresco</li>
+            <li>1 cucharadita de flores de manzanilla</li>
+            <li>250 ml de agua</li>
+            <li>Miel (opcional, poca)</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Hierve el agua y apaga el fuego.</li>
+            <li>Agrega el jengibre en láminas y la manzanilla.</li>
+            <li>Tapa y deja reposar 5–8 min.</li>
+            <li>Cuela y bebe tibia, ideal por la noche.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> bebida suave que hidrata sin irritar la vejiga; el jengibre tiene acción antiinflamatoria leve y la manzanilla ayuda a relajarse antes de dormir.</div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Avena nocturna con arándano, chía y nueces</h4>
+          <p class="r-meta">5 min + reposo toda la noche · 1 porción</p>
+        </div>
+        <span class="r-purpose">Fibra + omega-3</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1/2 taza de avena en hojuelas</li>
+            <li>1 cucharada de chía</li>
+            <li>3/4 taza de leche o bebida vegetal</li>
+            <li>1/2 taza de arándanos</li>
+            <li>1 cucharada de nueces picadas</li>
+            <li>Canela</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Mezcla avena, chía y leche en un frasco.</li>
+            <li>Agrega los arándanos y la canela.</li>
+            <li>Refrigera toda la noche.</li>
+            <li>Al servir, corona con las nueces picadas.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> fibra para el tránsito intestinal (el estreñimiento empeora la función vesical), omega-3 de chía y nueces, y arándano preventivo.</div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Salmón al horno con brócoli y cúrcuma</h4>
+          <p class="r-meta">25 min · 1 porción</p>
+        </div>
+        <span class="r-purpose">Antiinflamatorio</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1 filete de salmón</li>
+            <li>1 taza de brócoli</li>
+            <li>1 cucharadita de cúrcuma</li>
+            <li>Pizca de pimienta negra</li>
+            <li>Aceite de oliva</li>
+            <li>Limón</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Precalienta el horno a 190 °C.</li>
+            <li>Coloca el salmón y el brócoli en una bandeja.</li>
+            <li>Rocía con aceite, cúrcuma y pimienta.</li>
+            <li>Hornea 15–18 min hasta que el salmón esté cocido.</li>
+            <li>Termina con jugo de limón.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> omega-3 del salmón y curcumina con pimienta negra; patrón antiinflamatorio asociado a menos dolor. <span style="color:var(--clay)">(Brócoli: alto en potasio — moderar si hay restricción.)</span></div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Lentejas guisadas con pimiento y limón</h4>
+          <p class="r-meta">30 min · 2 porciones</p>
+        </div>
+        <span class="r-purpose">Hierro + vit. C</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1 taza de lentejas</li>
+            <li>1 pimiento rojo picado</li>
+            <li>1 tomate picado</li>
+            <li>1/2 cebolla</li>
+            <li>Comino, laurel</li>
+            <li>Jugo de limón al servir</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Sofríe la cebolla y el pimiento en aceite de oliva.</li>
+            <li>Agrega el tomate y las especias.</li>
+            <li>Suma las lentejas y agua, cocina 25 min.</li>
+            <li>Sirve y agrega el jugo de limón justo antes de comer.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> hierro no hemo de la lenteja + vitamina C del pimiento y el limón, que juntos multiplican la absorción del hierro. (Puede acompañar el sulfato ferroso).</div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Ensalada tibia de garbanzo, espinaca y cítricos</h4>
+          <p class="r-meta">15 min · 1 porción</p>
+        </div>
+        <span class="r-purpose">Hierro + fibra</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1 taza de garbanzo cocido</li>
+            <li>1 taza de espinaca fresca</li>
+            <li>1 mandarina en gajos</li>
+            <li>1 cucharada de ajonjolí</li>
+            <li>Aceite de oliva y limón</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Calienta el garbanzo en un sartén con un poco de aceite.</li>
+            <li>Colócalo sobre la espinaca fresca.</li>
+            <li>Agrega la mandarina y el ajonjolí.</li>
+            <li>Aliña con aceite de oliva y limón.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> combina hierro vegetal (garbanzo, espinaca, ajonjolí) con vitamina C de la mandarina. <span style="color:var(--clay)">(Espinaca y garbanzo: altos en potasio — moderar si hay restricción.)</span></div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Yogur natural con linaza y arándano</h4>
+          <p class="r-meta">3 min · 1 porción</p>
+        </div>
+        <span class="r-purpose">Probiótico + fibra</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>1 vaso de yogur natural sin azúcar</li>
+            <li>1 cucharada de linaza molida</li>
+            <li>1/2 taza de arándanos</li>
+            <li>Canela</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Sirve el yogur en un bol.</li>
+            <li>Agrega la linaza molida y los arándanos.</li>
+            <li>Espolvorea canela y come.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> probióticos para recuperar flora (útil tras antibióticos) + fibra y arándano. Toma el yogur separado del antibiótico y del sulfato ferroso por 1–2 horas.</div>
+    </div>
+
+    <div class="recipe">
+      <div class="r-head">
+        <div>
+          <h4>Batido de naranja, zanahoria y jengibre</h4>
+          <p class="r-meta">7 min · 1 vaso</p>
+        </div>
+        <span class="r-purpose">Vit. C + absorción</span>
+      </div>
+      <div class="r-body">
+        <div class="r-ing">
+          <h5>Ingredientes</h5>
+          <ul class="ing">
+            <li>2 naranjas (jugo)</li>
+            <li>1 zanahoria</li>
+            <li>1 cm de jengibre</li>
+            <li>1/2 vaso de agua</li>
+          </ul>
+        </div>
+        <div class="r-steps">
+          <h5>Preparación</h5>
+          <ol class="steps">
+            <li>Extrae el jugo de las naranjas.</li>
+            <li>Licúa con la zanahoria, el jengibre y el agua.</li>
+            <li>Cuela si prefieres textura fina.</li>
+            <li>Toma junto al sulfato ferroso para mejorar la absorción.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="r-why"><strong>Por qué ayuda:</strong> alta carga de vitamina C, que aumenta la absorción del hierro de la tableta. No lo tomes con café ni lácteos.</div>
+    </div>
+  </section>
+
+  <!-- 8 CHECKLIST -->
+  <section id="checklist" class="break-before">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2>Checklist de seguimiento</h2>
+    </div>
+    <p>Imprime esta sección y márcala a mano. Las etiquetas naranjas son <strong>compromisos con fecha</strong> tomados de tus órdenes; las verdes son hábitos de rutina.</p>
+
+    <div class="checklist">
+      <h4>Compromisos de las órdenes médicas</h4>
+      <ul class="todo">
+        <li>Hemograma de control <span class="pill due">en 48 h</span></li>
+        <li>Hierro sacarato IV — 1 ampolla cada 24 h durante 9 días <span class="pill due">1–9 oct</span></li>
+        <li>Terminar meloxicam (10 tabletas) y acetaminofén (30 tabletas) según fórmula <span class="pill due">5 días</span></li>
+        <li>Asistir a interconsulta de gastroenterología <span class="pill due">agendar</span></li>
+        <li>Asistir a fisioterapia para lumbago mecánico <span class="pill due">agendar</span></li>
+        <li>Respetar la incapacidad del 1 al 5 de octubre <span class="pill due">1–5 oct</span></li>
+        <li>Control de historia clínica en 48 h <span class="pill due">seguimiento</span></li>
+        <li>Reclamar/reponer fórmula antes de la vigencia de 48 h de la Clínica Central del Quindío <span class="pill due">vence</span></li>
+      </ul>
+
+      <h4>Rutina diaria</h4>
+      <ul class="todo">
+        <li>Tomar entre 1,5 y 2 L de agua (si no hay restricción) <span class="pill routine">diario</span></li>
+        <li>Jugo o cápsula de arándano con PAC <span class="pill routine">diario</span></li>
+        <li>Tomar el sulfato ferroso según indicación, separado de café/té/lácteos <span class="pill routine">diario</span></li>
+        <li>Probiótico, separado ≥ 2 h del antibiótico <span class="pill routine">diario</span></li>
+        <li>Caminata suave o ejercicios de core indicados por fisioterapia <span class="pill routine">diario</span></li>
+        <li>Higiene genital de adelante hacia atrás; orinar tras relaciones <span class="pill routine">diario</span></li>
+        <li>Estirar zona lumbar y cuadrado lumbar 5 min <span class="pill routine">diario</span></li>
+        <li>No aguantar la orina <span class="pill routine">diario</span></li>
+        <li>Dormir 7–8 h (clave en dolor persistente) <span class="pill routine">diario</span></li>
+        <li>Registrar dolor de 1 a 10 en un cuaderno <span class="pill routine">diario</span></li>
+      </ul>
+
+      <h4>Rutina semanal</h4>
+      <ul class="todo">
+        <li>Hacer mercado de la lista de la sección 09 <span class="pill routine">semanal</span></li>
+        <li>Cocinar al menos 2 recetas del recetario <span class="pill routine">semanal</span></li>
+        <li>Pesarse y anotar <span class="pill routine">semanal</span></li>
+        <li>Revisar si hubo fiebre, ardor o cambios en la orina <span class="pill routine">semanal</span></li>
+        <li>Confirmar asistencia a terapias e interconsultas <span class="pill routine">semanal</span></li>
+      </ul>
+
+      <h4>Alerta — ir a urgencias</h4>
+      <ul class="todo">
+        <li>Fiebre alta que no cede con antipiréticos</li>
+        <li>Dolor lumbar o abdominal fuerte y constante</li>
+        <li>Vómito que no puedes controlar</li>
+        <li>Sangre en orina o deposiciones</li>
+        <li>Dificultad para respirar o dolor en el pecho</li>
+        <li>Dejar de orinar o coloración amarilla de piel/ojos</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="compra">
+    <div class="sec-head">
+      <span class="sec-num">09</span>
+      <h2>Lista de mercado / compra</h2>
+    </div>
+
+    <h3>Mercado semanal</h3>
+    <ul class="clean">
+      <li><strong>Hidratación:</strong> agua, jugo de arándano con PAC comprobada, manzanilla o jengibre.</li>
+      <li><strong>Proteína antiinflamatoria:</strong> salmón, sardina, atún, huevos, pollo, lentejas, garbanzo.</li>
+      <li><strong>Hierro + vitamina C:</strong> carnes rojas (con moderación), hígado ocasional, espinaca, ajonjolí, naranja, mandarina, kiwi, pimiento, limón.</li>
+      <li><strong>Vegetales y fibra:</strong> brócoli, calabacín, zanahoria, avena, arroz integral, aceite de oliva.</li>
+      <li><strong>Ayuda al dolor:</strong> chía, linaza, nueces, cúrcuma, pimienta negra, jengibre.</li>
+      <li><strong>Evitar:</strong> refrescos, embutidos, frituras, alcohol, exceso de café.</li>
+    </ul>
+
+    <h3>Suplementos (solo tras aprobación médica)</h3>
+    <ul class="clean">
+      <li>Arándano rojo en cápsula o jugo con PAC indicado.</li>
+      <li>Probiótico multicepa.</li>
+      <li>Omega-3 (EPA/DHA).</li>
+      <li>Magnesio citrato o glicinato.</li>
+      <li>Vitamina D, solo con nivel medido.</li>
+      <li>Hierro únicamente si tu médico lo indica y con las pautas de absorción.</li>
+    </ul>
+  </section>
+
+  <!-- 10 -->
+  <section id="precauciones">
+    <div class="sec-head">
+      <span class="sec-num">10</span>
+      <h2>Interacciones y señales de alarma</h2>
+    </div>
+
+    <h3>No mezclar / consultar antes</h3>
+    <ul class="clean warn">
+      <li><strong>Arándano + warfarina:</strong> aumenta el efecto anticoagulante.</li>
+      <li><strong>Cúrcuma / omega-3 + anticoagulantes:</strong> suman riesgo de sangrado.</li>
+      <li><strong>Magnesio o potasio extra + falla renal:</strong> pueden acumularse de forma peligrosa.</li>
+      <li><strong>Hierbas "diuréticas" o "detox renal":</strong> pueden dañar el riñón; evítalas con un diagnóstico renal.</li>
+      <li><strong>Antiinflamatorios extra (ibuprofeno, naproxeno):</strong> junto al meloxicam aumentan riesgo renal y gástrico.</li>
+      <li><strong>Probióticos + antibiótico:</strong> sepáralos al menos 2 horas.</li>
+    </ul>
+
+    <h3>Ve a urgencias si aparece</h3>
+    <ul class="clean warn">
+      <li>Fiebre alta que no cede con antipiréticos.</li>
+      <li>Dolor abdominal o lumbar fuerte y constante.</li>
+      <li>Vómito que no puedes controlar.</li>
+      <li>Sangre en orina o deposiciones.</li>
+      <li>Dificultad para respirar o dolor en el pecho.</li>
+      <li>No orinar, o coloración amarilla de piel/ojos.</li>
+    </ul>
+  </section>
+
+  <!-- 11 -->
+  <section id="fuentes">
+    <div class="sec-head">
+      <span class="sec-num">11</span>
+      <h2>Fuentes consultadas</h2>
+    </div>
+    <p style="font-size:14px">Resúmenes de evidencia, reportes y casos citados en esta guía:</p>
+    <ul class="clean">
+      <li>Moro C. et al. — Metanálisis sobre jugo de arándano e ITU, <em>European Urology Focus</em> / Universidad Bond, 2024.</li>
+      <li>Revisión sistemática Cochrane 2023 — Productos de arándano para prevención de ITU (50 ensayos, 8.857 participantes).</li>
+      <li>Estudio GerHogar Cysticlean® — Extracto de arándano en cistitis recurrente por E. coli, <em>Revista Colombiana de Nefrología</em>.</li>
+      <li>Manual MSD / Merck — Nefropatía por reflujo (pielonefritis crónica); versión profesional y para el público.</li>
+      <li>BMJ Best Practice — Chronic pyelonephritis (revisión 2025–2026).</li>
+      <li>Doctoralia — Respuestas de urólogos sobre "pielonefritis crónica en ultrasonido con orina normal".</li>
+      <li>TopDoctors / AARP — Mitos y realidades del jugo de arándano en ITU.</li>
+      <li>Mayo Clinic — Trastorno de síntomas somáticos, 2024.</li>
+      <li>MedlinePlus — Trastorno de dolor somatomorfo.</li>
+      <li>MSD / Merck — Trastorno somatomorfo (versión para el público).</li>
+      <li>IJHSR 2017 — Integrated Manual Therapy Management of Acute Mechanical Low Back Pain: A Case Report.</li>
+      <li>FisioPR / IPA Physio / RK Physiocare — Testimonios públicos de recuperación de lumbago y ciática.</li>
+    </ul>
+
+    <footer>
+      <p class="fineprint">
+        Documento informativo de uso personal. No constituye diagnóstico, prescripción ni tratamiento médico. La información se basa en fuentes públicas y en casos reportados; los resultados individuales varían. Toda decisión sobre alimentos, suplementos o medicamentos debe ser validada por el médico tratante, considerando la función renal y las interacciones con la medicación actual. Las recetas son generales y de bajo riesgo, pero deben ajustarse si existe restricción de potasio, sodio, proteína o líquidos. Elaborado el 03 de octubre de 2026.
+      </p>
+    </footer>
+  </section>
+
+</div>
+</body>
+</html>
