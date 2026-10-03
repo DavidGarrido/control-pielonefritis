@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía de alimentación, suplementos, recetario y control — Pielonefritis crónica, dolor persistente y lumbago</title>
+<title>Panel de salud — Guía, recetario, calendario, asistente, mercado y síntomas</title>
 <style>
   :root {
     --paper: #F6F5F1;
@@ -24,7 +24,6 @@
   }
 
   * { box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -35,7 +34,6 @@
     font-size: 16px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: "kern" 1;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -46,10 +44,112 @@
     padding: 0 24px 96px;
   }
 
-  header.hero {
-    padding: 72px 0 40px;
+  /* ---------- Sticky top navigation (page tabs) ---------- */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(246,245,241,0.92);
+    -webkit-backdrop-filter: saturate(150%) blur(10px);
+    backdrop-filter: saturate(150%) blur(10px);
     border-bottom: 1px solid var(--line);
-    margin-bottom: 40px;
+  }
+
+  .topnav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .topnav .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    color: var(--ink);
+    white-space: nowrap;
+    border: none;
+    flex-shrink: 0;
+  }
+
+  .topnav .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+
+  .topnav ul {
+    list-style: none;
+    display: flex;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .topnav ul::-webkit-scrollbar { display: none; }
+
+  .topnav a.navlink {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 7px 13px;
+    border: none;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background .15s ease, color .15s ease;
+  }
+  .topnav a.navlink:hover { background: var(--sage-wash); color: var(--sage); }
+  .topnav a.navlink.active { background: var(--sage); color: #fff; }
+
+  /* ---------- Sub navigation (guide sections) ---------- */
+  .subnav {
+    position: sticky;
+    top: 54px;
+    z-index: 55;
+    background: rgba(252,251,248,0.94);
+    -webkit-backdrop-filter: saturate(150%) blur(8px);
+    backdrop-filter: saturate(150%) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .subnav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .subnav-inner::-webkit-scrollbar { display: none; }
+
+  .subnav a {
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .subnav a:hover { color: var(--sage); background: var(--sage-wash); }
+  .subnav a.active { color: var(--sage); font-weight: 650; }
+
+  /* ---------- Pages ---------- */
+  .page { display: none; }
+  .page.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  /* ---------- Hero / page headers ---------- */
+  header.hero {
+    padding: 60px 0 34px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 34px;
   }
 
   .eyebrow {
@@ -58,32 +158,22 @@
     text-transform: uppercase;
     color: var(--sage);
     font-weight: 600;
-    margin: 0 0 18px;
+    margin: 0 0 16px;
   }
 
   h1 {
     font-family: Georgia, "Times New Roman", serif;
     font-weight: 400;
-    font-size: clamp(30px, 5vw, 44px);
+    font-size: clamp(28px, 4.6vw, 42px);
     line-height: 1.12;
     letter-spacing: -0.015em;
-    margin: 0 0 20px;
+    margin: 0 0 18px;
     color: var(--ink);
   }
 
-  .lede {
-    font-size: 18px;
-    color: var(--ink-soft);
-    max-width: 680px;
-    margin: 0 0 28px;
-  }
+  .lede { font-size: 17.5px; color: var(--ink-soft); max-width: 680px; margin: 0 0 24px; }
 
-  .context {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 10px;
-    margin-top: 8px;
-  }
+  .context { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 8px; }
 
   .chip {
     font-size: 12.5px;
@@ -94,122 +184,53 @@
     border-radius: 999px;
     white-space: nowrap;
   }
-
   .chip strong { color: var(--ink); font-weight: 600; }
 
-  /* Table of contents */
+  /* ---------- TOC ---------- */
   nav.toc {
-    margin: 0 0 48px;
+    margin: 0 0 44px;
     padding: 22px 26px;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
-
-  nav.toc h3 {
-    margin: 0 0 14px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 650;
-  }
-
-  nav.toc ol {
-    list-style: none;
-    counter-reset: toc;
-    margin: 0;
-    padding: 0;
-    columns: 2;
-    column-gap: 36px;
-  }
-
-  nav.toc li {
-    counter-increment: toc;
-    padding: 5px 0;
-    font-size: 14px;
-    break-inside: avoid;
-  }
-
-  nav.toc li::before {
-    content: counter(toc, decimal-leading-zero);
-    font-family: Georgia, serif;
-    color: var(--sage);
-    margin-right: 10px;
-    font-size: 12px;
-  }
-
+  nav.toc h3 { margin: 0 0 14px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 650; }
+  nav.toc ol { list-style: none; counter-reset: toc; margin: 0; padding: 0; columns: 2; column-gap: 36px; }
+  nav.toc li { counter-increment: toc; padding: 5px 0; font-size: 14px; break-inside: avoid; }
+  nav.toc li::before { content: counter(toc, decimal-leading-zero); font-family: Georgia, serif; color: var(--sage); margin-right: 10px; font-size: 12px; }
   nav.toc a { color: var(--ink-soft); border: none; }
   nav.toc a:hover { color: var(--sage); }
 
-  /* Disclaimer */
+  /* ---------- Notice ---------- */
   .notice {
     background: var(--clay-wash);
     border: 1px solid #E7DCC2;
     border-left: 3px solid var(--clay);
     border-radius: 10px;
     padding: 20px 24px;
-    margin: 0 0 56px;
+    margin: 0 0 52px;
     font-size: 14.5px;
     color: #5F4A22;
   }
-
   .notice strong { color: #4A3918; }
 
-  /* Section */
-  section { margin-bottom: 64px; scroll-margin-top: 24px; }
+  /* ---------- Sections ---------- */
+  section { margin-bottom: 60px; scroll-margin-top: 108px; }
 
-  .sec-head {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 28px;
-  }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 26px; }
+  .sec-num { font-family: Georgia, serif; font-size: 15px; color: var(--sage); font-variant-numeric: tabular-nums; min-width: 26px; }
 
-  .sec-num {
-    font-family: Georgia, serif;
-    font-size: 15px;
-    color: var(--sage);
-    font-variant-numeric: tabular-nums;
-    min-width: 26px;
-  }
-
-  h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 400;
-    font-size: 25px;
-    letter-spacing: -0.01em;
-    margin: 0;
-    color: var(--ink);
-    flex: 1;
-  }
-
-  h3 {
-    font-size: 15px;
-    font-weight: 650;
-    letter-spacing: 0.01em;
-    margin: 32px 0 12px;
-    color: var(--ink);
-  }
-
+  h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 25px; letter-spacing: -0.01em; margin: 0; color: var(--ink); flex: 1; }
+  h3 { font-size: 15px; font-weight: 650; letter-spacing: 0.01em; margin: 30px 0 12px; color: var(--ink); }
   h4 { color: var(--ink); }
-
   p { margin: 0 0 14px; color: var(--ink-soft); }
   p:last-child { margin-bottom: 0; }
-
   a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage-soft); }
   a:hover { color: var(--ink); border-color: var(--ink); }
 
-  /* Cards grid */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
-    margin-top: 8px;
-  }
+  /* ---------- Cards ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 8px; }
 
   .card {
     background: var(--surface);
@@ -220,449 +241,308 @@
     transition: transform .15s ease, box-shadow .15s ease;
     break-inside: avoid;
   }
-
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(34,39,35,0.05), 0 14px 34px rgba(34,39,35,0.08);
-  }
-
-  .card .icon {
-    font-size: 22px;
-    line-height: 1;
-    display: block;
-    margin-bottom: 12px;
-    color: var(--sage);
-  }
-
-  .card h4 {
-    margin: 0 0 8px;
-    font-size: 15.5px;
-    font-weight: 650;
-    color: var(--ink);
-  }
-
+  .card:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(34,39,35,0.05), 0 14px 34px rgba(34,39,35,0.08); }
+  .card .icon { font-size: 22px; line-height: 1; display: block; margin-bottom: 12px; color: var(--sage); }
+  .card h4 { margin: 0 0 8px; font-size: 15.5px; font-weight: 650; }
   .card p { font-size: 14px; margin: 0; }
 
-  /* Evidence tag */
-  .tag {
-    display: inline-block;
-    font-size: 10.5px;
-    font-weight: 650;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 5px;
-    margin-bottom: 12px;
-  }
+  /* ---------- Tags ---------- */
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 5px; margin-bottom: 12px; }
   .tag.a { background: var(--sage-wash); color: #3C5A4C; border: 1px solid #D5E0D8; }
   .tag.b { background: #EEF0EA; color: #5A6147; border: 1px solid #DEE1D5; }
   .tag.c { background: #F0EEE9; color: var(--stone); border: 1px solid #E0DDD5; }
   .tag.caution { background: var(--clay-wash); color: #6E551F; border: 1px solid #E7DCC2; }
 
-  /* Table */
+  /* ---------- Tables ---------- */
   .table-scroll { overflow-x: auto; margin-top: 8px; border-radius: var(--radius); border: 1px solid var(--line); }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13.5px;
-    background: var(--surface);
-    min-width: 640px;
-  }
-
-  thead th {
-    text-align: left;
-    font-weight: 650;
-    font-size: 11px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 14px 16px;
-    background: #FBFAF7;
-    border-bottom: 1px solid var(--line-strong);
-    white-space: nowrap;
-  }
-
-  tbody td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-soft);
-    vertical-align: top;
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--surface); min-width: 640px; }
+  thead th { text-align: left; font-weight: 650; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); padding: 14px 16px; background: #FBFAF7; border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+  tbody td { padding: 14px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr:hover td { background: #FCFBF8; }
   tbody td strong { color: var(--ink); font-weight: 600; }
 
-  /* Lists */
+  /* ---------- Lists ---------- */
   ul.clean { list-style: none; padding: 0; margin: 0; }
-
-  ul.clean li {
-    position: relative;
-    padding: 11px 0 11px 30px;
-    border-bottom: 1px solid var(--line);
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    break-inside: avoid;
-  }
-
+  ul.clean li { position: relative; padding: 11px 0 11px 30px; border-bottom: 1px solid var(--line); font-size: 14.5px; color: var(--ink-soft); break-inside: avoid; }
   ul.clean li:last-child { border-bottom: none; }
-  ul.clean li::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 17px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--sage);
-    opacity: .65;
-  }
-
+  ul.clean li::before { content: ""; position: absolute; left: 4px; top: 17px; width: 7px; height: 7px; border-radius: 50%; background: var(--sage); opacity: .65; }
   ul.warn li::before { background: var(--clay); }
   ul.clean li strong { color: var(--ink); font-weight: 600; }
 
-  /* Research / case cards */
-  .case {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-    break-inside: avoid;
-  }
-
-  .case .source {
-    display: block;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sage);
-    font-weight: 650;
-    margin-bottom: 8px;
-  }
-
+  /* ---------- Case / research ---------- */
+  .case { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 16px; box-shadow: var(--shadow); break-inside: avoid; }
+  .case .source { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); font-weight: 650; margin-bottom: 8px; }
   .case h4 { margin: 0 0 8px; font-size: 16px; }
   .case p { font-size: 14.5px; margin: 0 0 10px; }
   .case p:last-child { margin-bottom: 0; }
+  .case .finding { border-left: 2px solid var(--line-strong); padding-left: 16px; margin: 12px 0 0; font-size: 14px; color: var(--ink-soft); }
 
-  .case .finding {
-    border-left: 2px solid var(--line-strong);
-    padding-left: 16px;
-    margin: 12px 0 0;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
+  blockquote { margin: 14px 0 0; padding: 14px 18px; background: var(--sage-wash); border-radius: 10px; border-left: 3px solid var(--sage-soft); font-size: 14.5px; color: #3C5146; font-style: italic; }
+  blockquote cite { display: block; margin-top: 8px; font-style: normal; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--sage); }
 
-  blockquote {
-    margin: 14px 0 0;
-    padding: 14px 18px;
-    background: var(--sage-wash);
-    border-radius: 10px;
-    border-left: 3px solid var(--sage-soft);
-    font-size: 14.5px;
-    color: #3C5146;
-    font-style: italic;
-  }
-
-  blockquote cite {
-    display: block;
-    margin-top: 8px;
-    font-style: normal;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--sage);
-  }
-
-  /* Recipe cards */
-  .recipe {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 0;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    break-inside: avoid;
-  }
-
-  .recipe .r-head {
-    padding: 20px 24px 16px;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .recipe .r-head h4 {
-    margin: 0 0 4px;
-    font-family: Georgia, serif;
-    font-weight: 400;
-    font-size: 19px;
-    color: var(--ink);
-  }
-
-  .recipe .r-meta {
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.02em;
-  }
-
-  .recipe .r-purpose {
-    flex-shrink: 0;
-    font-size: 10.5px;
-    font-weight: 650;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #3C5A4C;
-    background: var(--sage-wash);
-    border: 1px solid #D5E0D8;
-    border-radius: 5px;
-    padding: 4px 9px;
-    white-space: nowrap;
-  }
-
-  .recipe .r-body {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 0;
-  }
-
-  .recipe .r-ing {
-    padding: 18px 24px;
-    border-right: 1px solid var(--line);
-    background: #FCFBF8;
-  }
-
-  .recipe .r-ing h5,
-  .recipe .r-steps h5 {
-    margin: 0 0 10px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 650;
-  }
-
+  /* ---------- Recipes ---------- */
+  .recipe { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 0; margin-bottom: 18px; box-shadow: var(--shadow); overflow: hidden; break-inside: avoid; }
+  .recipe .r-head { padding: 20px 24px 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .recipe .r-head h4 { margin: 0 0 4px; font-family: Georgia, serif; font-weight: 400; font-size: 19px; }
+  .recipe .r-meta { font-size: 12px; color: var(--muted); }
+  .recipe .r-purpose { flex-shrink: 0; font-size: 10.5px; font-weight: 650; letter-spacing: 0.05em; text-transform: uppercase; color: #3C5A4C; background: var(--sage-wash); border: 1px solid #D5E0D8; border-radius: 5px; padding: 4px 9px; white-space: nowrap; }
+  .recipe .r-body { display: grid; grid-template-columns: 1fr 1.4fr; }
+  .recipe .r-ing { padding: 18px 24px; border-right: 1px solid var(--line); background: #FCFBF8; }
+  .recipe .r-ing h5, .recipe .r-steps h5 { margin: 0 0 10px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 650; }
   .recipe ul.ing { list-style: none; margin: 0; padding: 0; }
-  .recipe ul.ing li {
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    padding: 4px 0 4px 16px;
-    position: relative;
-  }
-  .recipe ul.ing li::before {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 12px;
-    width: 5px;
-    height: 1px;
-    background: var(--sage-soft);
-  }
-
+  .recipe ul.ing li { font-size: 13.5px; color: var(--ink-soft); padding: 4px 0 4px 16px; position: relative; }
+  .recipe ul.ing li::before { content: ""; position: absolute; left: 2px; top: 12px; width: 5px; height: 1px; background: var(--sage-soft); }
   .recipe .r-steps { padding: 18px 24px; }
   .recipe ol.steps { margin: 0; padding-left: 18px; }
-  .recipe ol.steps li {
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    margin-bottom: 8px;
-    padding-left: 4px;
-  }
-  .recipe ol.steps li:last-child { margin-bottom: 0; }
-
-  .recipe .r-why {
-    padding: 14px 24px 18px;
-    border-top: 1px solid var(--line);
-    font-size: 13px;
-    color: var(--ink-soft);
-    background: #FBFAF7;
-  }
+  .recipe ol.steps li { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 8px; padding-left: 4px; }
+  .recipe .r-why { padding: 14px 24px 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); background: #FBFAF7; }
   .recipe .r-why strong { color: var(--sage); font-weight: 650; }
+  .recipe .r-actions { padding: 0 24px 16px; background: #FBFAF7; }
+  .add-cal { font-size: 12px; padding: 6px 11px; }
 
-  /* Checklist */
-  .checklist {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 8px 24px 20px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow);
-    break-inside: avoid;
-  }
-
-  .checklist h4 {
-    margin: 18px 0 4px;
-    font-size: 14px;
-    font-weight: 650;
-    color: var(--ink);
-  }
-
-  ul.todo { list-style: none; margin: 0; padding: 0; }
-
-  ul.todo li {
-    position: relative;
-    padding: 9px 0 9px 30px;
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    border-bottom: 1px solid var(--line);
-    break-inside: avoid;
-  }
-
-  ul.todo li:last-child { border-bottom: none; }
-
-  ul.todo li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 13px;
-    width: 15px;
-    height: 15px;
-    border: 1.5px solid var(--line-strong);
-    border-radius: 4px;
-    background: #fff;
-  }
-
-  ul.todo li strong { color: var(--ink); font-weight: 600; }
-
-  .pill {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 650;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-left: 6px;
-    vertical-align: 1px;
-  }
-  .pill.due { background: var(--clay-wash); color: #6E551F; border: 1px solid #E7DCC2; }
-  .pill.routine { background: var(--sage-wash); color: #3C5A4C; border: 1px solid #D5E0D8; }
-
-  /* Callout */
-  .callout {
-    background: var(--sage-wash);
-    border: 1px solid #D5E0D8;
-    border-radius: 10px;
-    padding: 18px 22px;
-    font-size: 14px;
-    color: #3C5146;
-    margin-top: 20px;
-    break-inside: avoid;
-  }
-
+  /* ---------- Callout ---------- */
+  .callout { background: var(--sage-wash); border: 1px solid #D5E0D8; border-radius: 10px; padding: 18px 22px; font-size: 14px; color: #3C5146; margin-top: 20px; break-inside: avoid; }
   .callout strong { color: #2E423A; }
 
-  /* Footer */
-  footer {
-    border-top: 1px solid var(--line);
-    padding-top: 32px;
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--muted);
+  /* ---------- Toolbar & buttons ---------- */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; align-items: center; }
+
+  .btn {
+    appearance: none;
+    border: 1px solid var(--sage);
+    background: var(--sage);
+    color: #fff;
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 9px 16px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: filter .15s ease, background .15s ease, border-color .15s ease;
   }
+  .btn:hover { filter: brightness(1.07); }
+  .btn.ghost { background: transparent; color: var(--sage); border-color: var(--line-strong); }
+  .btn.ghost:hover { border-color: var(--sage); background: var(--sage-wash); filter: none; }
+  .btn.danger { background: transparent; color: #8a5a2b; border-color: #E7DCC2; }
+  .btn.danger:hover { background: var(--clay-wash); filter: none; }
+  .btn.small { padding: 6px 11px; font-size: 12.5px; }
 
-  footer h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 14px; }
+  /* ---------- Forms ---------- */
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); font-weight: 650; margin-bottom: 6px; }
+  .field input[type=text], .field input[type=number], .field input[type=date], .field input[type=password], .field select, .field textarea {
+    width: 100%; font: inherit; font-size: 14px; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 9px; background: #fff; color: var(--ink);
+  }
+  .field textarea { resize: vertical; min-height: 70px; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 3px var(--sage-wash); }
 
-  footer ul { list-style: none; padding: 0; margin: 0; }
-  footer li { padding: 5px 0; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+  .hint { font-size: 12.5px; color: var(--muted); }
 
-  .fineprint { margin-top: 28px; font-size: 12px; color: #9A9E97; line-height: 1.6; }
+  /* Slider */
+  .slider-field { display: flex; align-items: center; gap: 14px; }
+  input[type=range] { flex: 1; accent-color: var(--sage); }
+  .slider-val { font-family: Georgia, serif; font-size: 22px; color: var(--ink); min-width: 34px; text-align: center; }
 
-  /* ---------- RESPONSIVE ---------- */
+  /* Chips for multi-select */
+  .chipset { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chipset label { cursor: pointer; }
+  .chipset input { position: absolute; opacity: 0; pointer-events: none; }
+  .chipset span {
+    display: inline-block; font-size: 13px; color: var(--ink-soft); background: #fff; border: 1px solid var(--line-strong);
+    padding: 7px 13px; border-radius: 999px; transition: all .15s ease;
+  }
+  .chipset input:checked + span { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+  /* Progress */
+  .progress { height: 8px; background: #EDEBE5; border-radius: 999px; overflow: hidden; margin: 4px 0 18px; }
+  .progress span { display: block; height: 100%; background: var(--sage); width: 0; transition: width .3s ease; }
+  .progress-label { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+
+  /* ---------- Calendar ---------- */
+  .cal-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  table.cal { min-width: 780px; }
+  table.cal th, table.cal td { padding: 8px; border: 1px solid var(--line); }
+  table.cal thead th { text-align: center; font-size: 11px; }
+  table.cal td.meal { font-weight: 650; color: var(--ink); white-space: nowrap; font-size: 12.5px; background: #FCFBF8; }
+  table.cal select { width: 100%; font: inherit; font-size: 12px; padding: 6px 7px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); }
+  table.cal td.today { background: var(--sage-wash); }
+  .cal-legend { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+  /* ---------- Market ---------- */
+  .cat-block { margin-bottom: 22px; break-inside: avoid; }
+  .cat-block h4 { margin: 0 0 6px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--sage); }
+  ul.market { list-style: none; margin: 0; padding: 0; }
+  ul.market li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); }
+  ul.market li:last-child { border-bottom: none; }
+  ul.market input[type=checkbox] { width: 17px; height: 17px; accent-color: var(--sage); cursor: pointer; flex-shrink: 0; }
+  ul.market label { flex: 1; cursor: pointer; }
+  ul.market li.done label { text-decoration: line-through; color: var(--muted); }
+  ul.market .qty { font-size: 12px; color: var(--muted); }
+  ul.market .del { border: none; background: none; color: var(--muted); cursor: pointer; font-size: 16px; line-height: 1; padding: 0 4px; }
+  ul.market .del:hover { color: var(--clay); }
+  .add-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 8px; }
+  .add-row input, .add-row select { font: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 9px; background: #fff; }
+  .add-row input { flex: 1; min-width: 160px; }
+
+  /* ---------- Symptoms ---------- */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 18px 0; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; break-inside: avoid; }
+  .stat .n { font-family: Georgia, serif; font-size: 25px; color: var(--ink); line-height: 1.1; }
+  .stat .l { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-top: 4px; }
+  #sym-chart { width: 100%; height: 200px; display: block; }
+  .log { list-style: none; margin: 0; padding: 0; }
+  .log li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); break-inside: avoid; }
+  .log .log-date { font-size: 12px; color: var(--muted); min-width: 92px; }
+  .log .log-main { flex: 1; }
+  .log .log-main .title { font-weight: 650; color: var(--ink); font-size: 14.5px; }
+  .log .log-main .detail { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+  .log .del { border: none; background: none; color: var(--muted); cursor: pointer; font-size: 16px; }
+  .log .del:hover { color: var(--clay); }
+
+  /* ---------- Assistant ---------- */
+  .chat { display: flex; flex-direction: column; height: 480px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .chat-log { flex: 1; overflow-y: auto; padding: 22px; }
+  .msg { max-width: 82%; margin-bottom: 14px; padding: 11px 15px; border-radius: 14px; font-size: 14px; line-height: 1.55; }
+  .msg.user { margin-left: auto; background: var(--sage); color: #fff; border-bottom-right-radius: 4px; }
+  .msg.bot { background: var(--sage-wash); color: #2E423A; border-bottom-left-radius: 4px; }
+  .msg.bot ul { margin: 8px 0 0; padding-left: 18px; }
+  .msg.bot li { margin-bottom: 4px; }
+  .msg.bot strong { color: #22332b; }
+  .chat-chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 12px 0; border-top: 1px solid var(--line); background: #FBFAF7; }
+  .chat-chips button { font: inherit; font-size: 12.5px; color: var(--sage); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+  .chat-chips button:hover { border-color: var(--sage); background: var(--sage-wash); }
+  .chat-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: #FBFAF7; }
+  .chat-input input { flex: 1; font: inherit; font-size: 14px; padding: 11px 14px; border: 1px solid var(--line-strong); border-radius: 10px; background: #fff; }
+  .chat-input input:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 3px var(--sage-wash); }
+  .ai-settings { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; margin-bottom: 20px; background: var(--surface); break-inside: avoid; }
+  .ai-settings summary { cursor: pointer; font-size: 14px; font-weight: 650; color: var(--ink); }
+  .ai-settings[open] summary { margin-bottom: 16px; }
+  .toggle { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; }
+  .toggle input { width: 17px; height: 17px; accent-color: var(--sage); }
+
+  /* ---------- Footer ---------- */
+  footer.site { border-top: 1px solid var(--line); padding-top: 30px; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .fineprint { font-size: 12px; color: #9A9E97; line-height: 1.6; }
+
+  /* Back to top */
+  .totop {
+    position: fixed; right: 24px; bottom: 24px; z-index: 60;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sage); font-size: 18px; line-height: 1; text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .totop:hover { transform: translateY(-2px); border-color: var(--sage); color: var(--ink); }
+
+  .only-print { display: none; }
+
+  /* Toast */
+  #toast {
+    position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: #fff; font-size: 13.5px; padding: 10px 18px; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease; z-index: 80;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- Responsive ---------- */
   @media (max-width: 640px) {
     .recipe .r-body { grid-template-columns: 1fr; }
     .recipe .r-ing { border-right: none; border-bottom: 1px solid var(--line); }
     nav.toc ol { columns: 1; }
+    .topnav-inner { padding: 0 16px; gap: 10px; }
+    .topnav .brand .txt { display: none; }
+    .topnav a.navlink { padding: 7px 11px; font-size: 12.5px; }
+    .subnav-inner { padding: 0 16px; }
+    .totop { right: 16px; bottom: 16px; }
   }
 
-  /* ---------- PRINT / PDF ---------- */
-  @page {
-    size: A4;
-    margin: 16mm 14mm 18mm;
-  }
+  /* ---------- Print / PDF ---------- */
+  @page { size: A4; margin: 16mm 14mm 18mm; }
 
   @media print {
-    :root {
-      --paper: #fff;
-    }
+    :root { --paper: #fff; }
+    html, body { background: #fff !important; font-size: 11.5pt; line-height: 1.5; }
+    .wrap { max-width: 100%; padding: 0; }
 
-    html, body {
-      background: #fff !important;
-      font-size: 11.5pt;
-      line-height: 1.5;
-    }
-
-    .wrap {
-      max-width: 100%;
-      padding: 0;
-    }
-
-    /* Hero becomes compact cover block */
-    header.hero {
-      padding: 0 0 18px;
-      margin-bottom: 20px;
-    }
-
+    header.hero { padding: 0 0 18px; margin-bottom: 20px; }
     h1 { font-size: 26pt; }
     .lede { font-size: 11.5pt; }
     h2 { font-size: 16pt; }
     h3 { font-size: 12pt; margin: 20px 0 8px; }
     p, li { font-size: 10.5pt; }
 
-    /* Keep backgrounds/colors when printing */
-    .card, .case, .recipe, .checklist, .notice, .callout, .chip,
-    nav.toc, thead th, .tag, .pill, blockquote, .recipe .r-ing,
-    .recipe .r-why {
+    .card, .case, .recipe, .notice, .callout, .chip, nav.toc, thead th,
+    .tag, blockquote, .recipe .r-ing, .recipe .r-why, .stat, .ai-settings {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
-    .card, .case, .recipe, .checklist, nav.toc {
-      box-shadow: none;
-      border: 1px solid var(--line-strong);
-    }
-
+    .card, .case, .recipe, nav.toc, .stat, .ai-settings { box-shadow: none; border: 1px solid var(--line-strong); }
     .card:hover { transform: none; }
 
-    /* Page break control */
     .break-before { break-before: page; page-break-before: always; }
-    .card, .case, .recipe, .checklist, .callout, .notice,
-    ul.clean li, ul.todo li, table tr, blockquote {
-      break-inside: avoid;
-      page-break-inside: avoid;
+    .card, .case, .recipe, .callout, .notice, ul.clean li, table tr, blockquote, .stat, .cat-block, .log li {
+      break-inside: avoid; page-break-inside: avoid;
     }
-
-    section { margin-bottom: 30px; break-inside: auto; }
-    .sec-head { break-after: avoid; }
-    h2, h3, h4 { break-after: avoid; }
-
+    section { margin-bottom: 30px; }
+    .sec-head, h2, h3, h4 { break-after: avoid; }
     a { color: var(--sage); border-bottom: none; }
-
     table { min-width: 0; font-size: 9pt; }
     thead th { padding: 8px 10px; font-size: 8pt; }
     tbody td { padding: 8px 10px; }
-
-    .recipe .r-body { grid-template-columns: 1fr 1.5fr; }
-    .recipe .r-head, .recipe .r-ing, .recipe .r-steps, .recipe .r-why { padding: 12px 16px; }
-
     nav.toc { break-inside: avoid; }
 
-    /* Hide interactive-only hints if any */
-    .no-print { display: none !important; }
+    .topnav, .subnav, .totop, .toolbar, .chat-input, .chat-chips, .no-print, .r-actions { display: none !important; }
+    .only-print { display: block !important; }
+    .chat { height: auto; box-shadow: none; }
+    .chat-log { overflow: visible; }
   }
 </style>
 </head>
 <body>
+<a id="top"></a>
+
+<nav class="topnav" aria-label="Navegación principal">
+  <div class="topnav-inner">
+    <a class="brand" href="#/guia"><span class="dot"></span><span class="txt">Salud</span></a>
+    <ul>
+      <li><a class="navlink" data-page="guia" href="#/guia">Guía</a></li>
+      <li><a class="navlink" data-page="recetario" href="#/recetario">Recetario</a></li>
+      <li><a class="navlink" data-page="calendario" href="#/calendario">Calendario</a></li>
+      <li><a class="navlink" data-page="asistente" href="#/asistente">Asistente IA</a></li>
+      <li><a class="navlink" data-page="mercado" href="#/mercado">Mercado</a></li>
+      <li><a class="navlink" data-page="sintomas" href="#/sintomas">Síntomas</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="wrap">
+
+<!-- ============================================================= -->
+<!-- PAGE: GUÍA -->
+<!-- ============================================================= -->
+<div class="page active" id="page-guia">
+
+  <nav class="subnav no-print" aria-label="Secciones de la guía">
+    <div class="subnav-inner">
+      <a href="#hidratacion">Hidratación</a>
+      <a href="#renal">ITU</a>
+      <a href="#hierro">Hierro</a>
+      <a href="#antiinflamatorio">Dolor</a>
+      <a href="#tabla">Suplementos</a>
+      <a href="#investigacion">Investigación</a>
+      <a href="#precauciones">Alarmas</a>
+      <a href="#fuentes">Fuentes</a>
+    </div>
+  </nav>
 
   <header class="hero">
     <p class="eyebrow">Guía informativa · uso personal</p>
-    <h1>Alimentación, suplementos,<br>recetario y control</h1>
-    <p class="lede">Investigación de casos reales y evidencia, listado de alimentos y suplementos, recetario práctico y checklist de seguimiento para <strong>pielonefritis crónica con reflujo</strong>, <strong>dolor persistente somatomorfo</strong> y <strong>lumbago mecánico</strong>. Pensado como apoyo a lo que ya te ordenó tu médico, no como reemplazo.</p>
+    <h1>Alimentación, suplementos<br>y evidencia</h1>
+    <p class="lede">Investigación de casos reales, listado de alimentos y suplementos con su evidencia y sus precauciones para <strong>pielonefritis crónica con reflujo</strong>, <strong>dolor persistente somatomorfo</strong> y <strong>lumbago mecánico</strong>. El panel incluye además recetario, calendario, asistente, mercado y seguimiento de síntomas.</p>
     <div class="context">
       <span class="chip"><strong>Perfil:</strong> mujer, 30 años</span>
       <span class="chip"><strong>N110</strong> Pielonefritis crónica con reflujo</span>
@@ -672,7 +552,7 @@
   </header>
 
   <nav class="toc">
-    <h3>Contenido</h3>
+    <h3>Contenido de la guía</h3>
     <ol>
       <li><a href="#hidratacion">Hidratación — la base</a></li>
       <li><a href="#renal">Prevención de infección urinaria</a></li>
@@ -680,707 +560,156 @@
       <li><a href="#antiinflamatorio">Dolor y lumbago mecánico</a></li>
       <li><a href="#tabla">Tabla resumen de suplementos</a></li>
       <li><a href="#investigacion">Investigación: casos y evidencia</a></li>
-      <li><a href="#recetario">Recetario</a></li>
-      <li><a href="#checklist">Checklist de seguimiento</a></li>
-      <li><a href="#compra">Lista de mercado</a></li>
       <li><a href="#precauciones">Interacciones y alarmas</a></li>
       <li><a href="#fuentes">Fuentes consultadas</a></li>
     </ol>
   </nav>
 
   <div class="notice">
-    <strong>Importante antes de comprar nada.</strong> Con un diagnóstico renal en curso, algunos suplementos "naturales" pueden dañar el riñón o interactuar con tus medicamentos (nitrofurantoína, meloxicam, acetaminofén, hierro IV). Ningún alimento ni suplemento cura por sí solo una infección urinaria ni una pielonefritis activa. Antes de agregar cualquier producto, muéstralo a tu médico tratante; si tienes la creatinina o la filtración glomerular alteradas, el riñón manda sobre todo lo demás. Las recetas de esta guía son generales y de bajo riesgo, pero si tu médico te restringió potasio, sodio, proteína o líquidos, ajústalas con él. Si aparece fiebre alta, vómito, dolor lumbar fuerte o sangre en orina, ve a urgencias — no lo manejes con dieta.
+    <strong>Importante antes de comprar nada.</strong> Con un diagnóstico renal en curso, algunos suplementos "naturales" pueden dañar el riñón o interactuar con tus medicamentos (nitrofurantoína, meloxicam, acetaminofén, hierro IV). Ningún alimento ni suplemento cura por sí solo una infección urinaria ni una pielonefritis activa. Antes de agregar cualquier producto, muéstralo a tu médico tratante; si tienes la creatinina o la filtración glomerular alteradas, el riñón manda sobre todo lo demás. Si tu médico te restringió potasio, sodio, proteína o líquidos, ajusta también las recetas. Si aparece fiebre alta, vómito, dolor lumbar fuerte o sangre en orina, ve a urgencias — no lo manejes con dieta.
   </div>
 
   <!-- 1 -->
   <section id="hidratacion">
-    <div class="sec-head">
-      <span class="sec-num">01</span>
-      <h2>Hidratación — la base de todo</h2>
-    </div>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Hidratación — la base de todo</h2></div>
     <p>Es lo único con consenso casi unánime en ITU recurrente y en salud renal. Aumentar el volumen de líquido reduce la adhesión de bacterias a la vejiga y ayuda a vaciar el tracto urinario.</p>
     <div class="grid">
-      <div class="card">
-        <span class="tag a">Evidencia alta</span>
-        <span class="icon">◍</span>
-        <h4>Agua</h4>
-        <p>Meta orientativa: 1,5 a 2 L/día, salvo que tu médico te haya restringido líquidos. Reparte durante el día; no de golpe.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◍</span>
-        <h4>Jugo de arándano rojo</h4>
-        <p>Busca presentaciones con <strong>40 mg de PAC por 125 ml</strong>. El jugo comercial azucarado tiene poco arándano real.</p>
-      </div>
-      <div class="card">
-        <span class="tag caution">Precaución</span>
-        <span class="icon">◍</span>
-        <h4>Infusiones suaves</h4>
-        <p>Manzanilla, menta, jengibre: bien toleradas. Evita bebidas con mucha cafeína o alcohol, que irritan la vejiga.</p>
-      </div>
+      <div class="card"><span class="tag a">Evidencia alta</span><span class="icon">◍</span><h4>Agua</h4><p>Meta orientativa: 1,5 a 2 L/día, salvo que tu médico te haya restringido líquidos. Reparte durante el día; no de golpe.</p></div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◍</span><h4>Jugo de arándano rojo</h4><p>Busca presentaciones con <strong>40 mg de PAC por 125 ml</strong>. El jugo comercial azucarado tiene poco arándano real.</p></div>
+      <div class="card"><span class="tag caution">Precaución</span><span class="icon">◍</span><h4>Infusiones suaves</h4><p>Manzanilla, menta, jengibre: bien toleradas. Evita bebidas con mucha cafeína o alcohol, que irritan la vejiga.</p></div>
     </div>
   </section>
 
   <!-- 2 -->
   <section id="renal">
-    <div class="sec-head">
-      <span class="sec-num">02</span>
-      <h2>Prevención de infección urinaria</h2>
-    </div>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Prevención de infección urinaria</h2></div>
     <p>Aquí el objetivo no es "curar", sino reducir el número de episodios nuevos. La evidencia más sólida apunta a productos de arándano y a hábitos, no a grandes dietas.</p>
-
     <h3>Alimentos y productos</h3>
     <div class="grid">
-      <div class="card">
-        <span class="tag a">Evidencia alta</span>
-        <span class="icon">◆</span>
-        <h4>Arándano rojo (cranberry)</h4>
-        <p>Metaanálisis de +20 ensayos y 3.091 pacientes: hasta 54% menos probabilidad de ITU. Cochrane 2023 (50 ensayos): ~26% menos recurrencia en mujeres. Presentación: jugo con PAC suficiente, cápsulas o polvo.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◆</span>
-        <h4>Probióticos (Lactobacillus)</h4>
-        <p>Ayudan a recuperar la flora vaginal/intestinal tras antibióticos. Toma separado del antibiótico, al menos 2 horas.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◆</span>
-        <h4>Fibra y frutas cítricas</h4>
-        <p>Favorecen tránsito intestinal; el estreñimiento empeora la función vesical. Naranja, mandarina, kiwi, avena.</p>
-      </div>
-      <div class="card">
-        <span class="tag c">Evidencia baja</span>
-        <span class="icon">◆</span>
-        <h4>D-manosa</h4>
-        <p>Se usa en ITU recurrente por E. coli, sobre todo como prevención. No sustituye antibiótico. Consultar antes.</p>
-      </div>
+      <div class="card"><span class="tag a">Evidencia alta</span><span class="icon">◆</span><h4>Arándano rojo (cranberry)</h4><p>Metaanálisis de +20 ensayos y 3.091 pacientes: hasta 54% menos probabilidad de ITU. Cochrane 2023 (50 ensayos): ~26% menos recurrencia en mujeres.</p></div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◆</span><h4>Probióticos (Lactobacillus)</h4><p>Ayudan a recuperar la flora vaginal/intestinal tras antibióticos. Toma separado del antibiótico, al menos 2 horas.</p></div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◆</span><h4>Fibra y frutas cítricas</h4><p>Favorecen tránsito intestinal; el estreñimiento empeora la función vesical. Naranja, mandarina, kiwi, avena.</p></div>
+      <div class="card"><span class="tag c">Evidencia baja</span><span class="icon">◆</span><h4>D-manosa</h4><p>Se usa en ITU recurrente por E. coli, sobre todo como prevención. No sustituye antibiótico. Consultar antes.</p></div>
     </div>
-
-    <div class="callout">
-      <strong>Ojo:</strong> el jugo de arándano <em>no mata bacterias ya presentes</em> ni cura una infección activa. Su papel es preventivo. Retrasar el antibiótico creyendo que el jugo basta es justamente lo que puede llevar la infección al riñón.
-    </div>
+    <div class="callout"><strong>Ojo:</strong> el jugo de arándano <em>no mata bacterias ya presentes</em> ni cura una infección activa. Su papel es preventivo. Retrasar el antibiótico creyendo que el jugo basta es justamente lo que puede llevar la infección al riñón.</div>
   </section>
 
   <!-- 3 -->
   <section id="hierro">
-    <div class="sec-head">
-      <span class="sec-num">03</span>
-      <h2>Hierro y anemia</h2>
-    </div>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Hierro y anemia</h2></div>
     <p>En tus órdenes aparece hierro sacarato IV y sulfato ferroso. El hierro de los alimentos mejora absorción si se combina bien; no reemplaza la vía intravenosa si tu médico la indicó.</p>
-
     <h3>Alimentos ricos en hierro</h3>
     <div class="grid">
-      <div class="card">
-        <span class="tag a">Hierro hemo</span>
-        <span class="icon">●</span>
-        <h4>Carnes rojas, hígado, pollo, pescado</h4>
-        <p>El hierro hemo se absorbe mucho mejor que el vegetal. Modera las carnes rojas procesadas.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Hierro no hemo</span>
-        <span class="icon">●</span>
-        <h4>Lentejas, garbanzo, espinaca, ajonjolí</h4>
-        <p>Combínalos con vitamina C (limón, naranja, pimiento) para duplicar la absorción.</p>
-      </div>
-      <div class="card">
-        <span class="tag caution">Bloquea absorción</span>
-        <span class="icon">●</span>
-        <h4>Café, té, lácteos, calcio</h4>
-        <p>No los tomes junto al hierro. Sepáralos 1–2 horas, especialmente si tomas la tableta de sulfato ferroso.</p>
-      </div>
-      <div class="card">
-        <span class="tag caution">Precaución renal</span>
-        <span class="icon">●</span>
-        <h4>Exceso de hierro</h4>
-        <p>No dupliques dosis ni sumes varios suplementos con hierro sin control. Puede acumularse y ser tóxico.</p>
-      </div>
+      <div class="card"><span class="tag a">Hierro hemo</span><span class="icon">●</span><h4>Carnes rojas, hígado, pollo, pescado</h4><p>El hierro hemo se absorbe mucho mejor que el vegetal. Modera las carnes rojas procesadas.</p></div>
+      <div class="card"><span class="tag b">Hierro no hemo</span><span class="icon">●</span><h4>Lentejas, garbanzo, espinaca, ajonjolí</h4><p>Combínalos con vitamina C (limón, naranja, pimiento) para duplicar la absorción.</p></div>
+      <div class="card"><span class="tag caution">Bloquea absorción</span><span class="icon">●</span><h4>Café, té, lácteos, calcio</h4><p>No los tomes junto al hierro. Sepáralos 1–2 horas, especialmente si tomas la tableta de sulfato ferroso.</p></div>
+      <div class="card"><span class="tag caution">Precaución renal</span><span class="icon">●</span><h4>Exceso de hierro</h4><p>No dupliques dosis ni sumes varios suplementos con hierro sin control. Puede acumularse y ser tóxico.</p></div>
     </div>
-
-    <div class="callout">
-      <strong>Cómo tomar el sulfato ferroso:</strong> en ayunas o con jugo cítrico, no con café/té/lácteos. Puede causar estreñimiento y heces oscuras (normal). Si te cae mal al estómago, tómalo con un poco de comida, sabiendo que absorbe algo menos.
-    </div>
+    <div class="callout"><strong>Cómo tomar el sulfato ferroso:</strong> en ayunas o con jugo cítrico, no con café/té/lácteos. Puede causar estreñimiento y heces oscuras (normal). Si te cae mal al estómago, tómalo con un poco de comida, sabiendo que absorbe algo menos.</div>
   </section>
 
   <!-- 4 -->
   <section id="antiinflamatorio">
-    <div class="sec-head">
-      <span class="sec-num">04</span>
-      <h2>Dolor persistente y lumbago mecánico</h2>
-    </div>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Dolor persistente y lumbago mecánico</h2></div>
     <p>Aquí el mayor respaldo no está en pastillas sino en fisioterapia, actividad y sueño. La nutrición ayuda de forma modesta y como complemento.</p>
-
     <h3>Alimentos con perfil antiinflamatorio</h3>
     <div class="grid">
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◇</span>
-        <h4>Omega-3</h4>
-        <p>Salmón, sardina, atún, chía, linaza, nueces. Pueden reducir dolor e inflamación de forma leve en dolor crónico.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◇</span>
-        <h4>Cúrcuma (curcumina)</h4>
-        <p>Con pimienta negra mejora absorción. Evidencia moderada en dolor articular. No combinar con anticoagulantes.</p>
-      </div>
-      <div class="card">
-        <span class="tag b">Evidencia media</span>
-        <span class="icon">◇</span>
-        <h4>Magnesio</h4>
-        <p>Citrato o glicinato por la noche; puede ayudar con calambres y sueño. Precaución si hay función renal reducida.</p>
-      </div>
-      <div class="card">
-        <span class="tag a">Evidencia alta</span>
-        <span class="icon">◇</span>
-        <h4>Vitamina D</h4>
-        <p>Déficit frecuente en dolor crónico. Mejor medir nivel y reponer con indicación médica que autoprescribir dosis altas.</p>
-      </div>
-      <div class="card">
-        <span class="tag a">Evidencia alta</span>
-        <span class="icon">◇</span>
-        <h4>Dieta tipo mediterránea</h4>
-        <p>Verduras, frutas, legumbres, aceite de oliva, pescado. Patrón más asociado a menos inflamación y mejor salud renal.</p>
-      </div>
-      <div class="card">
-        <span class="tag caution">Evitar</span>
-        <span class="icon">◇</span>
-        <h4>Ultraprocesados y azúcar</h4>
-        <p>Refrescos, frituras, embutidos: se asocian a más inflamación y peor control del dolor.</p>
-      </div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◇</span><h4>Omega-3</h4><p>Salmón, sardina, atún, chía, linaza, nueces. Pueden reducir dolor e inflamación de forma leve en dolor crónico.</p></div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◇</span><h4>Cúrcuma (curcumina)</h4><p>Con pimienta negra mejora absorción. Evidencia moderada en dolor articular. No combinar con anticoagulantes.</p></div>
+      <div class="card"><span class="tag b">Evidencia media</span><span class="icon">◇</span><h4>Magnesio</h4><p>Citrato o glicinato por la noche; puede ayudar con calambres y sueño. Precaución si hay función renal reducida.</p></div>
+      <div class="card"><span class="tag a">Evidencia alta</span><span class="icon">◇</span><h4>Vitamina D</h4><p>Déficit frecuente en dolor crónico. Mejor medir nivel y reponer con indicación médica que autoprescribir dosis altas.</p></div>
+      <div class="card"><span class="tag a">Evidencia alta</span><span class="icon">◇</span><h4>Dieta tipo mediterránea</h4><p>Verduras, frutas, legumbres, aceite de oliva, pescado. Patrón asociado a menos inflamación y mejor salud renal.</p></div>
+      <div class="card"><span class="tag caution">Evitar</span><span class="icon">◇</span><h4>Ultraprocesados y azúcar</h4><p>Refrescos, frituras, embutidos: se asocian a más inflamación y peor control del dolor.</p></div>
     </div>
   </section>
 
   <!-- 5 -->
   <section id="tabla">
-    <div class="sec-head">
-      <span class="sec-num">05</span>
-      <h2>Tabla resumen de suplementos</h2>
-    </div>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Tabla resumen de suplementos</h2></div>
     <p>Dosis orientativas de referencia general; <strong>no</strong> son una prescripción. Ajústalas con tu médico según tu función renal y tus otros medicamentos.</p>
-
     <div class="table-scroll">
       <table>
-        <thead>
-          <tr>
-            <th>Suplemento</th>
-            <th>Para qué</th>
-            <th>Presentación / dosis referencial</th>
-            <th>Evidencia</th>
-            <th>Precaución principal</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Suplemento</th><th>Para qué</th><th>Presentación / dosis referencial</th><th>Evidencia</th><th>Precaución principal</th></tr></thead>
         <tbody>
-          <tr>
-            <td><strong>Arándano rojo (cranberry)</strong></td>
-            <td>Prevención de ITU recurrente</td>
-            <td>40 mg PAC / 125 ml jugo, 1–2 veces/día; o cápsula con ≥ 240 mg PAC</td>
-            <td><span class="tag a" style="margin:0">Alta</span></td>
-            <td>Interactúa con warfarina; no usar contra infección activa</td>
-          </tr>
-          <tr>
-            <td><strong>Probióticos</strong></td>
-            <td>Recuperar flora tras antibiótico</td>
-            <td>Cápsula multicepa; separada ≥ 2 h del antibiótico</td>
-            <td><span class="tag b" style="margin:0">Media</span></td>
-            <td>Precaución en inmunosupresión</td>
-          </tr>
-          <tr>
-            <td><strong>D-manosa</strong></td>
-            <td>Prevención ITU por E. coli</td>
-            <td>500 mg–2 g/día en polvo, según indicación</td>
-            <td><span class="tag c" style="margin:0">Baja</span></td>
-            <td>No sustituye antibiótico en infección activa</td>
-          </tr>
-          <tr>
-            <td><strong>Sulfato ferroso</strong></td>
-            <td>Anemia / déficit de hierro</td>
-            <td>Ya formulado: 300 mg; seguir la orden médica</td>
-            <td><span class="tag a" style="margin:0">Alta</span></td>
-            <td>Estreñimiento; separar de café/té/lácteos/calcio</td>
-          </tr>
-          <tr>
-            <td><strong>Omega-3 (EPA/DHA)</strong></td>
-            <td>Dolor e inflamación</td>
-            <td>1–2 g/día de EPA+DHA</td>
-            <td><span class="tag b" style="margin:0">Media</span></td>
-            <td>Precaución con anticoagulantes</td>
-          </tr>
-          <tr>
-            <td><strong>Curcumina</strong></td>
-            <td>Dolor articular / inflamación</td>
-            <td>500 mg con pimienta negra; o formulación con absorción mejorada</td>
-            <td><span class="tag b" style="margin:0">Media</span></td>
-            <td>Evitar con anticoagulantes; ajustar en problema biliar</td>
-          </tr>
-          <tr>
-            <td><strong>Magnesio</strong></td>
-            <td>Calambres, sueño</td>
-            <td>200–400 mg por la noche (citrato/glicinato)</td>
-            <td><span class="tag b" style="margin:0">Media</span></td>
-            <td>Puede acumularse si hay falla renal — consultar</td>
-          </tr>
-          <tr>
-            <td><strong>Vitamina D</strong></td>
-            <td>Dolor crónico, hueso</td>
-            <td>Según nivel sérico; dosis médica</td>
-            <td><span class="tag a" style="margin:0">Alta</span></td>
-            <td>No dosis altas sin medir nivel</td>
-          </tr>
+          <tr><td><strong>Arándano rojo (cranberry)</strong></td><td>Prevención de ITU recurrente</td><td>40 mg PAC / 125 ml jugo, 1–2 veces/día; o cápsula ≥ 240 mg PAC</td><td><span class="tag a" style="margin:0">Alta</span></td><td>Interactúa con warfarina; no usar contra infección activa</td></tr>
+          <tr><td><strong>Probióticos</strong></td><td>Recuperar flora tras antibiótico</td><td>Cápsula multicepa; separada ≥ 2 h del antibiótico</td><td><span class="tag b" style="margin:0">Media</span></td><td>Precaución en inmunosupresión</td></tr>
+          <tr><td><strong>D-manosa</strong></td><td>Prevención ITU por E. coli</td><td>500 mg–2 g/día en polvo, según indicación</td><td><span class="tag c" style="margin:0">Baja</span></td><td>No sustituye antibiótico en infección activa</td></tr>
+          <tr><td><strong>Sulfato ferroso</strong></td><td>Anemia / déficit de hierro</td><td>Ya formulado: 300 mg; seguir la orden médica</td><td><span class="tag a" style="margin:0">Alta</span></td><td>Estreñimiento; separar de café/té/lácteos/calcio</td></tr>
+          <tr><td><strong>Omega-3 (EPA/DHA)</strong></td><td>Dolor e inflamación</td><td>1–2 g/día de EPA+DHA</td><td><span class="tag b" style="margin:0">Media</span></td><td>Precaución con anticoagulantes</td></tr>
+          <tr><td><strong>Curcumina</strong></td><td>Dolor articular / inflamación</td><td>500 mg con pimienta negra; o formulación mejorada</td><td><span class="tag b" style="margin:0">Media</span></td><td>Evitar con anticoagulantes; ajustar en problema biliar</td></tr>
+          <tr><td><strong>Magnesio</strong></td><td>Calambres, sueño</td><td>200–400 mg por la noche (citrato/glicinato)</td><td><span class="tag b" style="margin:0">Media</span></td><td>Puede acumularse si hay falla renal — consultar</td></tr>
+          <tr><td><strong>Vitamina D</strong></td><td>Dolor crónico, hueso</td><td>Según nivel sérico; dosis médica</td><td><span class="tag a" style="margin:0">Alta</span></td><td>No dosis altas sin medir nivel</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 6 INVESTIGACIÓN -->
+  <!-- 6 -->
   <section id="investigacion" class="break-before">
-    <div class="sec-head">
-      <span class="sec-num">06</span>
-      <h2>Investigación: casos reales y evidencia</h2>
-    </div>
-    <p>Resumen de lo encontrado en estudios, reportes y testimonios públicos sobre cada uno de los diagnósticos. Se cita la fuente y el hallazgo concreto.</p>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Investigación: casos reales y evidencia</h2></div>
+    <p>Resumen de lo encontrado en estudios, reportes y testimonios públicos sobre cada uno de los diagnósticos.</p>
 
     <h3>Pielonefritis crónica y reflujo</h3>
-
     <div class="case">
       <span class="source">Manual MSD / Merck — Nefropatía por reflujo</span>
       <h4>El daño es cicatriz; el objetivo es evitar recaídas</h4>
       <p>La nefropatía por reflujo se caracteriza por cicatrices renales y atrofia del parénquima causadas por inflamación aguda repetida. Se asocia fuertemente al reflujo vesicoureteral de la infancia.</p>
-      <div class="finding">Tratamiento: corregir la obstrucción si existe + terapia antibiótica a largo plazo (trimetoprima/sulfametoxazol, trimetoprima, una fluoroquinolona o <strong>nitrofurantoína</strong>) cuando las infecciones son frecuentes. La mayoría conserva función renal adecuada ≥ 20 años tras el inicio, pero cada brote de pielonefritis aguda deteriora más el riñón.</div>
+      <div class="finding">Tratamiento: corregir la obstrucción si existe + terapia antibiótica a largo plazo (trimetoprima/sulfametoxazol, trimetoprima, una fluoroquinolona o <strong>nitrofurantoína</strong>). La mayoría conserva función renal adecuada ≥ 20 años tras el inicio, pero cada brote de pielonefritis aguda deteriora más el riñón.</div>
     </div>
-
     <div class="case">
       <span class="source">Doctoralia — respuestas de urólogos a paciente real</span>
       <h4>"Pielonefritis crónica en el ultrasonido con orina normal"</h4>
       <p>Paciente con reporte de pielonefritis crónica en ecografía, dolor de cintura y parcial de orina normal. Cuatro urólogos respondieron de forma coincidente.</p>
-      <blockquote>
-        "Los cambios que suelen reportarse como pielonefritis crónica en el ultrasonido suelen ser cicatrices de infecciones previas. Si tu examen de orina está normal, el objetivo es evitar nuevos cuadros infecciosos. Acude al urólogo para buscar la causa que favorece las infecciones."
-        <cite>Dr. Oscar Magaña · Urólogo</cite>
-      </blockquote>
-      <div class="finding">Aprendizaje: el diagnóstico por ecografía puede estar sobrediagnosticado. Lo que manda es el examen de orina, el urocultivo y la valoración por urología. La nitrofurantoína (Macrodantina) fue el antibiótico sugerido en ese caso.</div>
+      <blockquote>"Los cambios que suelen reportarse como pielonefritis crónica en el ultrasonido suelen ser cicatrices de infecciones previas. Si tu examen de orina está normal, el objetivo es evitar nuevos cuadros infecciosos."<cite>Dr. Oscar Magaña · Urólogo</cite></blockquote>
+      <div class="finding">Aprendizaje: el diagnóstico por ecografía puede estar sobrediagnosticado. Lo que manda es el examen de orina, el urocultivo y la valoración por urología.</div>
     </div>
-
     <div class="case">
       <span class="source">Universidad Bond, Australia — Moro et al., 2024 (European Urology Focus)</span>
       <h4>Jugo de arándano rojo: metaanálisis de +20 ensayos, 3.091 pacientes</h4>
-      <div class="finding">
-        Reducción de hasta <strong>54%</strong> en probabilidad de ITU · <strong>59%</strong> menos necesidad de antibióticos · disminución significativa de los síntomas. El compuesto activo son las proantocianidinas (PAC), que impiden que E. coli se adhiera a la vejiga. Beber más agua también ayudó, aunque menos que el jugo.
-      </div>
+      <div class="finding">Reducción de hasta <strong>54%</strong> en probabilidad de ITU · <strong>59%</strong> menos necesidad de antibióticos · disminución significativa de los síntomas. El compuesto activo son las proantocianidinas (PAC), que impiden que E. coli se adhiera a la vejiga.</div>
     </div>
-
     <div class="case">
       <span class="source">Cochrane Database of Systematic Reviews, 2023</span>
       <h4>50 ensayos, 8.857 participantes</h4>
-      <div class="finding">Los productos de arándano (jugo, tabletas o polvo) probablemente reducen el riesgo de ITU sintomática en mujeres con infección recurrente en un <strong>~26%</strong> (RR 0,74), y también en niños y personas con riesgo tras una intervención. La calidad de la evidencia es moderada a baja.</div>
+      <div class="finding">Los productos de arándano probablemente reducen el riesgo de ITU sintomática en mujeres con infección recurrente en un <strong>~26%</strong> (RR 0,74), y también en niños y personas con riesgo tras una intervención. Calidad de evidencia moderada a baja.</div>
     </div>
-
     <div class="case">
       <span class="source">Estudio GerHogar Cysticlean® — Revista Colombiana de Nefrología</span>
       <h4>160 pacientes adultos mayores con cistitis recurrente por E. coli</h4>
-      <div class="finding">Extracto de arándano con <strong>240 mg de PAC por cápsula</strong> tuvo éxito en <strong>81,6%</strong> (primer episodio) y <strong>82,0%</strong> (casos recurrentes frecuentes).</div>
+      <div class="finding">Extracto de arándano con <strong>240 mg de PAC por cápsula</strong> tuvo éxito en <strong>81,6%</strong> (primer episodio) y <strong>82,0%</strong> (recurrentes frecuentes).</div>
     </div>
-
-    <div class="callout">
-      <strong>Límite importante:</strong> TopDoctors y AARP lo recalcan — tomar mucho jugo <em>no cura</em> una infección activa ni mata bacterias ya presentes. Sirve para prevenir. Retrasar el antibiótico esperando que el arándano resuelva es lo que puede hacer que la infección suba al riñón. Cohorte de las 3 conclusiones: (1) es preventivo, (2) no sustituye tratamiento, (3) el jugo comercial azucarado no tiene PAC suficiente.
-    </div>
+    <div class="callout"><strong>Límite importante:</strong> tomar mucho jugo <em>no cura</em> una infección activa ni mata bacterias ya presentes. Sirve para prevenir. Retrasar el antibiótico esperando que el arándano resuelva es lo que puede hacer que la infección suba al riñón.</div>
 
     <h3 style="margin-top:40px">Lumbago mecánico — testimonios de fisioterapia</h3>
-
     <div class="case">
       <span class="source">IJHSR 2017 — Caso publicado</span>
       <h4>Hombre de 42 años con lumbago mecánico agudo izquierdo</h4>
-      <div class="finding">Terapia manual integrada: movilizaciones de Maitland, técnica de Mulligan (movimiento con movilización), manipulación de alta velocidad y ejercicios de extensión de McKenzie con activación de core (puente, prone on elbow, lumbar rolls, flexión activa). <strong>En 3 sesiones en una semana</strong> recuperó movilidad completa sin dolor.</div>
+      <div class="finding">Terapia manual integrada: movilizaciones de Maitland, técnica de Mulligan, manipulación de alta velocidad y ejercicios de extensión de McKenzie con activación de core. <strong>En 3 sesiones en una semana</strong> recuperó movilidad completa sin dolor.</div>
     </div>
-
     <div class="case">
       <span class="source">FisioPR / IPA Physio / RK Physiocare — testimonios públicos</span>
       <h4>Patrón común de recuperación</h4>
-      <p>Casos con ciática, hernia discal y dolor lumbar crónico de años que evitaron cirugía o volvieron a la actividad:</p>
       <ul class="clean">
         <li>"Tenía dolor lumbar crónico por años. Identificaron debilidad de core y me dieron ejercicios específicos. <strong>En 4 semanas el dolor bajó mucho.</strong>"</li>
         <li>"Dolor tan severo que no podía ni sentarme; con terapia manual funcional volví a controlar mi vida."</li>
         <li>"Después de 2 años sin poder ponerme un calcetín, en una sesión volví a agacharme."</li>
       </ul>
-      <div class="finding">Se repite el mismo denominador: no fue solo la pastilla (meloxicam/acetaminofén calman mientras), sino <strong>activación de core, movilización, corrección postural y constancia</strong>. Eso coincide con la orden de "terapia para lumbago mecánico" y "terapia física" de este caso.</div>
+      <div class="finding">Se repite el mismo denominador: no fue solo la pastilla, sino <strong>activación de core, movilización, corrección postural y constancia</strong>.</div>
     </div>
 
     <h3 style="margin-top:40px">F454 — Dolor persistente somatomorfo</h3>
-
     <div class="case">
       <span class="source">Mayo Clinic · MSD/Merck · MedlinePlus</span>
       <h4>Dolor crónico con respuesta desproporcionada</h4>
-      <p>Se caracteriza por uno o más síntomas orgánicos crónicos (el más frecuente, dolor) con preocupación y angustia desproporcionadas, consultas repetidas y dificultad para funcionar en la vida diaria. La reacción al síntoma importa más que la causa física.</p>
-      <div class="finding">
-        <strong>Lo que los casos reportan como útil:</strong> antidepresivos para síndromes de dolor crónico; compresas frías/calientes; fisioterapia; técnicas de distracción; masajes; centros y grupos de apoyo; psicoterapia. MedlinePlus advierte que los analgésicos comunes "generalmente no son efectivos y pueden tener efectos secundarios serios". Muchos pacientes al inicio rechazan el componente de salud mental porque sienten el dolor como puramente físico — y ahí se estanca la mejoría.
-      </div>
+      <p>Se caracteriza por uno o más síntomas orgánicos crónicos (el más frecuente, dolor) con preocupación y angustia desproporcionadas, consultas repetidas y dificultad para funcionar. La reacción al síntoma importa más que la causa física.</p>
+      <div class="finding"><strong>Lo que los casos reportan como útil:</strong> antidepresivos para dolor crónico; compresas frías/calientes; fisioterapia; técnicas de distracción; masajes; grupos de apoyo; psicoterapia. MedlinePlus advierte que los analgésicos comunes "generalmente no son efectivos y pueden tener efectos secundarios serios".</div>
     </div>
-
-    <div class="callout">
-      <strong>Cómo se relacionan los tres diagnósticos:</strong> el dolor lumbar mecánico es real y responde a fisioterapia; el diagnóstico F454 sugiere que la percepción del dolor está amplificada por el sistema nervioso y el estrés. Por eso la estrategia con más respaldo en casos reales combina <em>movimiento gradual + manejo del estrés/sueño + alimentación antiinflamatoria</em>, y no aumenta analgésicos indefinidamente.
-    </div>
+    <div class="callout"><strong>Cómo se relacionan los tres diagnósticos:</strong> el dolor lumbar mecánico es real y responde a fisioterapia; el F454 sugiere que la percepción del dolor está amplificada por el sistema nervioso y el estrés. La estrategia con más respaldo combina <em>movimiento gradual + manejo del estrés/sueño + alimentación antiinflamatoria</em>.</div>
   </section>
 
-  <!-- 7 RECETARIO -->
-  <section id="recetario" class="break-before">
-    <div class="sec-head">
-      <span class="sec-num">07</span>
-      <h2>Recetario</h2>
-    </div>
-    <p>Ocho preparaciones sencillas alineadas con los objetivos de cada diagnóstico: hidratación, prevención de ITU, absorción de hierro y perfil antiinflamatorio. Ingredientes de mercado normal.</p>
-
-    <div class="callout" style="margin-top:0;margin-bottom:20px">
-      <strong>Nota renal:</strong> si tu médico restringió potasio, fíjate en las recetas marcadas con ingredientes altos en potasio (espinaca, aguacate, plátano, frutos secos) y modera la porción. Si restringió sodio, no agregues sal y usa especias en su lugar.
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Agua aromatizada de arándano y limón</h4>
-          <p class="r-meta">5 min · 1,5 L · sin azúcar</p>
-        </div>
-        <span class="r-purpose">Hidratación + ITU</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1,5 L de agua</li>
-            <li>1/2 taza de arándanos rojos frescos o congelados</li>
-            <li>1 limón en rodajas</li>
-            <li>Hojas de menta fresca</li>
-            <li>Hielo (opcional)</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Lava los arándanos y el limón.</li>
-            <li>Machaca levemente los arándanos para liberar sus compuestos.</li>
-            <li>Agrega todo al agua, revuelve y deja reposar 10 min en frío.</li>
-            <li>Bebe a lo largo del día, reponiendo el agua.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> aumenta el volumen de orina (arrastra bacterias) y aporta proantocianidinas del arándano más vitamina C del limón.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Infusión de jengibre y manzanilla</h4>
-          <p class="r-meta">8 min · 1 taza · tibia</p>
-        </div>
-        <span class="r-purpose">Vejiga + calma</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1 cm de jengibre fresco</li>
-            <li>1 cucharadita de flores de manzanilla</li>
-            <li>250 ml de agua</li>
-            <li>Miel (opcional, poca)</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Hierve el agua y apaga el fuego.</li>
-            <li>Agrega el jengibre en láminas y la manzanilla.</li>
-            <li>Tapa y deja reposar 5–8 min.</li>
-            <li>Cuela y bebe tibia, ideal por la noche.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> bebida suave que hidrata sin irritar la vejiga; el jengibre tiene acción antiinflamatoria leve y la manzanilla ayuda a relajarse antes de dormir.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Avena nocturna con arándano, chía y nueces</h4>
-          <p class="r-meta">5 min + reposo toda la noche · 1 porción</p>
-        </div>
-        <span class="r-purpose">Fibra + omega-3</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1/2 taza de avena en hojuelas</li>
-            <li>1 cucharada de chía</li>
-            <li>3/4 taza de leche o bebida vegetal</li>
-            <li>1/2 taza de arándanos</li>
-            <li>1 cucharada de nueces picadas</li>
-            <li>Canela</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Mezcla avena, chía y leche en un frasco.</li>
-            <li>Agrega los arándanos y la canela.</li>
-            <li>Refrigera toda la noche.</li>
-            <li>Al servir, corona con las nueces picadas.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> fibra para el tránsito intestinal (el estreñimiento empeora la función vesical), omega-3 de chía y nueces, y arándano preventivo.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Salmón al horno con brócoli y cúrcuma</h4>
-          <p class="r-meta">25 min · 1 porción</p>
-        </div>
-        <span class="r-purpose">Antiinflamatorio</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1 filete de salmón</li>
-            <li>1 taza de brócoli</li>
-            <li>1 cucharadita de cúrcuma</li>
-            <li>Pizca de pimienta negra</li>
-            <li>Aceite de oliva</li>
-            <li>Limón</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Precalienta el horno a 190 °C.</li>
-            <li>Coloca el salmón y el brócoli en una bandeja.</li>
-            <li>Rocía con aceite, cúrcuma y pimienta.</li>
-            <li>Hornea 15–18 min hasta que el salmón esté cocido.</li>
-            <li>Termina con jugo de limón.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> omega-3 del salmón y curcumina con pimienta negra; patrón antiinflamatorio asociado a menos dolor. <span style="color:var(--clay)">(Brócoli: alto en potasio — moderar si hay restricción.)</span></div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Lentejas guisadas con pimiento y limón</h4>
-          <p class="r-meta">30 min · 2 porciones</p>
-        </div>
-        <span class="r-purpose">Hierro + vit. C</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1 taza de lentejas</li>
-            <li>1 pimiento rojo picado</li>
-            <li>1 tomate picado</li>
-            <li>1/2 cebolla</li>
-            <li>Comino, laurel</li>
-            <li>Jugo de limón al servir</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Sofríe la cebolla y el pimiento en aceite de oliva.</li>
-            <li>Agrega el tomate y las especias.</li>
-            <li>Suma las lentejas y agua, cocina 25 min.</li>
-            <li>Sirve y agrega el jugo de limón justo antes de comer.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> hierro no hemo de la lenteja + vitamina C del pimiento y el limón, que juntos multiplican la absorción del hierro. (Puede acompañar el sulfato ferroso).</div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Ensalada tibia de garbanzo, espinaca y cítricos</h4>
-          <p class="r-meta">15 min · 1 porción</p>
-        </div>
-        <span class="r-purpose">Hierro + fibra</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1 taza de garbanzo cocido</li>
-            <li>1 taza de espinaca fresca</li>
-            <li>1 mandarina en gajos</li>
-            <li>1 cucharada de ajonjolí</li>
-            <li>Aceite de oliva y limón</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Calienta el garbanzo en un sartén con un poco de aceite.</li>
-            <li>Colócalo sobre la espinaca fresca.</li>
-            <li>Agrega la mandarina y el ajonjolí.</li>
-            <li>Aliña con aceite de oliva y limón.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> combina hierro vegetal (garbanzo, espinaca, ajonjolí) con vitamina C de la mandarina. <span style="color:var(--clay)">(Espinaca y garbanzo: altos en potasio — moderar si hay restricción.)</span></div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Yogur natural con linaza y arándano</h4>
-          <p class="r-meta">3 min · 1 porción</p>
-        </div>
-        <span class="r-purpose">Probiótico + fibra</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>1 vaso de yogur natural sin azúcar</li>
-            <li>1 cucharada de linaza molida</li>
-            <li>1/2 taza de arándanos</li>
-            <li>Canela</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Sirve el yogur en un bol.</li>
-            <li>Agrega la linaza molida y los arándanos.</li>
-            <li>Espolvorea canela y come.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> probióticos para recuperar flora (útil tras antibióticos) + fibra y arándano. Toma el yogur separado del antibiótico y del sulfato ferroso por 1–2 horas.</div>
-    </div>
-
-    <div class="recipe">
-      <div class="r-head">
-        <div>
-          <h4>Batido de naranja, zanahoria y jengibre</h4>
-          <p class="r-meta">7 min · 1 vaso</p>
-        </div>
-        <span class="r-purpose">Vit. C + absorción</span>
-      </div>
-      <div class="r-body">
-        <div class="r-ing">
-          <h5>Ingredientes</h5>
-          <ul class="ing">
-            <li>2 naranjas (jugo)</li>
-            <li>1 zanahoria</li>
-            <li>1 cm de jengibre</li>
-            <li>1/2 vaso de agua</li>
-          </ul>
-        </div>
-        <div class="r-steps">
-          <h5>Preparación</h5>
-          <ol class="steps">
-            <li>Extrae el jugo de las naranjas.</li>
-            <li>Licúa con la zanahoria, el jengibre y el agua.</li>
-            <li>Cuela si prefieres textura fina.</li>
-            <li>Toma junto al sulfato ferroso para mejorar la absorción.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="r-why"><strong>Por qué ayuda:</strong> alta carga de vitamina C, que aumenta la absorción del hierro de la tableta. No lo tomes con café ni lácteos.</div>
-    </div>
-  </section>
-
-  <!-- 8 CHECKLIST -->
-  <section id="checklist" class="break-before">
-    <div class="sec-head">
-      <span class="sec-num">08</span>
-      <h2>Checklist de seguimiento</h2>
-    </div>
-    <p>Imprime esta sección y márcala a mano. Las etiquetas naranjas son <strong>compromisos con fecha</strong> tomados de tus órdenes; las verdes son hábitos de rutina.</p>
-
-    <div class="checklist">
-      <h4>Compromisos de las órdenes médicas</h4>
-      <ul class="todo">
-        <li>Hemograma de control <span class="pill due">en 48 h</span></li>
-        <li>Hierro sacarato IV — 1 ampolla cada 24 h durante 9 días <span class="pill due">1–9 oct</span></li>
-        <li>Terminar meloxicam (10 tabletas) y acetaminofén (30 tabletas) según fórmula <span class="pill due">5 días</span></li>
-        <li>Asistir a interconsulta de gastroenterología <span class="pill due">agendar</span></li>
-        <li>Asistir a fisioterapia para lumbago mecánico <span class="pill due">agendar</span></li>
-        <li>Respetar la incapacidad del 1 al 5 de octubre <span class="pill due">1–5 oct</span></li>
-        <li>Control de historia clínica en 48 h <span class="pill due">seguimiento</span></li>
-        <li>Reclamar/reponer fórmula antes de la vigencia de 48 h de la Clínica Central del Quindío <span class="pill due">vence</span></li>
-      </ul>
-
-      <h4>Rutina diaria</h4>
-      <ul class="todo">
-        <li>Tomar entre 1,5 y 2 L de agua (si no hay restricción) <span class="pill routine">diario</span></li>
-        <li>Jugo o cápsula de arándano con PAC <span class="pill routine">diario</span></li>
-        <li>Tomar el sulfato ferroso según indicación, separado de café/té/lácteos <span class="pill routine">diario</span></li>
-        <li>Probiótico, separado ≥ 2 h del antibiótico <span class="pill routine">diario</span></li>
-        <li>Caminata suave o ejercicios de core indicados por fisioterapia <span class="pill routine">diario</span></li>
-        <li>Higiene genital de adelante hacia atrás; orinar tras relaciones <span class="pill routine">diario</span></li>
-        <li>Estirar zona lumbar y cuadrado lumbar 5 min <span class="pill routine">diario</span></li>
-        <li>No aguantar la orina <span class="pill routine">diario</span></li>
-        <li>Dormir 7–8 h (clave en dolor persistente) <span class="pill routine">diario</span></li>
-        <li>Registrar dolor de 1 a 10 en un cuaderno <span class="pill routine">diario</span></li>
-      </ul>
-
-      <h4>Rutina semanal</h4>
-      <ul class="todo">
-        <li>Hacer mercado de la lista de la sección 09 <span class="pill routine">semanal</span></li>
-        <li>Cocinar al menos 2 recetas del recetario <span class="pill routine">semanal</span></li>
-        <li>Pesarse y anotar <span class="pill routine">semanal</span></li>
-        <li>Revisar si hubo fiebre, ardor o cambios en la orina <span class="pill routine">semanal</span></li>
-        <li>Confirmar asistencia a terapias e interconsultas <span class="pill routine">semanal</span></li>
-      </ul>
-
-      <h4>Alerta — ir a urgencias</h4>
-      <ul class="todo">
-        <li>Fiebre alta que no cede con antipiréticos</li>
-        <li>Dolor lumbar o abdominal fuerte y constante</li>
-        <li>Vómito que no puedes controlar</li>
-        <li>Sangre en orina o deposiciones</li>
-        <li>Dificultad para respirar o dolor en el pecho</li>
-        <li>Dejar de orinar o coloración amarilla de piel/ojos</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 9 -->
-  <section id="compra">
-    <div class="sec-head">
-      <span class="sec-num">09</span>
-      <h2>Lista de mercado / compra</h2>
-    </div>
-
-    <h3>Mercado semanal</h3>
-    <ul class="clean">
-      <li><strong>Hidratación:</strong> agua, jugo de arándano con PAC comprobada, manzanilla o jengibre.</li>
-      <li><strong>Proteína antiinflamatoria:</strong> salmón, sardina, atún, huevos, pollo, lentejas, garbanzo.</li>
-      <li><strong>Hierro + vitamina C:</strong> carnes rojas (con moderación), hígado ocasional, espinaca, ajonjolí, naranja, mandarina, kiwi, pimiento, limón.</li>
-      <li><strong>Vegetales y fibra:</strong> brócoli, calabacín, zanahoria, avena, arroz integral, aceite de oliva.</li>
-      <li><strong>Ayuda al dolor:</strong> chía, linaza, nueces, cúrcuma, pimienta negra, jengibre.</li>
-      <li><strong>Evitar:</strong> refrescos, embutidos, frituras, alcohol, exceso de café.</li>
-    </ul>
-
-    <h3>Suplementos (solo tras aprobación médica)</h3>
-    <ul class="clean">
-      <li>Arándano rojo en cápsula o jugo con PAC indicado.</li>
-      <li>Probiótico multicepa.</li>
-      <li>Omega-3 (EPA/DHA).</li>
-      <li>Magnesio citrato o glicinato.</li>
-      <li>Vitamina D, solo con nivel medido.</li>
-      <li>Hierro únicamente si tu médico lo indica y con las pautas de absorción.</li>
-    </ul>
-  </section>
-
-  <!-- 10 -->
+  <!-- 7 -->
   <section id="precauciones">
-    <div class="sec-head">
-      <span class="sec-num">10</span>
-      <h2>Interacciones y señales de alarma</h2>
-    </div>
-
+    <div class="sec-head"><span class="sec-num">07</span><h2>Interacciones y señales de alarma</h2></div>
     <h3>No mezclar / consultar antes</h3>
     <ul class="clean warn">
       <li><strong>Arándano + warfarina:</strong> aumenta el efecto anticoagulante.</li>
@@ -1390,7 +719,6 @@
       <li><strong>Antiinflamatorios extra (ibuprofeno, naproxeno):</strong> junto al meloxicam aumentan riesgo renal y gástrico.</li>
       <li><strong>Probióticos + antibiótico:</strong> sepáralos al menos 2 horas.</li>
     </ul>
-
     <h3>Ve a urgencias si aparece</h3>
     <ul class="clean warn">
       <li>Fiebre alta que no cede con antipiréticos.</li>
@@ -1402,13 +730,9 @@
     </ul>
   </section>
 
-  <!-- 11 -->
+  <!-- 8 -->
   <section id="fuentes">
-    <div class="sec-head">
-      <span class="sec-num">11</span>
-      <h2>Fuentes consultadas</h2>
-    </div>
-    <p style="font-size:14px">Resúmenes de evidencia, reportes y casos citados en esta guía:</p>
+    <div class="sec-head"><span class="sec-num">08</span><h2>Fuentes consultadas</h2></div>
     <ul class="clean">
       <li>Moro C. et al. — Metanálisis sobre jugo de arándano e ITU, <em>European Urology Focus</em> / Universidad Bond, 2024.</li>
       <li>Revisión sistemática Cochrane 2023 — Productos de arándano para prevención de ITU (50 ensayos, 8.857 participantes).</li>
@@ -1417,20 +741,1100 @@
       <li>BMJ Best Practice — Chronic pyelonephritis (revisión 2025–2026).</li>
       <li>Doctoralia — Respuestas de urólogos sobre "pielonefritis crónica en ultrasonido con orina normal".</li>
       <li>TopDoctors / AARP — Mitos y realidades del jugo de arándano en ITU.</li>
-      <li>Mayo Clinic — Trastorno de síntomas somáticos, 2024.</li>
-      <li>MedlinePlus — Trastorno de dolor somatomorfo.</li>
-      <li>MSD / Merck — Trastorno somatomorfo (versión para el público).</li>
+      <li>Mayo Clinic — Trastorno de síntomas somáticos, 2024. MedlinePlus — Trastorno de dolor somatomorfo.</li>
       <li>IJHSR 2017 — Integrated Manual Therapy Management of Acute Mechanical Low Back Pain: A Case Report.</li>
       <li>FisioPR / IPA Physio / RK Physiocare — Testimonios públicos de recuperación de lumbago y ciática.</li>
     </ul>
-
-    <footer>
-      <p class="fineprint">
-        Documento informativo de uso personal. No constituye diagnóstico, prescripción ni tratamiento médico. La información se basa en fuentes públicas y en casos reportados; los resultados individuales varían. Toda decisión sobre alimentos, suplementos o medicamentos debe ser validada por el médico tratante, considerando la función renal y las interacciones con la medicación actual. Las recetas son generales y de bajo riesgo, pero deben ajustarse si existe restricción de potasio, sodio, proteína o líquidos. Elaborado el 03 de octubre de 2026.
-      </p>
+    <footer class="site">
+      <p class="fineprint">Documento informativo de uso personal. No constituye diagnóstico, prescripción ni tratamiento médico. La información se basa en fuentes públicas y en casos reportados; los resultados individuales varían. Toda decisión sobre alimentos, suplementos o medicamentos debe ser validada por el médico tratante, considerando la función renal y las interacciones con la medicación actual. Elaborado el 03 de octubre de 2026.</p>
     </footer>
   </section>
-
 </div>
+
+<!-- ============================================================= -->
+<!-- PAGE: RECETARIO -->
+<!-- ============================================================= -->
+<div class="page" id="page-recetario">
+  <header class="hero">
+    <p class="eyebrow">Recetario</p>
+    <h1>Ocho preparaciones<br>de bajo riesgo</h1>
+    <p class="lede">Alineadas con cada objetivo: hidratación, prevención de ITU, absorción de hierro y perfil antiinflamatorio. Puedes asignarlas al calendario de la semana con un clic.</p>
+  </header>
+
+  <div class="callout" style="margin-top:0;margin-bottom:22px">
+    <strong>Nota renal:</strong> si tu médico restringió potasio, modera las recetas con espinaca, brócoli, garbanzo, aguacate, plátano o frutos secos. Si restringió sodio, no agregues sal y usa especias.
+  </div>
+
+  <div class="toolbar no-print">
+    <a class="btn" href="#/calendario">Ir al calendario</a>
+    <button class="btn ghost" onclick="window.print()">Imprimir recetario</button>
+  </div>
+
+  <div id="recetario-list"></div>
+</div>
+
+<!-- ============================================================= -->
+<!-- PAGE: CALENDARIO -->
+<!-- ============================================================= -->
+<div class="page" id="page-calendario">
+  <header class="hero">
+    <p class="eyebrow">Calendario del recetario</p>
+    <h1>Planifica tu semana</h1>
+    <p class="lede">Asigna una preparación a cada comida. Se guarda en tu navegador. Puedes generar una semana sugerida y luego imprimirla en limpio.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button class="btn" id="cal-suggest">Generar semana sugerida</button>
+    <button class="btn ghost" id="cal-clear">Vaciar calendario</button>
+    <button class="btn ghost" id="cal-print-btn">Imprimir / PDF</button>
+  </div>
+
+  <div class="cal-wrap" id="cal-interactive">
+    <table class="cal" id="cal-table"></table>
+  </div>
+
+  <div class="cal-legend no-print" id="cal-legend"></div>
+
+  <div class="only-print" id="cal-print"></div>
+</div>
+
+<!-- ============================================================= -->
+<!-- PAGE: ASISTENTE IA -->
+<!-- ============================================================= -->
+<div class="page" id="page-asistente">
+  <header class="hero">
+    <p class="eyebrow">Asistente IA</p>
+    <h1>Asistente de alimentación<br>y seguimiento</h1>
+    <p class="lede">Responde dudas sobre alimentos, suplementos, recetas, síntomas y tus órdenes. Usa una base de conocimiento local y, si está activado, el worker de IA del proyecto (DeepSeek); el navegador nunca maneja la clave.</p>
+  </header>
+
+  <div class="callout" style="margin-top:0">
+    <strong>Qué incluye esta función:</strong> (1) respuestas sobre los tres diagnósticos, alimentos, suplementos y precauciones; (2) sugerencias de recetas y cómo asignarlas al calendario; (3) orientación y resumen de tus órdenes; (4) consejos de seguimiento de síntomas y mercado; (5) conexión al <strong>worker de IA (DeepSeek)</strong> del proyecto para respuestas generadas, con motor local de respaldo. <em>No es consejo médico.</em>
+  </div>
+
+  <details class="ai-settings no-print">
+    <summary>Conexión al worker de IA (DeepSeek)</summary>
+    <p class="hint" style="margin:0 0 14px">El worker <code>medicamentos-ai</code> guarda la clave de DeepSeek como secreto <code>AI_API_KEY</code> en Cloudflare. Aquí solo se indica su URL; el navegador no maneja ninguna clave.</p>
+    <label class="toggle"><input type="checkbox" id="ai-use"> Usar el worker de IA en lugar del motor local</label>
+    <div class="field"><label for="ai-worker-url">URL del worker</label><input type="text" id="ai-worker-url" placeholder="https://medicamentos-ai.www-davidalexander.workers.dev/"></div>
+    <div class="toolbar" style="margin-bottom:0">
+      <button class="btn small" id="ai-save">Guardar</button>
+      <button class="btn ghost small" id="ai-test">Probar conexión</button>
+      <span class="hint">El worker ya expone CORS. Si no responde, el asistente usa el motor local.</span>
+    </div>
+  </details>
+
+  <div class="chat">
+    <div class="chat-chips" id="chat-chips"></div>
+    <div class="chat-log" id="chat-log"></div>
+    <div class="chat-input">
+      <input type="text" id="chat-input" placeholder="Escribe tu pregunta…" autocomplete="off">
+      <button class="btn" id="chat-send">Enviar</button>
+    </div>
+  </div>
+
+  <div class="toolbar no-print" style="margin-top:14px">
+    <button class="btn ghost small" id="chat-clear">Borrar conversación</button>
+    <span class="hint" id="ai-status">Motor local activo</span>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- PAGE: MERCADO -->
+<!-- ============================================================= -->
+<div class="page" id="page-mercado">
+  <header class="hero">
+    <p class="eyebrow">Control de mercado</p>
+    <h1>Lista de mercado</h1>
+    <p class="lede">Marca lo que ya tienes, agrega productos y genera la lista desde el calendario de la semana. El progreso se guarda en tu navegador.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button class="btn" id="market-from-cal">Añadir desde el calendario</button>
+    <button class="btn ghost" id="market-clear-done">Limpiar marcados</button>
+    <button class="btn ghost" id="market-reset">Reiniciar lista</button>
+    <button class="btn ghost" id="market-print">Imprimir / PDF</button>
+  </div>
+
+  <div class="progress-label" id="market-progress-label">0 de 0 comprados</div>
+  <div class="progress"><span id="market-progress"></span></div>
+
+  <div class="add-row no-print">
+    <input type="text" id="market-add-name" placeholder="Agregar producto…">
+    <select id="market-add-cat">
+      <option>Hidratación</option>
+      <option>Proteínas</option>
+      <option>Hierro y vitamina C</option>
+      <option>Vegetales y fibra</option>
+      <option>Ayuda al dolor</option>
+      <option>Despensa</option>
+      <option>Suplementos (con indicación médica)</option>
+    </select>
+    <button class="btn" id="market-add-btn">Añadir</button>
+  </div>
+
+  <div id="market-list"></div>
+</div>
+
+<!-- ============================================================= -->
+<!-- PAGE: SÍNTOMAS -->
+<!-- ============================================================= -->
+<div class="page" id="page-sintomas">
+  <header class="hero">
+    <p class="eyebrow">Seguimiento de síntomas</p>
+    <h1>Registro diario</h1>
+    <p class="lede">Anota dolor, temperatura, señales urinarias, hidratación y deposiciones. Verás una gráfica de tu dolor y estadísticas de los últimos días. Todo queda en tu navegador.</p>
+  </header>
+
+  <div class="toolbar no-print">
+    <button class="btn ghost" id="sym-print">Imprimir / PDF</button>
+    <button class="btn ghost" id="sym-export">Exportar CSV</button>
+    <button class="btn danger" id="sym-clear">Borrar registros</button>
+  </div>
+
+  <div class="stat-grid" id="sym-stats"></div>
+
+  <div class="card" style="margin-bottom:24px">
+    <h3 style="margin-top:0">Nuevo registro</h3>
+    <div class="row">
+      <div class="field"><label for="sym-date">Fecha</label><input type="date" id="sym-date"></div>
+      <div class="field"><label for="sym-temp">Temperatura (°C)</label><input type="number" id="sym-temp" step="0.1" min="34" max="42" placeholder="36.5"></div>
+      <div class="field"><label for="sym-hidra">Hidratación (litros)</label><input type="number" id="sym-hidra" step="0.1" min="0" max="6" placeholder="1.5"></div>
+      <div class="field"><label for="sym-depos">Deposiciones</label>
+        <select id="sym-depos">
+          <option value="normal">Normal</option>
+          <option value="estreñimiento">Estreñimiento</option>
+          <option value="diarrea">Diarrea</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Dolor (1 a 10)</label>
+      <div class="slider-field">
+        <input type="range" id="sym-dolor" min="1" max="10" value="1">
+        <span class="slider-val" id="sym-dolor-val">1</span>
+      </div>
+    </div>
+    <div class="field">
+      <label>Señales presentes</label>
+      <div class="chipset">
+        <label><input type="checkbox" class="sym-flag" value="Ardor al orinar"><span>Ardor al orinar</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Urgencia urinaria"><span>Urgencia urinaria</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Orina turbia"><span>Orina turbia</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Fiebre"><span>Fiebre</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Náusea o vómito"><span>Náusea o vómito</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Dolor lumbar"><span>Dolor lumbar</span></label>
+        <label><input type="checkbox" class="sym-flag" value="Cansancio"><span>Cansancio</span></label>
+      </div>
+    </div>
+    <div class="field"><label for="sym-nota">Nota</label><textarea id="sym-nota" placeholder="Qué comiste, cómo dormiste, si tomaste la medicación…"></textarea></div>
+    <button class="btn" id="sym-save">Guardar registro</button>
+  </div>
+
+  <h3>Evolución del dolor</h3>
+  <canvas id="sym-chart" height="200"></canvas>
+
+  <h3>Historial</h3>
+  <ul class="log" id="sym-list"></ul>
+</div>
+
+</div><!-- /wrap -->
+
+<a class="totop" href="#top" aria-label="Volver arriba">&#8593;</a>
+<div id="toast"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     Utilidades
+  ========================================================= */
+  var memory = {};
+  var store = {
+    get: function (key, def) {
+      try {
+        var raw = localStorage.getItem(key);
+        return raw === null ? def : JSON.parse(raw);
+      } catch (e) {
+        return Object.prototype.hasOwnProperty.call(memory, key) ? memory[key] : def;
+      }
+    },
+    set: function (key, val) {
+      try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { memory[key] = val; }
+    }
+  };
+
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  function toast(msg) {
+    var el = $("#toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove("show"); }, 1800);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function todayISO() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+
+  /* =========================================================
+     Datos: recetas
+  ========================================================= */
+  var RECIPES = [
+    {
+      id: "r1", name: "Agua aromatizada de arándano y limón", purpose: "Hidratación + ITU",
+      meta: "5 min · 1,5 L · sin azúcar",
+      ingredients: ["Agua", "Arándanos rojos", "Limón", "Menta"],
+      steps: ["Lava los arándanos y el limón.", "Machaca levemente los arándanos para liberar sus compuestos.", "Agrega todo al agua y deja reposar 10 min en frío.", "Bebe a lo largo del día, reponiendo el agua."],
+      why: "Aumenta el volumen de orina (arrastra bacterias) y aporta proantocianidinas del arándano más vitamina C del limón."
+    },
+    {
+      id: "r2", name: "Infusión de jengibre y manzanilla", purpose: "Vejiga + calma",
+      meta: "8 min · 1 taza · tibia",
+      ingredients: ["Jengibre", "Manzanilla", "Miel"],
+      steps: ["Hierve el agua y apaga el fuego.", "Agrega el jengibre en láminas y la manzanilla.", "Tapa y deja reposar 5–8 min.", "Cuela y bebe tibia, ideal por la noche."],
+      why: "Bebida suave que hidrata sin irritar la vejiga; el jengibre tiene acción antiinflamatoria leve y la manzanilla ayuda a relajarse antes de dormir."
+    },
+    {
+      id: "r3", name: "Avena nocturna con arándano, chía y nueces", purpose: "Fibra + omega-3",
+      meta: "5 min + reposo · 1 porción",
+      ingredients: ["Avena", "Chía", "Leche o bebida vegetal", "Arándanos", "Nueces", "Canela"],
+      steps: ["Mezcla avena, chía y leche en un frasco.", "Agrega los arándanos y la canela.", "Refrigera toda la noche.", "Al servir, corona con las nueces picadas."],
+      why: "Fibra para el tránsito intestinal (el estreñimiento empeora la función vesical), omega-3 de chía y nueces, y arándano preventivo."
+    },
+    {
+      id: "r4", name: "Salmón al horno con brócoli y cúrcuma", purpose: "Antiinflamatorio",
+      meta: "25 min · 1 porción",
+      ingredients: ["Salmón", "Brócoli", "Cúrcuma", "Pimienta negra", "Aceite de oliva", "Limón"],
+      steps: ["Precalienta el horno a 190 °C.", "Coloca el salmón y el brócoli en una bandeja.", "Rocía con aceite, cúrcuma y pimienta.", "Hornea 15–18 min hasta que el salmón esté cocido.", "Termina con jugo de limón."],
+      why: "Omega-3 del salmón y curcumina con pimienta negra; patrón antiinflamatorio asociado a menos dolor. (Brócoli: alto en potasio — moderar si hay restricción.)"
+    },
+    {
+      id: "r5", name: "Lentejas guisadas con pimiento y limón", purpose: "Hierro + vit. C",
+      meta: "30 min · 2 porciones",
+      ingredients: ["Lentejas", "Pimiento rojo", "Tomate", "Cebolla", "Comino", "Laurel", "Limón"],
+      steps: ["Sofríe la cebolla y el pimiento en aceite de oliva.", "Agrega el tomate y las especias.", "Suma las lentejas y agua, cocina 25 min.", "Sirve y agrega el jugo de limón justo antes de comer."],
+      why: "Hierro no hemo de la lenteja + vitamina C del pimiento y el limón, que juntos multiplican la absorción del hierro. Puede acompañar el sulfato ferroso."
+    },
+    {
+      id: "r6", name: "Ensalada tibia de garbanzo, espinaca y cítricos", purpose: "Hierro + fibra",
+      meta: "15 min · 1 porción",
+      ingredients: ["Garbanzo", "Espinaca", "Mandarina", "Ajonjolí", "Aceite de oliva", "Limón"],
+      steps: ["Calienta el garbanzo en un sartén con un poco de aceite.", "Colócalo sobre la espinaca fresca.", "Agrega la mandarina y el ajonjolí.", "Aliña con aceite de oliva y limón."],
+      why: "Combina hierro vegetal (garbanzo, espinaca, ajonjolí) con vitamina C de la mandarina. (Espinaca y garbanzo: altos en potasio — moderar si hay restricción.)"
+    },
+    {
+      id: "r7", name: "Yogur natural con linaza y arándano", purpose: "Probiótico + fibra",
+      meta: "3 min · 1 porción",
+      ingredients: ["Yogur natural", "Linaza molida", "Arándanos", "Canela"],
+      steps: ["Sirve el yogur en un bol.", "Agrega la linaza molida y los arándanos.", "Espolvorea canela y come."],
+      why: "Probióticos para recuperar flora (útil tras antibióticos) + fibra y arándano. Toma el yogur separado del antibiótico y del sulfato ferroso por 1–2 horas."
+    },
+    {
+      id: "r8", name: "Batido de naranja, zanahoria y jengibre", purpose: "Vit. C + absorción",
+      meta: "7 min · 1 vaso",
+      ingredients: ["Naranja", "Zanahoria", "Jengibre"],
+      steps: ["Extrae el jugo de las naranjas.", "Licúa con la zanahoria, el jengibre y el agua.", "Cuela si prefieres textura fina.", "Toma junto al sulfato ferroso para mejorar la absorción."],
+      why: "Alta carga de vitamina C, que aumenta la absorción del hierro de la tableta. No lo tomes con café ni lácteos."
+    }
+  ];
+
+  function recipeById(id) {
+    for (var i = 0; i < RECIPES.length; i++) { if (RECIPES[i].id === id) return RECIPES[i]; }
+    return null;
+  }
+
+  /* =========================================================
+     Router
+  ========================================================= */
+  var PAGES = ["guia", "recetario", "calendario", "asistente", "mercado", "sintomas"];
+
+  function showPage(name) {
+    if (PAGES.indexOf(name) === -1) name = "guia";
+    $$(".page").forEach(function (p) { p.classList.remove("active"); });
+    var page = $("#page-" + name);
+    if (page) page.classList.add("active");
+    $$(".topnav a.navlink").forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-page") === name);
+    });
+    if (name === "sintomas") renderSymptoms();
+    if (name === "mercado") renderMarket();
+    if (name === "calendario") renderCalendar();
+  }
+
+  function route() {
+    var hash = location.hash || "#/guia";
+    if (hash.indexOf("#/") === 0) {
+      showPage(hash.slice(2));
+      window.scrollTo({ top: 0, behavior: "auto" });
+    } else {
+      var el = document.querySelector(hash);
+      if (el) {
+        showPage("guia");
+        setTimeout(function () { el.scrollIntoView({ behavior: "smooth", block: "start" }); }, 30);
+      } else {
+        showPage("guia");
+      }
+    }
+  }
+
+  window.addEventListener("hashchange", route);
+
+  /* Guide subnav active state */
+  function initSubnavSpy() {
+    var links = $$(".subnav a");
+    if (!links.length) return;
+    var sections = links.map(function (l) {
+      return { link: l, sec: document.querySelector(l.getAttribute("href")) };
+    }).filter(function (x) { return x.sec; });
+
+    function onScroll() {
+      if (!$("#page-guia").classList.contains("active")) return;
+      var y = window.scrollY + 120;
+      var current = sections[0];
+      sections.forEach(function (s) { if (s.sec.offsetTop <= y) current = s; });
+      links.forEach(function (l) { l.classList.remove("active"); });
+      if (current) current.link.classList.add("active");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* =========================================================
+     Recetario
+  ========================================================= */
+  function renderRecipes() {
+    var host = $("#recetario-list");
+    if (!host) return;
+    host.innerHTML = RECIPES.map(function (r) {
+      return '' +
+        '<article class="recipe">' +
+          '<div class="r-head">' +
+            '<div><h4>' + escapeHtml(r.name) + '</h4><p class="r-meta">' + escapeHtml(r.meta) + '</p></div>' +
+            '<span class="r-purpose">' + escapeHtml(r.purpose) + '</span>' +
+          '</div>' +
+          '<div class="r-body">' +
+            '<div class="r-ing"><h5>Ingredientes</h5><ul class="ing">' +
+              r.ingredients.map(function (i) { return '<li>' + escapeHtml(i) + '</li>'; }).join('') +
+            '</ul></div>' +
+            '<div class="r-steps"><h5>Preparación</h5><ol class="steps">' +
+              r.steps.map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') +
+            '</ol></div>' +
+          '</div>' +
+          '<div class="r-why"><strong>Por qué ayuda:</strong> ' + escapeHtml(r.why) + '</div>' +
+          '<div class="r-actions no-print"><button class="btn ghost add-cal" data-recipe="' + r.id + '">Añadir al calendario</button></div>' +
+        '</article>';
+    }).join('');
+
+    $$(".add-cal", host).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        window._pendingRecipe = btn.getAttribute("data-recipe");
+        location.hash = "#/calendario";
+        toast("Elige la comida donde asignarla");
+      });
+    });
+  }
+
+  /* =========================================================
+     Calendario
+  ========================================================= */
+  var DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+  var MEALS = ["Desayuno", "Media mañana", "Almuerzo", "Cena"];
+  var CAL_KEY = "med.cal";
+
+  function getCal() { return store.get(CAL_KEY, {}); }
+  function saveCal(c) { store.set(CAL_KEY, c); }
+
+  function renderCalendar() {
+    var table = $("#cal-table");
+    if (!table) return;
+    var cal = getCal();
+    var todayIdx = (new Date().getDay() + 6) % 7;
+
+    var thead = '<thead><tr><th style="min-width:92px">Comida</th>';
+    DAYS.forEach(function (d, i) {
+      thead += '<th class="' + (i === todayIdx ? "today" : "") + '">' + d + '</th>';
+    });
+    thead += '</tr></thead>';
+
+    var options = '<option value="">—</option>' + RECIPES.map(function (r) {
+      return '<option value="' + r.id + '">' + escapeHtml(r.name) + '</option>';
+    }).join('');
+
+    var tbody = '<tbody>';
+    MEALS.forEach(function (meal) {
+      tbody += '<tr><td class="meal">' + meal + '</td>';
+      DAYS.forEach(function (day, i) {
+        var key = day + "|" + meal;
+        var val = cal[key] || "";
+        var selected = val ? recipeById(val) : null;
+        var opts = '<option value="">—</option>' + RECIPES.map(function (r) {
+          return '<option value="' + r.id + '"' + (r.id === val ? ' selected' : '') + '>' + escapeHtml(r.name) + '</option>';
+        }).join('');
+        tbody += '<td class="' + (i === todayIdx ? "today" : "") + '"><select data-key="' + key + '">' + opts + '</select></td>';
+      });
+      tbody += '</tr>';
+    });
+    tbody += '</tbody>';
+
+    table.innerHTML = thead + tbody;
+
+    $$("select", table).forEach(function (sel) {
+      sel.addEventListener("change", function () {
+        var c = getCal();
+        if (sel.value) { c[sel.getAttribute("data-key")] = sel.value; }
+        else { delete c[sel.getAttribute("data-key")]; }
+        saveCal(c);
+        renderCalPrint();
+        renderCalLegend();
+      });
+    });
+
+    renderCalLegend();
+    renderCalPrint();
+
+    if (window._pendingRecipe) {
+      var rid = window._pendingRecipe;
+      window._pendingRecipe = null;
+      var first = $("#cal-table select[data-key]");
+      if (first) { first.value = rid; first.dispatchEvent(new Event("change")); first.focus(); }
+    }
+  }
+
+  function renderCalLegend() {
+    var host = $("#cal-legend");
+    if (!host) return;
+    var cal = getCal();
+    var counts = {};
+    Object.keys(cal).forEach(function (k) { counts[cal[k]] = (counts[cal[k]] || 0) + 1; });
+    var used = RECIPES.filter(function (r) { return counts[r.id]; });
+    if (!used.length) { host.innerHTML = "Aún no has asignado recetas."; return; }
+    host.innerHTML = "En tu semana: " + used.map(function (r) {
+      return escapeHtml(r.name) + " (" + counts[r.id] + ")";
+    }).join(" · ");
+  }
+
+  function renderCalPrint() {
+    var host = $("#cal-print");
+    if (!host) return;
+    var cal = getCal();
+    var rows = '<table class="cal"><thead><tr><th>Comida</th>' +
+      DAYS.map(function (d) { return '<th>' + d + '</th>'; }).join('') + '</tr></thead><tbody>';
+    MEALS.forEach(function (meal) {
+      rows += '<tr><td class="meal">' + meal + '</td>';
+      DAYS.forEach(function (day) {
+        var r = recipeById(cal[day + "|" + meal]);
+        rows += '<td>' + (r ? escapeHtml(r.name) : "—") + '</td>';
+      });
+      rows += '</tr>';
+    });
+    rows += '</tbody></table>';
+    host.innerHTML = '<h2 style="font-size:16pt;margin-bottom:10px">Calendario del recetario</h2>' + rows;
+  }
+
+  function suggestWeek() {
+    var rotation = {
+      "Desayuno": ["r3", "r7", "r3", "r7", "r3", "r7", "r3"],
+      "Media mañana": ["r1", "r8", "r1", "r8", "r1", "r8", "r1"],
+      "Almuerzo": ["r4", "r5", "r6", "r4", "r5", "r6", "r4"],
+      "Cena": ["r5", "r6", "r2", "r2", "r6", "r5", "r2"]
+    };
+    var cal = {};
+    DAYS.forEach(function (day, i) {
+      MEALS.forEach(function (meal) {
+        cal[day + "|" + meal] = rotation[meal][i];
+      });
+    });
+    saveCal(cal);
+    renderCalendar();
+    toast("Semana sugerida generada");
+  }
+
+  /* =========================================================
+     Mercado
+  ========================================================= */
+  var MARKET_KEY = "med.market";
+  var MARKET_SEED = [
+    { name: "Agua", cat: "Hidratación" },
+    { name: "Jugo de arándano (con PAC)", cat: "Hidratación" },
+    { name: "Manzanilla", cat: "Hidratación" },
+    { name: "Jengibre", cat: "Hidratación" },
+    { name: "Salmón", cat: "Proteínas" },
+    { name: "Sardina", cat: "Proteínas" },
+    { name: "Atún", cat: "Proteínas" },
+    { name: "Huevos", cat: "Proteínas" },
+    { name: "Pollo", cat: "Proteínas" },
+    { name: "Lentejas", cat: "Proteínas" },
+    { name: "Garbanzo", cat: "Proteínas" },
+    { name: "Carne roja", cat: "Hierro y vitamina C" },
+    { name: "Hígado", cat: "Hierro y vitamina C" },
+    { name: "Espinaca", cat: "Hierro y vitamina C" },
+    { name: "Ajonjolí", cat: "Hierro y vitamina C" },
+    { name: "Naranja", cat: "Hierro y vitamina C" },
+    { name: "Mandarina", cat: "Hierro y vitamina C" },
+    { name: "Kiwi", cat: "Hierro y vitamina C" },
+    { name: "Pimiento rojo", cat: "Hierro y vitamina C" },
+    { name: "Limón", cat: "Hierro y vitamina C" },
+    { name: "Brócoli", cat: "Vegetales y fibra" },
+    { name: "Calabacín", cat: "Vegetales y fibra" },
+    { name: "Zanahoria", cat: "Vegetales y fibra" },
+    { name: "Tomate", cat: "Vegetales y fibra" },
+    { name: "Cebolla", cat: "Vegetales y fibra" },
+    { name: "Avena", cat: "Vegetales y fibra" },
+    { name: "Arroz integral", cat: "Vegetales y fibra" },
+    { name: "Aceite de oliva", cat: "Vegetales y fibra" },
+    { name: "Chía", cat: "Ayuda al dolor" },
+    { name: "Linaza molida", cat: "Ayuda al dolor" },
+    { name: "Nueces", cat: "Ayuda al dolor" },
+    { name: "Cúrcuma", cat: "Ayuda al dolor" },
+    { name: "Pimienta negra", cat: "Ayuda al dolor" },
+    { name: "Canela", cat: "Ayuda al dolor" },
+    { name: "Yogur natural", cat: "Ayuda al dolor" },
+    { name: "Miel", cat: "Despensa" },
+    { name: "Arándanos rojos", cat: "Despensa" },
+    { name: "Probiótico", cat: "Suplementos (con indicación médica)" },
+    { name: "Omega-3 (EPA/DHA)", cat: "Suplementos (con indicación médica)" },
+    { name: "Magnesio", cat: "Suplementos (con indicación médica)" },
+    { name: "Vitamina D", cat: "Suplementos (con indicación médica)" },
+    { name: "Sulfato ferroso (según orden)", cat: "Suplementos (con indicación médica)" }
+  ];
+
+  function seedMarket() {
+    return MARKET_SEED.map(function (it) { return { name: it.name, cat: it.cat, done: false }; });
+  }
+
+  function getMarket() {
+    var list = store.get(MARKET_KEY, null);
+    if (!list) { list = seedMarket(); store.set(MARKET_KEY, list); }
+    return list;
+  }
+  function saveMarket(list) { store.set(MARKET_KEY, list); }
+
+  function renderMarket() {
+    var host = $("#market-list");
+    if (!host) return;
+    var list = getMarket();
+    var cats = [];
+    list.forEach(function (it) { if (cats.indexOf(it.cat) === -1) cats.push(it.cat); });
+
+    host.innerHTML = cats.map(function (cat) {
+      var items = list.filter(function (it) { return it.cat === cat; });
+      return '<div class="cat-block"><h4>' + escapeHtml(cat) + '</h4><ul class="market">' +
+        items.map(function (it) {
+          return '<li class="' + (it.done ? "done" : "") + '">' +
+            '<input type="checkbox" data-name="' + escapeHtml(it.name) + '"' + (it.done ? " checked" : "") + '>' +
+            '<label>' + escapeHtml(it.name) + '</label>' +
+            '<button class="del" data-del="' + escapeHtml(it.name) + '" title="Eliminar">&times;</button>' +
+          '</li>';
+        }).join('') + '</ul></div>';
+    }).join('');
+
+    $$("#market-list input[type=checkbox]").forEach(function (cb) {
+      cb.addEventListener("change", function () {
+        var l = getMarket();
+        l.forEach(function (it) { if (it.name === cb.getAttribute("data-name")) it.done = cb.checked; });
+        saveMarket(l);
+        renderMarketProgress();
+        cb.closest("li").classList.toggle("done", cb.checked);
+      });
+    });
+
+    $$("#market-list .del").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var name = btn.getAttribute("data-del");
+        var l = getMarket().filter(function (it) { return it.name !== name; });
+        saveMarket(l);
+        renderMarket();
+      });
+    });
+
+    renderMarketProgress();
+  }
+
+  function renderMarketProgress() {
+    var list = getMarket();
+    var done = list.filter(function (it) { return it.done; }).length;
+    var pct = list.length ? Math.round((done / list.length) * 100) : 0;
+    var bar = $("#market-progress");
+    var label = $("#market-progress-label");
+    if (bar) bar.style.width = pct + "%";
+    if (label) label.textContent = done + " de " + list.length + " comprados";
+  }
+
+  function addMarketItem(name, cat) {
+    name = (name || "").trim();
+    if (!name) { toast("Escribe un producto"); return; }
+    var list = getMarket();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name.toLowerCase() === name.toLowerCase()) { toast("Ya está en la lista"); return; }
+    }
+    list.push({ name: name, cat: cat, done: false });
+    saveMarket(list);
+    renderMarket();
+  }
+
+  function marketFromCalendar() {
+    var cal = getCal();
+    var ids = {};
+    Object.keys(cal).forEach(function (k) { ids[cal[k]] = true; });
+    var needed = [];
+    Object.keys(ids).forEach(function (id) {
+      var r = recipeById(id);
+      if (r) r.ingredients.forEach(function (ing) { if (needed.indexOf(ing) === -1) needed.push(ing); });
+    });
+    if (!needed.length) { toast("El calendario está vacío"); return; }
+    var list = getMarket();
+    var added = 0;
+    needed.forEach(function (ing) {
+      var exists = list.some(function (it) { return it.name.toLowerCase() === ing.toLowerCase(); });
+      if (!exists) { list.push({ name: ing, cat: "Desde el calendario", done: false }); added++; }
+    });
+    saveMarket(list);
+    renderMarket();
+    toast(added ? added + " producto(s) añadido(s)" : "Ya tenías todo");
+  }
+
+  /* =========================================================
+     Síntomas
+  ========================================================= */
+  var SYM_KEY = "med.sym";
+
+  function getSymptoms() { return store.get(SYM_KEY, []); }
+  function saveSymptoms(list) { store.set(SYM_KEY, list); }
+
+  function renderSymptoms() {
+    var list = getSymptoms().slice().sort(function (a, b) { return b.date.localeCompare(a.date) || b.ts - a.ts; });
+    renderSymStats(list);
+    renderSymChart(list);
+    renderSymList(list);
+  }
+
+  function renderSymStats(list) {
+    var host = $("#sym-stats");
+    if (!host) return;
+    var today = new Date();
+    var cutoff = new Date(today.getTime() - 7 * 86400000).toISOString().slice(0, 10);
+    var last7 = list.filter(function (e) { return e.date >= cutoff; });
+    var avgPain = last7.length ? (last7.reduce(function (s, e) { return s + e.dolor; }, 0) / last7.length) : 0;
+    var fevers = list.filter(function (e) { return e.flags.indexOf("Fiebre") !== -1 || (e.temp && e.temp >= 38); }).length;
+    var burns = list.filter(function (e) { return e.flags.indexOf("Ardor al orinar") !== -1; }).length;
+    var avgHidra = last7.length ? (last7.reduce(function (s, e) { return s + (e.hidra || 0); }, 0) / last7.length) : 0;
+
+    host.innerHTML = '' +
+      '<div class="stat"><div class="n">' + list.length + '</div><div class="l">Registros</div></div>' +
+      '<div class="stat"><div class="n">' + avgPain.toFixed(1) + '</div><div class="l">Dolor prom. 7 días</div></div>' +
+      '<div class="stat"><div class="n">' + fevers + '</div><div class="l">Días con fiebre</div></div>' +
+      '<div class="stat"><div class="n">' + burns + '</div><div class="l">Días con ardor</div></div>' +
+      '<div class="stat"><div class="n">' + avgHidra.toFixed(1) + ' L</div><div class="l">Hidratación prom.</div></div>';
+  }
+
+  function renderSymList(list) {
+    var host = $("#sym-list");
+    if (!host) return;
+    if (!list.length) { host.innerHTML = '<li class="hint">Aún no hay registros.</li>'; return; }
+    host.innerHTML = list.map(function (e) {
+      var flags = e.flags && e.flags.length ? " · " + escapeHtml(e.flags.join(", ")) : "";
+      var extra = [];
+      if (e.temp) extra.push(e.temp + " °C");
+      if (e.hidra) extra.push(e.hidra + " L");
+      if (e.depos && e.depos !== "normal") extra.push(e.depos);
+      var detail = "Dolor " + e.dolor + "/10" + flags + (extra.length ? " · " + escapeHtml(extra.join(" · ")) : "");
+      return '<li>' +
+        '<span class="log-date">' + escapeHtml(e.date) + '</span>' +
+        '<div class="log-main"><div class="title">' + (e.dolor >= 7 ? "Dolor alto" : e.dolor >= 4 ? "Dolor moderado" : "Dolor leve") + '</div>' +
+        '<div class="detail">' + detail + (e.nota ? '<br>' + escapeHtml(e.nota) : '') + '</div></div>' +
+        '<button class="del" data-id="' + e.id + '" title="Eliminar">&times;</button>' +
+      '</li>';
+    }).join('');
+
+    $$("#sym-list .del").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-id");
+        var l = getSymptoms().filter(function (e) { return String(e.id) !== String(id); });
+        saveSymptoms(l);
+        renderSymptoms();
+      });
+    });
+  }
+
+  function renderSymChart(list) {
+    var canvas = $("#sym-chart");
+    if (!canvas) return;
+    var ctx = canvas.getContext("2d");
+    var dpr = window.devicePixelRatio || 1;
+    var w = canvas.clientWidth || 600;
+    var h = 200;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    var entries = list.slice().sort(function (a, b) { return a.date.localeCompare(b.date); }).slice(-14);
+
+    var padL = 34, padR = 14, padT = 16, padB = 30;
+    var plotW = w - padL - padR;
+    var plotH = h - padT - padB;
+
+    ctx.strokeStyle = "#E4E2DB";
+    ctx.fillStyle = "#757C74";
+    ctx.font = "10px -apple-system, Arial, sans-serif";
+    ctx.lineWidth = 1;
+
+    for (var g = 0; g <= 10; g += 2) {
+      var y = padT + plotH - (g / 10) * plotH;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+      ctx.fillText(String(g), 12, y + 3);
+    }
+
+    if (entries.length === 0) {
+      ctx.fillStyle = "#9A9E97";
+      ctx.fillText("Sin datos para graficar", padL + 10, padT + plotH / 2);
+      return;
+    }
+
+    var n = entries.length;
+    var step = n > 1 ? plotW / (n - 1) : 0;
+
+    ctx.beginPath();
+    ctx.strokeStyle = "#587A6A";
+    ctx.lineWidth = 2;
+    entries.forEach(function (e, i) {
+      var x = padL + i * step;
+      var y = padT + plotH - (e.dolor / 10) * plotH;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    entries.forEach(function (e, i) {
+      var x = padL + i * step;
+      var y = padT + plotH - (e.dolor / 10) * plotH;
+      ctx.beginPath();
+      ctx.fillStyle = "#587A6A";
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fill();
+      if (n <= 8 || i % 2 === 0) {
+        ctx.fillStyle = "#757C74";
+        ctx.fillText(e.date.slice(5), x - 12, h - 10);
+      }
+    });
+  }
+
+  function saveSymptom() {
+    var flags = $$(".sym-flag:checked").map(function (c) { return c.value; });
+    var date = $("#sym-date").value || todayISO();
+    var dolor = parseInt($("#sym-dolor").value, 10) || 1;
+    var temp = parseFloat($("#sym-temp").value);
+    var hidra = parseFloat($("#sym-hidra").value);
+    var depos = $("#sym-depos").value;
+    var nota = $("#sym-nota").value.trim();
+
+    var entry = {
+      id: Date.now(),
+      ts: Date.now(),
+      date: date,
+      dolor: dolor,
+      temp: isNaN(temp) ? null : temp,
+      hidra: isNaN(hidra) ? null : hidra,
+      depos: depos,
+      flags: flags,
+      nota: nota
+    };
+    var list = getSymptoms();
+    list.push(entry);
+    saveSymptoms(list);
+
+    $("#sym-nota").value = "";
+    $("#sym-temp").value = "";
+    $("#sym-hidra").value = "";
+    $("#sym-dolor").value = 1;
+    $("#sym-dolor-val").textContent = "1";
+    $$(".sym-flag").forEach(function (c) { c.checked = false; });
+
+    renderSymptoms();
+    toast("Registro guardado");
+  }
+
+  function exportSymptomsCSV() {
+    var list = getSymptoms();
+    if (!list.length) { toast("No hay registros"); return; }
+    var headers = ["fecha", "dolor", "temperatura", "hidratacion_L", "deposiciones", "senales", "nota"];
+    var rows = list.map(function (e) {
+      return [e.date, e.dolor, e.temp || "", e.hidra || "", e.depos || "", (e.flags || []).join("; "), (e.nota || "").replace(/[\r\n]+/g, " ")]
+        .map(function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(",");
+    });
+    var csv = headers.join(",") + "\n" + rows.join("\n");
+    var blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "sintomas-" + todayISO() + ".csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  /* =========================================================
+     Asistente (motor local + API opcional)
+  ========================================================= */
+  var AI_KEY = "med.ai";
+  var CHAT_KEY = "med.chat";
+  var DEFAULT_WORKER_URL = "https://medicamentos-ai.www-davidalexander.workers.dev/";
+
+  var SYSTEM_PROMPT = [
+    "Eres un asistente informativo de apoyo a una paciente de 30 años con diagnóstico N110 (pielonefritis crónica no obstructiva asociada a reflujo), F454 (trastorno de dolor persistente somatomorfo) y lumbago mecánico.",
+    "Medicación mencionada en sus órdenes: nitrofurantoína, hioscina, sulfato ferroso, hierro sacarato IV, meloxicam, acetaminofén.",
+    "Responde en español, con tono claro y breve. Da información general sobre alimentos, suplementos y hábitos con base en la evidencia, recetas, y orientación de seguimiento.",
+    "Nunca indiques suspender o cambiar medicamentos. Ante fiebre alta, vómito, dolor lumbar intenso o sangre en orina, recomienda acudir a urgencias. Recuerda siempre que no eres un médico y que las decisiones deben validarse con el profesional tratante.",
+    "Si preguntan por suplementos, advierte sobre potasio/magnesio en falla renal, interacciones con anticoagulantes y con meloxicam."
+  ].join(" ");
+
+  var KB = [
+    { k: ["hierro", "anemia", "ferroso", "ferropenia", "hemoglobina"], a: "Para el hierro:\n<ul><li><strong>Alimentos hemo:</strong> carne roja, hígado, pollo, pescado (mejor absorción).</li><li><strong>No hemo:</strong> lentejas, garbanzo, espinaca, ajonjolí.</li><li>Combínalos con <strong>vitamina C</strong> (limón, naranja, pimiento) para duplicar la absorción.</li><li>Separa <strong>café, té y lácteos</strong> 1–2 horas del sulfato ferroso.</li><li>Toma el sulfato ferroso en ayunas o con jugo cítrico; puede dar estreñimiento y heces oscuras (normal).</li></ul>Recetas: lentejas con pimiento y limón, ensalada de garbanzo, batido de naranja." },
+    { k: ["arandano", "arándano", "cranberry", "itu", "infeccion urinaria", "infección urinaria", "cistitis"], a: "El arándano rojo es <strong>preventivo</strong>, no cura una infección activa.\n<ul><li>Metaanálisis 2024 (+20 ensayos, 3.091 pacientes): hasta <strong>54%</strong> menos ITU.</li><li>Cochrane 2023 (8.857 personas): ~<strong>26%</strong> menos recurrencia en mujeres.</li><li>Busca <strong>40 mg de PAC por 125 ml</strong> de jugo, o cápsula con ≥240 mg de PAC.</li></ul>El jugo comercial azucarado no sirve. Si ya tienes síntomas, necesitas valoración médica; retrasar el antibiótico puede llevar la infección al riñón." },
+    { k: ["ardor", "orina", "orinar", "urgencia", "turbia", "disuria", "vejiga"], a: "Señales urinarias (ardor, urgencia, orina turbia):\n<ul><li>Aumenta el agua (1,5–2 L/día si no hay restricción) para arrastrar bacterias.</li><li>No aguantes la orina; orina tras las relaciones.</li><li>Higiene de adelante hacia atrás.</li><li>El arándano ayuda a <em>prevenir</em>, no a curar.</li></ul><strong>Si hay fiebre, dolor lumbar o sangre en orina, acude a urgencias.</strong> Eso puede indicar que la infección subió al riñón." },
+    { k: ["dolor", "lumbago", "lumbar", "espalda", "ciatica", "ciática"], a: "Para el lumbago mecánico, lo que más respalda la evidencia y los casos reales es:\n<ul><li><strong>Fisioterapia</strong> con activación de core, movilización y ejercicios de McKenzie.</li><li>Estiramiento del cuadrado lumbar y corrección postural.</li><li>Caminata suave y gradual; evitar reposo prolongado.</li><li>Alimentación antiinflamatoria: omega-3, cúrcuma con pimienta negra, dieta mediterránea.</li></ul>Los analgésicos calman mientras, pero no resuelven la causa mecánica." },
+    { k: ["somatomorfo", "somatico", "somático", "f454", "persistente", "estres", "estrés", "ansiedad"], a: "El F454 (dolor persistente somatomorfo) significa que el dolor es real pero la percepción está amplificada por el sistema nervioso y el estrés.\n<ul><li>Lo que los casos reportan útil: <strong>psicoterapia</strong>, antidepresivos para dolor crónico, fisioterapia, compresas frías/calientes, masajes y grupos de apoyo.</li><li><strong>Sueño de 7–8 h</strong> y manejo del estrés son clave.</li><li>Los analgésicos comunes suelen ser poco efectivos y con efectos secundarios.</li></ul>No es \"dolor imaginario\": es un trastorno reconocido que mejora con abordaje integral." },
+    { k: ["suplemento", "suplementos", "magnesio", "vitamina d", "omega", "curcuma", "cúrcuma", "probiótico", "probiotico", "d-manosa", "manosa"], a: "Suplementos y precauciones:\n<ul><li><strong>Arándano rojo:</strong> preventivo de ITU; interactúa con warfarina.</li><li><strong>Omega-3 y cúrcuma:</strong> antiinflamatorios leves; cuidado con anticoagulantes.</li><li><strong>Magnesio:</strong> calambres/sueño; <strong>puede acumularse si hay falla renal</strong> — consultar.</li><li><strong>Vitamina D:</strong> mejor medirte el nivel antes.</li><li><strong>Probiótico:</strong> separable ≥2 h del antibiótico.</li></ul>Evita hierbas \"detox renal\" o diuréticas. Ninguno sustituye tu tratamiento." },
+    { k: ["receta", "recetas", "comer", "cocinar", "menu", "menú", "desayuno", "almuerzo", "cena"], a: "Tienes 8 recetas en la pestaña <strong>Recetario</strong> y puedes asignarlas al <strong>Calendario</strong>. Ejemplos:\n<ul><li>Antiinflamatorio: salmón al horno con brócoli y cúrcuma.</li><li>Hierro: lentejas con pimiento y limón; ensalada de garbanzo y cítricos.</li><li>ITU/hidratación: agua de arándano y limón; infusión de jengibre y manzanilla.</li><li>Fibra: avena nocturna con arándano, chía y nueces.</li></ul>¿Quieres una basada en un objetivo concreto (hierro, antiinflamatorio, etc.)?" },
+    { k: ["calendario", "semana", "planear", "planificar", "plan"], a: "En la pestaña <strong>Calendario</strong> puedes asignar una receta a cada comida de la semana, o pulsar <em>«Generar semana sugerida»</em> para que se llene automáticamente. Luego pulsa <em>«Imprimir / PDF»</em>. En la pestaña <strong>Mercado</strong>, el botón <em>«Añadir desde el calendario»</em> agrega los ingredientes de las recetas que elegiste." },
+    { k: ["mercado", "compra", "comprar", "lista"], a: "En la pestaña <strong>Mercado</strong> tienes la lista por categorías con casillas para marcar lo comprado y una barra de progreso. Puedes añadir productos y, sobre todo, usar <em>«Añadir desde el calendario»</em> para generar la lista con los ingredientes de tu semana. Se puede imprimir." },
+    { k: ["sintoma", "síntoma", "sintomas", "síntomas", "seguimiento", "registro", "diario"], a: "En la pestaña <strong>Síntomas</strong> registras dolor (1–10), temperatura, hidratación, deposiciones y señales (ardor, fiebre, etc.). Verás una gráfica de tu dolor, promedios de 7 días y puedes exportar CSV o imprimir. Llevar el registro ayuda a tu médico a ajustar el tratamiento." },
+    { k: ["orden", "ordenes", "órdenes", "formula", "fórmula", "incapacidad", "hemograma"], a: "Resumen de tus órdenes (01/10/2026, Clínica Central del Quindío):\n<ul><li>Hemograma de control <strong>en 48 h</strong>.</li><li>Hierro sacarato IV: 1 ampolla cada 24 h por 9 días.</li><li>Meloxicam (5 días) y acetaminofén (5 días).</li><li>Interconsulta a gastroenterología y a fisioterapia (lumbago mecánico).</li><li>Incapacidad 1–5 de octubre.</li><li>Fórmula con vigencia de 48 h.</li></ul>Puedes marcarlas en la pestaña <strong>Síntomas</strong> como respaldo, o anotarlas en tu calendario." },
+    { k: ["fiebre", "alarma", "urgencia", "emergencia", "vomito", "vómito", "sangre"], a: "<strong>Señales de alarma — acude a urgencias:</strong>\n<ul><li>Fiebre alta que no cede con antipiréticos.</li><li>Dolor lumbar o abdominal fuerte y constante.</li><li>Vómito que no puedes controlar.</li><li>Sangre en orina o deposiciones.</li><li>Dificultad para respirar o dolor en el pecho.</li><li>No orinar o coloración amarilla de piel/ojos.</li></ul>No lo manejes con dieta ni con remedios caseros: puede ser pielonefritis aguda o sepsis." },
+    { k: ["agua", "hidratacion", "hidratación", "liquido", "líquido", "tomar agua"], a: "La <strong>hidratación</strong> es la base: 1,5–2 L de agua al día si tu médico no te la ha restringido. Ayuda a arrastrar bacterias y a vaciar la vejiga. Reparte el consumo durante el día, no de golpe. Evita alcohol y mucha cafeína, que irritan la vejiga." },
+    { k: ["potasio", "renal", "riñon", "riñón", "creatinina", "filtracion", "filtración"], a: "Con un diagnóstico renal, <strong>el riñón manda</strong>. Si tienes creatinina o filtración alteradas o te restringieron potasio/sodio/proteína:\n<ul><li>Modera alimentos altos en potasio: espinaca, brócoli, garbanzo, aguacate, plátano, frutos secos.</li><li>No agregues sal.</li><li>Evita suplementos de potasio o magnesio sin control.</li><li>Nada de hierbas \"detox renal\".</li></ul>Confirma siempre con tu médico." },
+    { k: ["antibiotico", "antibiótico", "nitrofurantoina", "nitrofurantoína", "macrodantina"], a: "La <strong>nitrofurantoína</strong> es uno de los antibióticos que las guías mencionan para prevenir ITU recurrente / nefropatía por reflujo. Pautas importantes:\n<ul><li>No suspendas ni cambies la dosis por tu cuenta.</li><li>El probiótico se toma separado ≥2 horas.</li><li>Mantén buena hidratación.</li></ul>Si aparecen fiebre o dolor lumbar, acude a urgencias: puede requerir otro manejo." },
+    { k: ["probiótico", "probiotico", "flora", "lactobacillus"], a: "Los <strong>probióticos</strong> ayudan a recuperar la flora tras los antibióticos. Tómalos <strong>separados al menos 2 horas</strong> del antibiótico. El yogur natural con linaza y arándano es una opción alimentaria. Si tienes inmunosupresión, consulta antes." },
+    { k: ["sueño", "dormir", "insomnio", "descanso"], a: "El <strong>sueño de 7–8 horas</strong> es clave, sobre todo en el dolor persistente somatomorfo: la falta de sueño amplifica la percepción del dolor. Una infusión de manzanilla y jengibre por la noche y un horario regular ayudan. Si el insomnio es persistente, coméntalo con tu médico." },
+    { k: ["estreñimiento", "deposicion", "deposición", "fibra", "transito", "tránsito"], a: "El <strong>estreñimiento empeora la función vesical</strong>, así que la fibra importa: avena, chía, linaza, frutas y verduras, y buena hidratación. El sulfato ferroso puede estreñir; si te pasa, avísale a tu médico. La avena nocturna con chía es una buena opción." },
+    { k: ["gracias", "graciass", "ok", "perfecto"], a: "Con gusto. Recuerda: esto es información general, no consejo médico. Cualquier cambio de medicación o suplemento, valídalo con tu médico tratante." }
+  ];
+
+  function localAnswer(text) {
+    var t = text.toLowerCase();
+    var best = null, bestScore = 0;
+    KB.forEach(function (entry) {
+      var score = 0;
+      entry.k.forEach(function (kw) { if (t.indexOf(kw) !== -1) score += kw.length; });
+      if (score > bestScore) { bestScore = score; best = entry; }
+    });
+    if (best && bestScore > 0) return best.a.replace(/\n/g, "<br>").replace(/<br><ul>/g, "<ul>").replace(/<br><strong>/g, "<br><strong>");
+    return "Puedo ayudarte con: <ul><li>Alimentos y suplementos (hierro, arándano, ITU).</li><li>Dolor lumbar y dolor persistente.</li><li>Recetas y calendario.</li><li>Mercado y registro de síntomas.</li><li>Resumen de tus órdenes y señales de alarma.</li></ul>Prueba con una de las sugerencias de arriba o escribe tu pregunta con palabras clave.";
+  }
+
+  function getChat() { return store.get(CHAT_KEY, []); }
+  function saveChat(msgs) { store.set(CHAT_KEY, msgs); }
+
+  function renderChat() {
+    var host = $("#chat-log");
+    if (!host) return;
+    var msgs = getChat();
+    if (!msgs.length) {
+      host.innerHTML = '<div class="msg bot">Hola. Soy tu asistente informativo sobre <strong>pielonefritis crónica</strong>, <strong>dolor persistente</strong> y <strong>lumbago</strong>. Puedo orientarte sobre alimentos, suplementos, recetas, tus órdenes y seguimiento de síntomas. ¿En qué te ayudo?<br><br><em>No soy un médico: ante fiebre alta, vómito, dolor lumbar fuerte o sangre en orina, acude a urgencias.</em></div>';
+      return;
+    }
+    host.innerHTML = msgs.map(function (m) {
+      return '<div class="msg ' + (m.role === "user" ? "user" : "bot") + '">' + m.html + '</div>';
+    }).join('');
+    host.scrollTop = host.scrollHeight;
+  }
+
+  function pushChat(role, html) {
+    var msgs = getChat();
+    msgs.push({ role: role, html: html, ts: Date.now() });
+    saveChat(msgs.slice(-40));
+    renderChat();
+  }
+
+  function setStatus(txt) { var el = $("#ai-status"); if (el) el.textContent = txt; }
+
+  function callWorker(text) {
+    var ai = store.get(AI_KEY, {});
+    var url = (ai.workerUrl || DEFAULT_WORKER_URL).trim();
+    if (!url) return Promise.reject(new Error("sin-url"));
+
+    var history = getChat().slice(-8).map(function (m) {
+      return { role: m.role === "user" ? "user" : "assistant", content: m.html.replace(/<[^>]+>/g, " ") };
+    });
+
+    return fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [{ role: "system", content: SYSTEM_PROMPT }].concat(history)
+      })
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+      .then(function (res) {
+        var d = res.data || {};
+        if (d.error) throw new Error(typeof d.error === "string" ? d.error : "error del worker");
+        var out = d.reply ||
+          (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content);
+        if (!out) throw new Error("respuesta vacía");
+        return out;
+      });
+  }
+
+  function sendChat() {
+    var input = $("#chat-input");
+    var text = input.value.trim();
+    if (!text) return;
+    pushChat("user", escapeHtml(text));
+    input.value = "";
+
+    var ai = store.get(AI_KEY, {});
+    var useWorker = ai.use !== false && (ai.workerUrl || DEFAULT_WORKER_URL).trim();
+
+    if (!useWorker) {
+      setTimeout(function () { pushChat("bot", localAnswer(text)); }, 220);
+      return;
+    }
+
+    setStatus("Consultando worker…");
+    callWorker(text)
+      .then(function (out) {
+        pushChat("bot", escapeHtml(out).replace(/\n/g, "<br>"));
+        setStatus("Worker de IA activo");
+      })
+      .catch(function () {
+        pushChat("bot", "<strong>No pude conectar con el worker.</strong> Respondo con el motor local:<br><br>" + localAnswer(text));
+        setStatus("Motor local (el worker no respondió)");
+      });
+  }
+
+  function loadAISettings() {
+    var ai = store.get(AI_KEY, {});
+    var url = ai.workerUrl || DEFAULT_WORKER_URL;
+    $("#ai-use").checked = ai.use !== false;
+    $("#ai-worker-url").value = url;
+    setStatus(ai.use !== false && url ? "Worker de IA configurado" : "Motor local activo");
+  }
+
+  function saveAISettings() {
+    store.set(AI_KEY, {
+      use: $("#ai-use").checked,
+      workerUrl: $("#ai-worker-url").value.trim()
+    });
+    var on = $("#ai-use").checked && $("#ai-worker-url").value.trim();
+    setStatus(on ? "Worker de IA configurado" : "Motor local activo");
+    toast("Ajustes guardados");
+  }
+
+  function testWorker() {
+    var url = $("#ai-worker-url").value.trim();
+    if (!url) { toast("Escribe la URL del worker"); return; }
+    setStatus("Probando conexión…");
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: [{ role: "user", content: "Responde solo: ok" }] })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.error) { setStatus("El worker respondió con error"); toast("Worker: " + d.error); return; }
+        setStatus("Worker de IA activo");
+        toast("Conexión correcta");
+      })
+      .catch(function () {
+        setStatus("No se pudo conectar al worker");
+        toast("No se pudo conectar (revisa la URL o CORS)");
+      });
+  }
+
+  function initChips() {
+    var chips = [
+      "¿Qué ayuda a subir el hierro?",
+      "Tengo ardor al orinar",
+      "Dame una receta antiinflamatoria",
+      "¿Qué suplementos debo evitar?",
+      "Resumen de mis órdenes",
+      "¿Cómo manejo el dolor lumbar?"
+    ];
+    var host = $("#chat-chips");
+    if (!host) return;
+    host.innerHTML = chips.map(function (c) {
+      return '<button type="button">' + escapeHtml(c) + '</button>';
+    }).join('');
+    $$("button", host).forEach(function (b) {
+      b.addEventListener("click", function () {
+        $("#chat-input").value = b.textContent;
+        sendChat();
+      });
+    });
+  }
+
+  /* =========================================================
+     Init
+  ========================================================= */
+  function init() {
+    renderRecipes();
+    initSubnavSpy();
+    initChips();
+    renderChat();
+    loadAISettings();
+
+    $("#sym-date").value = todayISO();
+    $("#sym-dolor").addEventListener("input", function () {
+      $("#sym-dolor-val").textContent = this.value;
+    });
+    $("#sym-save").addEventListener("click", saveSymptom);
+    $("#sym-print").addEventListener("click", function () { window.print(); });
+    $("#sym-export").addEventListener("click", exportSymptomsCSV);
+    $("#sym-clear").addEventListener("click", function () {
+      if (confirm("¿Borrar todos los registros de síntomas?")) { saveSymptoms([]); renderSymptoms(); toast("Registros borrados"); }
+    });
+
+    $("#cal-suggest").addEventListener("click", suggestWeek);
+    $("#cal-clear").addEventListener("click", function () { saveCal({}); renderCalendar(); toast("Calendario vaciado"); });
+    $("#cal-print-btn").addEventListener("click", function () { window.print(); });
+
+    $("#market-add-btn").addEventListener("click", function () {
+      addMarketItem($("#market-add-name").value, $("#market-add-cat").value);
+      $("#market-add-name").value = "";
+    });
+    $("#market-add-name").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { addMarketItem(this.value, $("#market-add-cat").value); this.value = ""; }
+    });
+    $("#market-from-cal").addEventListener("click", marketFromCalendar);
+    $("#market-clear-done").addEventListener("click", function () {
+      var l = getMarket().filter(function (it) { return !it.done; });
+      saveMarket(l); renderMarket(); toast("Marcados eliminados");
+    });
+    $("#market-reset").addEventListener("click", function () {
+      if (confirm("¿Reiniciar la lista a la versión inicial?")) { saveMarket(seedMarket()); renderMarket(); toast("Lista reiniciada"); }
+    });
+    $("#market-print").addEventListener("click", function () { window.print(); });
+
+    $("#chat-send").addEventListener("click", sendChat);
+    $("#chat-input").addEventListener("keydown", function (e) { if (e.key === "Enter") sendChat(); });
+    $("#chat-clear").addEventListener("click", function () { saveChat([]); renderChat(); toast("Conversación borrada"); });
+    $("#ai-save").addEventListener("click", saveAISettings);
+    $("#ai-test").addEventListener("click", testWorker);
+
+    window.addEventListener("resize", function () {
+      if ($("#page-sintomas").classList.contains("active")) renderSymChart(getSymptoms());
+    });
+
+    route();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
