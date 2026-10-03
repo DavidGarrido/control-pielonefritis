@@ -299,7 +299,6 @@
   .recipe .r-why { padding: 14px 24px 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); background: #FBFAF7; }
   .recipe .r-why strong { color: var(--sage); font-weight: 650; }
   .recipe .r-actions { padding: 0 24px 16px; background: #FBFAF7; }
-  .add-cal { font-size: 12px; padding: 6px 11px; }
 
   /* ---------- Callout ---------- */
   .callout { background: var(--sage-wash); border: 1px solid #D5E0D8; border-radius: 10px; padding: 18px 22px; font-size: 14px; color: #3C5146; margin-top: 20px; break-inside: avoid; }
@@ -370,6 +369,25 @@
   table.cal td.today { background: var(--sage-wash); }
   .cal-legend { margin-top: 16px; font-size: 13px; color: var(--muted); }
 
+  /* AI calendar management */
+  .ai-manage { position: relative; }
+  .ai-manage > summary { list-style: none; display: inline-flex; align-items: center; }
+  .ai-manage > summary::-webkit-details-marker { display: none; }
+  .ai-manage > summary::after { content: "\25BE"; margin-left: 8px; font-size: 11px; opacity: .8; }
+  .ai-manage[open] > summary::after { content: "\25B4"; }
+  .ai-manage-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; display: flex; gap: 8px; white-space: nowrap; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); padding: 8px; }
+  .cal-ai-answer { margin-top: 8px; background: var(--sage-wash); border: 1px solid #D5E0D8; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; color: #3C5146; }
+
+  table.cal td.has-missing { box-shadow: inset 3px 0 0 var(--clay); }
+  .cal-alert { margin-top: 16px; background: var(--clay-wash); border: 1px solid #E7DCC2; border-left: 3px solid var(--clay); border-radius: 10px; padding: 14px 18px; font-size: 13.5px; color: #6E551F; }
+  .cal-alert ul { margin: 8px 0; padding-left: 18px; }
+  .cal-alert li { margin-bottom: 4px; }
+  .cal-alert .hint { color: #8A6D3B; }
+  .cal-ok { margin-top: 16px; font-size: 13.5px; color: var(--sage); }
+  .saved-badge { font-size: 9.5px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase; color: #3C5A4C; background: var(--sage-wash); border: 1px solid #D5E0D8; border-radius: 5px; padding: 2px 7px; vertical-align: 2px; }
+  .ai-rec { border-color: #CDDCCF; }
+  #recetario-ai h3 { margin: 14px 0 12px; }
+
   /* ---------- Market ---------- */
   .cat-block { margin-bottom: 22px; break-inside: avoid; }
   .cat-block h4 { margin: 0 0 6px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--sage); }
@@ -402,7 +420,7 @@
   .log .del:hover { color: var(--clay); }
 
   /* ---------- Assistant ---------- */
-  .chat { display: flex; flex-direction: column; height: 480px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .chat { display: flex; flex-direction: column; height: min(72vh, 560px); min-height: 360px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
   .chat-log { flex: 1; overflow-y: auto; padding: 22px; }
   .msg { max-width: 82%; margin-bottom: 14px; padding: 11px 15px; border-radius: 14px; font-size: 14px; line-height: 1.55; }
   .msg.user { margin-left: auto; background: var(--sage); color: #fff; border-bottom-right-radius: 4px; }
@@ -410,7 +428,13 @@
   .msg.bot ul { margin: 8px 0 0; padding-left: 18px; }
   .msg.bot li { margin-bottom: 4px; }
   .msg.bot strong { color: #22332b; }
-  .chat-chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 12px 0; border-top: 1px solid var(--line); background: #FBFAF7; }
+  .chat-tools { margin-bottom: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .chat-tools > summary { cursor: pointer; list-style: none; padding: 11px 15px; font-size: 13px; font-weight: 600; color: var(--ink-soft); display: flex; align-items: center; justify-content: space-between; }
+  .chat-tools > summary::-webkit-details-marker { display: none; }
+  .chat-tools > summary::after { content: "\25BE"; color: var(--muted); font-size: 12px; }
+  .chat-tools[open] > summary { border-bottom: 1px solid var(--line); color: var(--sage); }
+  .chat-tools[open] > summary::after { content: "\25B4"; }
+  .chat-chips { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 15px; max-height: 200px; overflow-y: auto; }
   .chat-chips button { font: inherit; font-size: 12.5px; color: var(--sage); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
   .chat-chips button:hover { border-color: var(--sage); background: var(--sage-wash); }
   .chat-input { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: #FBFAF7; }
@@ -421,6 +445,25 @@
   .ai-settings[open] summary { margin-bottom: 16px; }
   .toggle { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; }
   .toggle input { width: 17px; height: 17px; accent-color: var(--sage); }
+
+  .chips-label { display: block; width: 100%; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 650; margin: 4px 0 2px; }
+  .chat-chips button.fn { color: #fff; background: var(--sage); border-color: var(--sage); font-weight: 500; }
+  .chat-chips button.fn:hover { filter: brightness(1.07); background: var(--sage); }
+
+  /* Reminders */
+  .reminders { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); break-inside: avoid; }
+  .rem-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+  .rem-list { list-style: none; margin: 0 0 20px; padding: 0; }
+  .rem-med { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .rem-med:last-child { border-bottom: none; }
+  .rem-info { font-size: 14px; color: var(--ink-soft); }
+  .rem-info strong { color: var(--ink); }
+  .rem-note { font-size: 12.5px; color: var(--muted); margin: 3px 0 8px; }
+  .rem-times { display: flex; flex-wrap: wrap; gap: 8px; }
+  .rem-slot { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 1px solid var(--line-strong); border-radius: 999px; padding: 5px 12px; cursor: pointer; background: #fff; }
+  .rem-slot input { accent-color: var(--sage); }
+  .rem-slot.done { background: var(--sage-wash); border-color: #D5E0D8; text-decoration: line-through; color: var(--muted); }
+  .rem-water-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--ink); font-weight: 600; margin-bottom: 6px; }
 
   /* ---------- Footer ---------- */
   footer.site { border-top: 1px solid var(--line); padding-top: 30px; margin-top: 8px; font-size: 13px; color: var(--muted); }
@@ -758,7 +801,7 @@
   <header class="hero">
     <p class="eyebrow">Recetario</p>
     <h1>Ocho preparaciones<br>de bajo riesgo</h1>
-    <p class="lede">Alineadas con cada objetivo: hidratación, prevención de ITU, absorción de hierro y perfil antiinflamatorio. Puedes asignarlas al calendario de la semana con un clic.</p>
+    <p class="lede">Alineadas con cada objetivo: hidratación, prevención de ITU, absorción de hierro y perfil antiinflamatorio. <strong>Guarda</strong> las que quieras: solo las guardadas aparecen disponibles en el calendario.</p>
   </header>
 
   <div class="callout" style="margin-top:0;margin-bottom:22px">
@@ -767,8 +810,11 @@
 
   <div class="toolbar no-print">
     <a class="btn" href="#/calendario">Ir al calendario</a>
+    <button class="btn" id="rec-ai">Actualizar con IA</button>
     <button class="btn ghost" onclick="window.print()">Imprimir recetario</button>
   </div>
+
+  <div id="recetario-ai"></div>
 
   <div id="recetario-list"></div>
 </div>
@@ -780,14 +826,22 @@
   <header class="hero">
     <p class="eyebrow">Calendario del recetario</p>
     <h1>Planifica tu semana</h1>
-    <p class="lede">Asigna una preparación a cada comida. Se guarda en tu navegador. Puedes generar una semana sugerida y luego imprimirla en limpio.</p>
+    <p class="lede">Elige entre tus recetas <strong>guardadas</strong> una para cada comida. La app compara el plan con tu mercado y te alerta si falta algún producto.</p>
   </header>
 
   <div class="toolbar no-print">
-    <button class="btn" id="cal-suggest">Generar semana sugerida</button>
+    <details class="ai-manage">
+      <summary class="btn">Gestionar con IA</summary>
+      <div class="ai-manage-menu">
+        <button class="btn small" id="cal-ai-all">Reemplazar todo</button>
+        <button class="btn ghost small" id="cal-ai-missing">Solo faltantes</button>
+      </div>
+    </details>
     <button class="btn ghost" id="cal-clear">Vaciar calendario</button>
     <button class="btn ghost" id="cal-print-btn">Imprimir / PDF</button>
   </div>
+
+  <div class="hint no-print" id="cal-ai-note" style="margin-bottom:18px"></div>
 
   <div class="cal-wrap" id="cal-interactive">
     <table class="cal" id="cal-table"></table>
@@ -795,7 +849,11 @@
 
   <div class="cal-legend no-print" id="cal-legend"></div>
 
+  <div id="cal-alerts" class="no-print"></div>
+
   <div class="only-print" id="cal-print"></div>
+
+  <div id="reminders-panel" class="reminders" style="margin-top:32px"></div>
 </div>
 
 <!-- ============================================================= -->
@@ -805,11 +863,11 @@
   <header class="hero">
     <p class="eyebrow">Asistente IA</p>
     <h1>Asistente de alimentación<br>y seguimiento</h1>
-    <p class="lede">Responde dudas sobre alimentos, suplementos, recetas, síntomas y tus órdenes. Usa una base de conocimiento local y, si está activado, el worker de IA del proyecto (DeepSeek); el navegador nunca maneja la clave.</p>
+    <p class="lede">Responde dudas y además puede leer y modificar tu calendario, mercado, recordatorios y recetario, y resumir tus medicamentos y síntomas. Usa una base de conocimiento local y, si está activado, el worker de IA del proyecto (DeepSeek); el navegador nunca maneja la clave.</p>
   </header>
 
   <div class="callout" style="margin-top:0">
-    <strong>Qué incluye esta función:</strong> (1) respuestas sobre los tres diagnósticos, alimentos, suplementos y precauciones; (2) sugerencias de recetas y cómo asignarlas al calendario; (3) orientación y resumen de tus órdenes; (4) consejos de seguimiento de síntomas y mercado; (5) conexión al <strong>worker de IA (DeepSeek)</strong> del proyecto para respuestas generadas, con motor local de respaldo. <em>No es consejo médico.</em>
+    <strong>Qué incluye esta función:</strong> (1) respuestas sobre los tres diagnósticos, alimentos, suplementos y precauciones; (2) <strong>acciones reales</strong>: ve y modifica tu <strong>calendario</strong> (asignar/quitar recetas), tu <strong>mercado</strong> (marcar comprado/pendiente, agregar/quitar), actualiza el <strong>recetario</strong> según lo que tienes y revisa tus <strong>medicamentos</strong> y <strong>síntomas</strong>; (3) conexión al <strong>worker de IA (DeepSeek)</strong> con motor local de respaldo; (4) los prompts incluyen el contexto que originó el proyecto y tu estado actual. Los <strong>recordatorios</strong> de medicamentos y agua están en la pestaña <strong>Calendario</strong>. <em>No es consejo médico.</em>
   </div>
 
   <details class="ai-settings no-print">
@@ -824,8 +882,12 @@
     </div>
   </details>
 
-  <div class="chat">
+  <details class="chat-tools no-print">
+    <summary>Funciones y sugerencias</summary>
     <div class="chat-chips" id="chat-chips"></div>
+  </details>
+
+  <div class="chat">
     <div class="chat-log" id="chat-log"></div>
     <div class="chat-input">
       <input type="text" id="chat-input" placeholder="Escribe tu pregunta…" autocomplete="off">
@@ -1053,7 +1115,8 @@
   ];
 
   function recipeById(id) {
-    for (var i = 0; i < RECIPES.length; i++) { if (RECIPES[i].id === id) return RECIPES[i]; }
+    var all = allRecipes();
+    for (var i = 0; i < all.length; i++) { if (all[i].id === id) return all[i]; }
     return null;
   }
 
@@ -1072,7 +1135,7 @@
     });
     if (name === "sintomas") renderSymptoms();
     if (name === "mercado") renderMarket();
-    if (name === "calendario") renderCalendar();
+    if (name === "calendario") { renderCalendar(); renderReminders(); }
   }
 
   function route() {
@@ -1116,36 +1179,174 @@
   /* =========================================================
      Recetario
   ========================================================= */
+  var SAVED_KEY = "med.saved";
+  var CUSTOM_KEY = "med.custom";
+
+  function getCustom() { return store.get(CUSTOM_KEY, []); }
+  function saveCustom(list) { store.set(CUSTOM_KEY, list); }
+  function allRecipes() { return RECIPES.concat(getCustom()); }
+  function deleteCustom(id) {
+    saveCustom(getCustom().filter(function (r) { return r.id !== id; }));
+    saveSaved(getSaved().filter(function (x) { return x !== id; }));
+    renderRecipes();
+    renderCalendar();
+    renderMarket();
+    toast("Receta eliminada del recetario");
+  }
+
+  function getSaved() {
+    var s = store.get(SAVED_KEY, null);
+    if (!s) { s = RECIPES.map(function (r) { return r.id; }); store.set(SAVED_KEY, s); }
+    return s;
+  }
+  function saveSaved(ids) { store.set(SAVED_KEY, ids); }
+  function isSaved(id) { return getSaved().indexOf(id) !== -1; }
+  function activeRecipes() {
+    var ids = getSaved();
+    return allRecipes().filter(function (r) { return ids.indexOf(r.id) !== -1; });
+  }
+  function toggleSaved(id) {
+    var ids = getSaved();
+    if (ids.indexOf(id) !== -1) { ids = ids.filter(function (x) { return x !== id; }); toast("Receta quitada de guardadas"); }
+    else { ids = ids.concat([id]); toast("Receta guardada"); }
+    saveSaved(ids);
+    renderRecipes();
+    renderCalendar();
+    ensureRecipeIngredientsInMarket();
+    renderMarket();
+  }
+
   function renderRecipes() {
     var host = $("#recetario-list");
     if (!host) return;
-    host.innerHTML = RECIPES.map(function (r) {
+    host.innerHTML = allRecipes().map(function (r) {
+      var saved = isSaved(r.id);
+      var isCustom = r.id.charAt(0) === "c";
       return '' +
         '<article class="recipe">' +
           '<div class="r-head">' +
-            '<div><h4>' + escapeHtml(r.name) + '</h4><p class="r-meta">' + escapeHtml(r.meta) + '</p></div>' +
+            '<div><h4>' + escapeHtml(r.name) + (saved ? ' <span class="saved-badge">Guardada</span>' : '') + (isCustom ? ' <span class="saved-badge" style="background:#F4EEE1;border-color:#E7DCC2;color:#6E551F">IA</span>' : '') + '</h4><p class="r-meta">' + escapeHtml(r.meta || "") + '</p></div>' +
             '<span class="r-purpose">' + escapeHtml(r.purpose) + '</span>' +
           '</div>' +
           '<div class="r-body">' +
             '<div class="r-ing"><h5>Ingredientes</h5><ul class="ing">' +
-              r.ingredients.map(function (i) { return '<li>' + escapeHtml(i) + '</li>'; }).join('') +
+              (r.ingredients || []).map(function (i) { return '<li>' + escapeHtml(i) + '</li>'; }).join('') +
             '</ul></div>' +
             '<div class="r-steps"><h5>Preparación</h5><ol class="steps">' +
-              r.steps.map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') +
+              (r.steps || []).map(function (s) { return '<li>' + escapeHtml(s) + '</li>'; }).join('') +
             '</ol></div>' +
           '</div>' +
-          '<div class="r-why"><strong>Por qué ayuda:</strong> ' + escapeHtml(r.why) + '</div>' +
-          '<div class="r-actions no-print"><button class="btn ghost add-cal" data-recipe="' + r.id + '">Añadir al calendario</button></div>' +
+          '<div class="r-why"><strong>Por qué ayuda:</strong> ' + escapeHtml(r.why || "") + '</div>' +
+          '<div class="r-actions no-print">' +
+            '<button class="btn ' + (saved ? "ghost" : "") + ' small save-rec" data-recipe="' + r.id + '">' + (saved ? "Guardada ✓ — quitar" : "Guardar en recetario") + '</button>' +
+            (isCustom ? ' <button class="btn danger small del-rec" data-recipe="' + r.id + '">Eliminar</button>' : '') +
+            ' <a class="btn ghost small" href="' + youtubeUrl(r.name) + '" target="_blank" rel="noopener">Ver en YouTube</a>' +
+          '</div>' +
         '</article>';
     }).join('');
 
-    $$(".add-cal", host).forEach(function (btn) {
+    $$(".save-rec", host).forEach(function (btn) {
+      btn.addEventListener("click", function () { toggleSaved(btn.getAttribute("data-recipe")); });
+    });
+    $$(".del-rec", host).forEach(function (btn) {
       btn.addEventListener("click", function () {
-        window._pendingRecipe = btn.getAttribute("data-recipe");
-        location.hash = "#/calendario";
-        toast("Elige la comida donde asignarla");
+        if (confirm("¿Eliminar esta receta de tu recetario?")) deleteCustom(btn.getAttribute("data-recipe"));
       });
     });
+  }
+
+  function youtubeUrl(name, query) {
+    var q = (query || name) + " receta paso a paso";
+    return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q);
+  }
+
+  function generateRecipesWithAI() {
+    var host = $("#recetario-ai");
+    if (!host) return;
+    var ai = store.get(AI_KEY, {});
+    var useWorker = ai.use !== false && (ai.workerUrl || DEFAULT_WORKER_URL).trim();
+    if (!useWorker) {
+      host.innerHTML = '<div class="callout no-print">El worker de IA no está activado. Actívalo en la pestaña <strong>Asistente IA</strong> para generar recetas.</div>';
+      return;
+    }
+    host.innerHTML = '<div class="hint no-print" style="margin:12px 0">Buscando recetas con IA… puede tardar unos segundos.</div>';
+    var prompt = "Necesito recetas nuevas para mi semana. Genera 3 recetas sencillas, seguras y aptas para mis diagnósticos " +
+      "(pielonefritis crónica con reflujo, dolor persistente, lumbago), priorizando ingredientes que ya tengo en el mercado. " +
+      "Usa ingredientes fáciles de conseguir y pasos cortos. " +
+      "Devuelve EXCLUSIVAMENTE un arreglo JSON válido (sin markdown ni texto extra) con este formato exacto: " +
+      '[{"name":"","purpose":"","time":"","ingredients":[""],"steps":[""],"why":"","youtubeQuery":""}]';
+    callWorker(prompt)
+      .then(function (txt) { renderAISuggestions(parseRecipesJSON(txt)); })
+      .catch(function () {
+        host.innerHTML = '<div class="callout no-print">No pude conectar con la IA. Revisa la conexión del worker e inténtalo de nuevo.</div>';
+      });
+  }
+
+  function parseRecipesJSON(txt) {
+    if (!txt) return [];
+    var s = txt.indexOf("["), e = txt.lastIndexOf("]");
+    if (s === -1 || e === -1 || e < s) return [];
+    try {
+      var arr = JSON.parse(txt.slice(s, e + 1));
+      return Array.isArray(arr) ? arr : [];
+    } catch (err) { return []; }
+  }
+
+  function renderAISuggestions(list) {
+    var host = $("#recetario-ai");
+    if (!host) return;
+    if (!list || !list.length) {
+      host.innerHTML = '<div class="callout no-print">La IA no devolvió recetas válidas. Inténtalo de nuevo.</div>';
+      return;
+    }
+    window._aiSuggestions = list;
+    host.innerHTML = '<h3 class="no-print">Recetas sugeridas por IA</h3>' + list.map(function (r, i) {
+      var name = r.name || ("Receta " + (i + 1));
+      var yt = youtubeUrl(name, r.youtubeQuery);
+      var gs = "https://www.google.com/search?q=" + encodeURIComponent(name + " receta sana");
+      return '<article class="recipe ai-rec">' +
+        '<div class="r-head"><div><h4>' + escapeHtml(name) + '</h4><p class="r-meta">' + escapeHtml(r.time || "") + '</p></div><span class="r-purpose">' + escapeHtml(r.purpose || "Sugerida por IA") + '</span></div>' +
+        '<div class="r-body">' +
+          '<div class="r-ing"><h5>Ingredientes</h5><ul class="ing">' + (r.ingredients || []).map(function (x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="r-steps"><h5>Preparación</h5><ol class="steps">' + (r.steps || []).map(function (x) { return '<li>' + escapeHtml(x) + '</li>'; }).join('') + '</ol></div>' +
+        '</div>' +
+        (r.why ? '<div class="r-why"><strong>Por qué ayuda:</strong> ' + escapeHtml(r.why) + '</div>' : '') +
+        '<div class="r-actions no-print">' +
+          '<button class="btn small save-ai" data-idx="' + i + '">Guardar en recetario</button>' +
+          ' <a class="btn ghost small" href="' + yt + '" target="_blank" rel="noopener">Ver en YouTube</a>' +
+          ' <a class="btn ghost small" href="' + gs + '" target="_blank" rel="noopener">Buscar receta</a>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+    $$(".save-ai", host).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        saveAIRecipe(window._aiSuggestions[parseInt(btn.getAttribute("data-idx"), 10)]);
+      });
+    });
+  }
+
+  function saveAIRecipe(r) {
+    if (!r) return;
+    var rec = {
+      id: "c" + Date.now(),
+      name: r.name || "Receta IA",
+      purpose: r.purpose || "Sugerida por IA",
+      meta: r.time || "",
+      ingredients: Array.isArray(r.ingredients) ? r.ingredients : [],
+      steps: Array.isArray(r.steps) ? r.steps : [],
+      why: r.why || "",
+      yt: r.youtubeQuery || ""
+    };
+    var custom = getCustom();
+    custom.push(rec);
+    saveCustom(custom);
+    var ids = getSaved();
+    if (ids.indexOf(rec.id) === -1) { ids = ids.concat([rec.id]); saveSaved(ids); }
+    ensureRecipeIngredientsInMarket();
+    renderRecipes();
+    renderCalendar();
+    renderMarket();
+    toast("Receta guardada en tu recetario");
   }
 
   /* =========================================================
@@ -1157,6 +1358,61 @@
 
   function getCal() { return store.get(CAL_KEY, {}); }
   function saveCal(c) { store.set(CAL_KEY, c); }
+
+  function marketItemMatch(name) {
+    var n = normalize(name);
+    var list = getMarket();
+    for (var i = 0; i < list.length; i++) {
+      var ln = normalize(list[i].name);
+      if (ln === n || ln.indexOf(n) !== -1 || n.indexOf(ln) !== -1) return list[i];
+    }
+    return null;
+  }
+  function marketHas(name, onlyBought) {
+    var it = marketItemMatch(name);
+    if (!it) return false;
+    return onlyBought ? !!it.done : true;
+  }
+  function recipeMissing(r) {
+    return r.ingredients.filter(function (ing) { return !marketHas(ing, true); });
+  }
+  function activeRecipePool(ids) {
+    var active = activeRecipes().map(function (r) { return r.id; });
+    var filtered = ids.filter(function (id) { return active.indexOf(id) !== -1; });
+    return filtered.length ? filtered : ids;
+  }
+  function recipeOptions(selected) {
+    var list = activeRecipes();
+    if (selected && !list.some(function (r) { return r.id === selected; })) {
+      var extra = recipeById(selected);
+      if (extra) list = list.concat([extra]);
+    }
+    return '<option value="">—</option>' + list.map(function (r) {
+      return '<option value="' + r.id + '"' + (r.id === selected ? ' selected' : '') + '>' + escapeHtml(r.name) + '</option>';
+    }).join('');
+  }
+  function renderCalAlerts() {
+    var host = $("#cal-alerts");
+    if (!host) return;
+    var cal = getCal();
+    var issues = [];
+    DAYS.forEach(function (day) {
+      MEALS.forEach(function (meal) {
+        var r = recipeById(cal[day + "|" + meal]);
+        if (!r) return;
+        var missing = recipeMissing(r);
+        if (missing.length) issues.push({ day: day, meal: meal, r: r, missing: missing });
+      });
+    });
+    if (!issues.length) {
+      host.innerHTML = Object.keys(cal).length ? '<div class="cal-ok">✓ Todo lo del calendario está marcado como comprado en tu mercado.</div>' : "";
+      return;
+    }
+    host.innerHTML = '<div class="cal-alert"><strong>Faltan productos para tu semana:</strong><ul>' +
+      issues.map(function (x) {
+        return '<li><strong>' + x.day + ' · ' + x.meal + '</strong> (' + escapeHtml(x.r.name) + '): ' + escapeHtml(x.missing.join(", ")) + '</li>';
+      }).join('') + '</ul><span class="hint">Márcalos en la pestaña Mercado o usa «Actualizar recetario» para agregarlos a la lista.</span></div>';
+  }
 
   function renderCalendar() {
     var table = $("#cal-table");
@@ -1170,21 +1426,18 @@
     });
     thead += '</tr></thead>';
 
-    var options = '<option value="">—</option>' + RECIPES.map(function (r) {
-      return '<option value="' + r.id + '">' + escapeHtml(r.name) + '</option>';
-    }).join('');
-
     var tbody = '<tbody>';
     MEALS.forEach(function (meal) {
       tbody += '<tr><td class="meal">' + meal + '</td>';
       DAYS.forEach(function (day, i) {
         var key = day + "|" + meal;
         var val = cal[key] || "";
-        var selected = val ? recipeById(val) : null;
-        var opts = '<option value="">—</option>' + RECIPES.map(function (r) {
-          return '<option value="' + r.id + '"' + (r.id === val ? ' selected' : '') + '>' + escapeHtml(r.name) + '</option>';
-        }).join('');
-        tbody += '<td class="' + (i === todayIdx ? "today" : "") + '"><select data-key="' + key + '">' + opts + '</select></td>';
+        var rec = val ? recipeById(val) : null;
+        var missing = rec ? recipeMissing(rec) : [];
+        var cls = (i === todayIdx ? "today" : "");
+        if (missing.length) cls += " has-missing";
+        var title = missing.length ? ' title="Faltan: ' + missing.join(", ").replace(/"/g, "") + '"' : "";
+        tbody += '<td class="' + cls + '"' + title + '><select data-key="' + key + '">' + recipeOptions(val) + '</select></td>';
       });
       tbody += '</tr>';
     });
@@ -1198,20 +1451,13 @@
         if (sel.value) { c[sel.getAttribute("data-key")] = sel.value; }
         else { delete c[sel.getAttribute("data-key")]; }
         saveCal(c);
-        renderCalPrint();
-        renderCalLegend();
+        renderCalendar();
       });
     });
 
     renderCalLegend();
     renderCalPrint();
-
-    if (window._pendingRecipe) {
-      var rid = window._pendingRecipe;
-      window._pendingRecipe = null;
-      var first = $("#cal-table select[data-key]");
-      if (first) { first.value = rid; first.dispatchEvent(new Event("change")); first.focus(); }
-    }
+    renderCalAlerts();
   }
 
   function renderCalLegend() {
@@ -1220,7 +1466,7 @@
     var cal = getCal();
     var counts = {};
     Object.keys(cal).forEach(function (k) { counts[cal[k]] = (counts[cal[k]] || 0) + 1; });
-    var used = RECIPES.filter(function (r) { return counts[r.id]; });
+    var used = allRecipes().filter(function (r) { return counts[r.id]; });
     if (!used.length) { host.innerHTML = "Aún no has asignado recetas."; return; }
     host.innerHTML = "En tu semana: " + used.map(function (r) {
       return escapeHtml(r.name) + " (" + counts[r.id] + ")";
@@ -1246,21 +1492,74 @@
   }
 
   function suggestWeek() {
-    var rotation = {
-      "Desayuno": ["r3", "r7", "r3", "r7", "r3", "r7", "r3"],
-      "Media mañana": ["r1", "r8", "r1", "r8", "r1", "r8", "r1"],
-      "Almuerzo": ["r4", "r5", "r6", "r4", "r5", "r6", "r4"],
-      "Cena": ["r5", "r6", "r2", "r2", "r6", "r5", "r2"]
+    var pools = {
+      "Desayuno": activeRecipePool(["r3", "r7"]),
+      "Media mañana": activeRecipePool(["r1", "r8"]),
+      "Almuerzo": activeRecipePool(["r4", "r5", "r6"]),
+      "Cena": activeRecipePool(["r5", "r6", "r2"])
     };
     var cal = {};
     DAYS.forEach(function (day, i) {
       MEALS.forEach(function (meal) {
-        cal[day + "|" + meal] = rotation[meal][i];
+        var pool = pools[meal];
+        cal[day + "|" + meal] = pool[i % pool.length];
       });
     });
     saveCal(cal);
     renderCalendar();
     toast("Semana sugerida generada");
+  }
+
+  function manageCalendar(mode) {
+    var cal = getCal();
+    var have = getMarket().filter(function (i) { return i.done; }).map(function (i) { return normalize(i.name); });
+    function avail(r) {
+      if (!have.length) return 0;
+      var n = r.ingredients.filter(function (ing) {
+        var x = normalize(ing);
+        return have.some(function (h) { return h.indexOf(x) !== -1 || x.indexOf(h) !== -1; });
+      }).length;
+      return n / r.ingredients.length;
+    }
+    var pools = { "Desayuno": activeRecipePool(["r3", "r7"]), "Media mañana": activeRecipePool(["r1", "r8"]), "Almuerzo": activeRecipePool(["r4", "r5", "r6"]), "Cena": activeRecipePool(["r5", "r6", "r2"]) };
+    var filled = 0, kept = 0;
+    DAYS.forEach(function (day, i) {
+      MEALS.forEach(function (meal) {
+        var key = day + "|" + meal;
+        if (mode === "missing" && cal[key]) { kept++; return; }
+        var pool = pools[meal].map(recipeById).sort(function (a, b) { return avail(b) - avail(a); });
+        cal[key] = pool[i % pool.length].id;
+        filled++;
+      });
+    });
+    saveCal(cal);
+    renderCalendar();
+    if (mode === "all") marketFromCalendar();
+
+    var note = $("#cal-ai-note");
+    if (note) {
+      note.innerHTML = "<strong>" + (mode === "all" ? "Reemplacé todo el calendario" : "Completé solo las casillas vacías") + "</strong>: " +
+        filled + " comida(s) asignada(s)" + (kept ? ", " + kept + " conservada(s)" : "") + ".";
+    }
+    askCalAiNote(mode);
+    toast(mode === "all" ? "Calendario reemplazado con IA" : "Faltantes completados con IA");
+  }
+
+  function askCalAiNote(mode) {
+    var ai = store.get(AI_KEY, {});
+    var useWorker = ai.use !== false && (ai.workerUrl || DEFAULT_WORKER_URL).trim();
+    var note = $("#cal-ai-note");
+    if (!useWorker || !note) return;
+    note.innerHTML += ' <span class="hint">· consultando IA…</span>';
+    callWorker("Acabo de gestionar mi calendario en modo " + (mode === "all" ? "reemplazar todo" : "solo faltantes") +
+      ". Dame 2 o 3 recomendaciones breves y personalizadas para esta semana según mi mercado y mis síntomas. No afirmes que tú lo hiciste: la app ya lo aplicó.")
+      .then(function (txt) {
+        note.innerHTML = note.innerHTML.replace(' <span class="hint">· consultando IA…</span>', "") +
+          '<div class="cal-ai-answer">' + escapeHtml(txt).replace(/\n/g, "<br>") + "</div>";
+      })
+      .catch(function () {
+        note.innerHTML = note.innerHTML.replace(' <span class="hint">· consultando IA…</span>', "");
+      });
   }
 
   /* =========================================================
@@ -1323,9 +1622,23 @@
   }
   function saveMarket(list) { store.set(MARKET_KEY, list); }
 
+  function ensureRecipeIngredientsInMarket() {
+    var list = getMarket();
+    var added = 0;
+    activeRecipes().forEach(function (r) {
+      r.ingredients.forEach(function (ing) {
+        var exists = list.some(function (it) { return normalize(it.name) === normalize(ing); });
+        if (!exists) { list.push({ name: ing, cat: "Para tus recetas", done: false }); added++; }
+      });
+    });
+    if (added) saveMarket(list);
+    return added;
+  }
+
   function renderMarket() {
     var host = $("#market-list");
     if (!host) return;
+    ensureRecipeIngredientsInMarket();
     var list = getMarket();
     var cats = [];
     list.forEach(function (it) { if (cats.indexOf(it.cat) === -1) cats.push(it.cat); });
@@ -1591,12 +1904,27 @@
   var CHAT_KEY = "med.chat";
   var DEFAULT_WORKER_URL = "https://medicamentos-ai.www-davidalexander.workers.dev/";
 
+  var PROJECT_CONTEXT = [
+    "CONTEXTO DEL PROYECTO (datos de las órdenes y exámenes revisados que originaron el sitio):",
+    "Paciente: Laura García Gómez, CC 1098311405, mujer de 30 años (nacida 29/10/1995).",
+    "Atención del 01/10/2026 en Clínica Central del Quindío SAS, consultorio 3 de urgencias; médica María Paula Rubiano Varela. IPS de origen: (2642) Salud del Caribe Armenia.",
+    "Diagnóstico principal N110: pielonefritis crónica no obstructiva asociada con reflujo.",
+    "Diagnóstico secundario F454: trastorno de dolor persistente somatomorfo. Además, lumbago mecánico.",
+    "Orden EPS Sura No. 2642-194291212 (válida hasta 30/10/2026): nitrofurantoína 100 mg (20 cápsulas), hioscina N-butil bromuro 10 mg (10 tabletas), sulfato ferroso heptahidratado 300 mg (30 tabletas).",
+    "Fórmula Clínica Central del Quindío (vigencia 48 h): hierro sacarato IV 1 ampolla cada 24 h por 9 días; meloxicam 15 mg cada 12 h por 5 días (10 tabletas); acetaminofén 500 mg cada 8 h por 5 días (30 tabletas).",
+    "Órdenes complementarias: hemograma IV de control en 48 horas; interconsulta a gastroenterología; fisioterapia para lumbago mecánico.",
+    "Incapacidad médica del 01/10/2026 al 05/10/2026 (5 días).",
+    "Objetivo del proyecto: organizar la alimentación, los suplementos, el recetario, el calendario semanal, el control de mercado y el seguimiento de síntomas, con base en evidencia y casos reales.",
+    "Usa este contexto como base para personalizar todas tus respuestas."
+  ].join(" ");
+
   var SYSTEM_PROMPT = [
-    "Eres un asistente informativo de apoyo a una paciente de 30 años con diagnóstico N110 (pielonefritis crónica no obstructiva asociada a reflujo), F454 (trastorno de dolor persistente somatomorfo) y lumbago mecánico.",
-    "Medicación mencionada en sus órdenes: nitrofurantoína, hioscina, sulfato ferroso, hierro sacarato IV, meloxicam, acetaminofén.",
-    "Responde en español, con tono claro y breve. Da información general sobre alimentos, suplementos y hábitos con base en la evidencia, recetas, y orientación de seguimiento.",
-    "Nunca indiques suspender o cambiar medicamentos. Ante fiebre alta, vómito, dolor lumbar intenso o sangre en orina, recomienda acudir a urgencias. Recuerda siempre que no eres un médico y que las decisiones deben validarse con el profesional tratante.",
-    "Si preguntan por suplementos, advierte sobre potasio/magnesio en falla renal, interacciones con anticoagulantes y con meloxicam."
+    PROJECT_CONTEXT,
+    "Eres el asistente informativo de este proyecto. Responde en español, claro y breve, personalizando según el contexto anterior.",
+    "Ámbitos: alimentos, suplementos con evidencia y precauciones, recetas, calendario, mercado, seguimiento de síntomas y recordatorios de medicamentos y de agua.",
+    "Seguridad: nunca indiques suspender o cambiar medicamentos. Ante fiebre alta, vómito, dolor lumbar intenso o sangre en orina, recomienda acudir a urgencias. Aclara que no eres médico. Advierte sobre potasio/magnesio en falla renal, anticoagulantes y meloxicam.",
+    "Cuando el usuario use una función (recetas según mercado, recetas según síntomas, recordatorios), responde usando los datos actuales que se te entregan en el contexto dinámico.",
+    "IMPORTANTE: tú NO puedes modificar el calendario, el mercado, los recordatorios ni los registros. Esas acciones las ejecuta la aplicación. Nunca afirmes que asignaste una receta, marcaste una compra o cambiaste un recordatorio; si el usuario pide una acción, indícale que use los botones de funciones o que lo escriba para que la app lo aplique."
   ].join(" ");
 
   var KB = [
@@ -1633,6 +1961,545 @@
     return "Puedo ayudarte con: <ul><li>Alimentos y suplementos (hierro, arándano, ITU).</li><li>Dolor lumbar y dolor persistente.</li><li>Recetas y calendario.</li><li>Mercado y registro de síntomas.</li><li>Resumen de tus órdenes y señales de alarma.</li></ul>Prueba con una de las sugerencias de arriba o escribe tu pregunta con palabras clave.";
   }
 
+  /* =========================================================
+     Contexto dinámico + Recordatorios + Funciones del chat
+  ========================================================= */
+  function buildDynamicContext() {
+    var parts = [];
+    parts.push("Fecha de hoy: " + todayISO() + ".");
+
+    try {
+      var market = getMarket();
+      var have = market.filter(function (i) { return i.done; }).map(function (i) { return i.name; });
+      var missing = market.filter(function (i) { return !i.done; }).map(function (i) { return i.name; });
+      parts.push("Mercado — disponible en casa (" + have.length + "): " + (have.join(", ") || "nada marcado"));
+      parts.push("Mercado — pendiente por comprar (" + missing.length + "): " + (missing.slice(0, 30).join(", ") || "nada pendiente"));
+    } catch (e) {}
+
+    try {
+      var cal = getCal();
+      var plan = [];
+      Object.keys(cal).forEach(function (k) {
+        var r = recipeById(cal[k]);
+        if (r) plan.push(k.replace("|", " ") + ": " + r.name);
+      });
+      parts.push("Calendario de la semana: " + (plan.join("; ") || "sin asignar"));
+    } catch (e) {}
+
+    try {
+      var syms = getSymptoms().slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (syms.length) {
+        var s = syms[0];
+        parts.push("Último registro de síntomas (" + s.date + "): dolor " + s.dolor + "/10" +
+          (s.temp ? ", temperatura " + s.temp + " °C" : "") +
+          (s.hidra ? ", hidratación " + s.hidra + " L" : "") +
+          (s.flags && s.flags.length ? ", señales: " + s.flags.join(", ") : "") +
+          (s.nota ? ", nota: " + s.nota : "") + ".");
+      } else {
+        parts.push("Sin registros de síntomas todavía.");
+      }
+    } catch (e) {}
+
+    try {
+      var rem = getReminders();
+      parts.push("Recordatorios de medicamentos activos: " + rem.meds.map(function (m) {
+        return m.name + " " + m.dose + " (" + m.times.join(", ") + ")";
+      }).join("; ") + ".");
+      parts.push("Meta de agua: " + rem.water.goal + " L/día; hoy lleva " + waterToday(rem) + " L.");
+    } catch (e) {}
+
+    return parts.join("\n");
+  }
+
+  var REM_KEY = "med.reminders";
+
+  function defaultReminders() {
+    return {
+      enabled: true,
+      meds: [
+        { id: "m1", name: "Sulfato ferroso", dose: "300 mg", times: ["08:00"], note: "En ayunas o con jugo cítrico; lejos de café, té y lácteos.", done: {} },
+        { id: "m2", name: "Nitrofurantoína", dose: "100 mg", times: ["08:00", "20:00"], note: "Según orden EPS Sura. No suspender sin indicación.", done: {} },
+        { id: "m3", name: "Meloxicam", dose: "15 mg", times: ["08:00", "20:00"], note: "Cada 12 h por 5 días (hasta el 05/10).", done: {} },
+        { id: "m4", name: "Acetaminofén", dose: "500 mg", times: ["06:00", "14:00", "22:00"], note: "Cada 8 h por 5 días.", done: {} },
+        { id: "m5", name: "Hierro sacarato IV", dose: "1 ampolla", times: ["10:00"], note: "Cada 24 h por 9 días; aplicación en la IPS.", done: {} },
+        { id: "m6", name: "Hioscina N-butil bromuro", dose: "10 mg", times: ["08:00", "20:00"], note: "Según orden EPS Sura, para cólico/espasmo.", done: {} }
+      ],
+      water: { goal: 2, intervalMin: 90, start: "08:00", end: "20:00", units: 0, date: todayISO() }
+    };
+  }
+
+  function getReminders() {
+    var r = store.get(REM_KEY, null);
+    if (!r || !r.meds) { r = defaultReminders(); store.set(REM_KEY, r); }
+    if (!r.water) { r.water = defaultReminders().water; store.set(REM_KEY, r); }
+    if (r.water.date !== todayISO()) { r.water.units = 0; r.water.date = todayISO(); store.set(REM_KEY, r); }
+    return r;
+  }
+  function saveReminders(r) { store.set(REM_KEY, r); }
+  function waterToday(r) { return Math.round(r.water.units * 0.25 * 100) / 100; }
+
+  function ensureNotifyPermission() {
+    try {
+      if (window.Notification && Notification.permission === "default") {
+        Notification.requestPermission().then(function (p) {
+          toast(p === "granted" ? "Avisos activados" : "Avisos no permitidos");
+        });
+      } else if (window.Notification && Notification.permission === "granted") {
+        toast("Los avisos ya están activados");
+      } else {
+        toast("Tu navegador no permite avisos; verás los recordatorios en pantalla");
+      }
+    } catch (e) { toast("Avisos no disponibles en este navegador"); }
+  }
+
+  var notified = {};
+  function notify(title, body) {
+    try {
+      if (window.Notification && Notification.permission === "granted") {
+        new Notification(title, { body: body });
+      }
+    } catch (e) {}
+    toast(title + " — " + body);
+  }
+
+  function renderReminders() {
+    var host = $("#reminders-panel");
+    if (!host) return;
+    var r = getReminders();
+    var day = todayISO();
+
+    var medsHtml = r.meds.map(function (m) {
+      return '<li class="rem-med"><div class="rem-info"><strong>' + escapeHtml(m.name) + '</strong> ' + escapeHtml(m.dose) +
+        '<div class="rem-note">' + escapeHtml(m.note || "") + '</div>' +
+        '<div class="rem-times">' + m.times.map(function (t) {
+          var done = m.done && m.done[day + "@" + t];
+          return '<label class="rem-slot' + (done ? " done" : "") + '"><input type="checkbox" data-med="' + m.id + '" data-time="' + t + '"' + (done ? " checked" : "") + '><span>' + t + '</span></label>';
+        }).join('') + '</div></div></li>';
+    }).join('');
+
+    host.innerHTML =
+      '<div class="rem-head"><h3 style="margin:0">Recordatorios de hoy</h3>' +
+      '<button class="btn ghost small no-print" id="rem-notify">Activar avisos</button></div>' +
+      '<ul class="rem-list">' + medsHtml + '</ul>' +
+      '<div class="rem-water"><div class="rem-water-top"><span>Toma de agua</span><span id="rem-water-count">' + waterToday(r) + ' / ' + r.water.goal + ' L</span></div>' +
+      '<div class="progress"><span id="rem-water-bar" style="width:' + Math.min(100, (waterToday(r) / r.water.goal) * 100) + '%"></span></div>' +
+      '<div class="toolbar" style="margin:0"><button class="btn small" id="rem-water-add">+ 1 vaso (250 ml)</button>' +
+      '<button class="btn ghost small" id="rem-water-reset">Reiniciar día</button>' +
+      '<span class="hint">Aviso cada ' + r.water.intervalMin + ' min entre ' + r.water.start + ' y ' + r.water.end + ' (mientras la página esté abierta).</span></div></div>';
+
+    $$("#reminders-panel input[type=checkbox][data-med]").forEach(function (cb) {
+      cb.addEventListener("change", function () {
+        var rr = getReminders();
+        var med = null;
+        rr.meds.forEach(function (x) { if (x.id === cb.getAttribute("data-med")) med = x; });
+        if (!med) return;
+        med.done = med.done || {};
+        var key = day + "@" + cb.getAttribute("data-time");
+        if (cb.checked) med.done[key] = true; else delete med.done[key];
+        saveReminders(rr);
+        renderReminders();
+      });
+    });
+    var nbtn = $("#rem-notify"); if (nbtn) nbtn.addEventListener("click", ensureNotifyPermission);
+    var add = $("#rem-water-add"); if (add) add.addEventListener("click", function () {
+      var rr = getReminders(); rr.water.units++; saveReminders(rr); renderReminders();
+    });
+    var rst = $("#rem-water-reset"); if (rst) rst.addEventListener("click", function () {
+      var rr = getReminders(); rr.water.units = 0; saveReminders(rr); renderReminders();
+    });
+  }
+
+  function initReminderEngine() {
+    setInterval(function () {
+      var r = getReminders();
+      if (!r.enabled) return;
+      var now = new Date();
+      var hhmm = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+      var day = todayISO();
+
+      r.meds.forEach(function (m) {
+        (m.times || []).forEach(function (t) {
+          var key = m.id + "@" + t + "@" + day;
+          var done = m.done && m.done[day + "@" + t];
+          if (t === hhmm && !notified[key] && !done) {
+            notified[key] = true;
+            notify("Medicamento: " + m.name, m.dose + " · " + (m.note || ""));
+          }
+        });
+      });
+
+      var startH = parseInt(r.water.start.split(":")[0], 10);
+      var endH = parseInt(r.water.end.split(":")[0], 10);
+      var h = now.getHours();
+      if (h >= startH && h <= endH && waterToday(r) < r.water.goal) {
+        var last = notified.__waterLast || 0;
+        if (Date.now() - last >= r.water.intervalMin * 60000) {
+          notified.__waterLast = Date.now();
+          notify("Toma de agua", "Llevas " + waterToday(r) + " L de " + r.water.goal + " L. Toma un vaso (250 ml).");
+        }
+      }
+    }, 30000);
+  }
+
+  function localFunction(kind) {
+    if (kind === "mercado") {
+      var market = getMarket();
+      var haveNames = market.filter(function (i) { return i.done; }).map(function (i) { return i.name.toLowerCase(); });
+      if (!haveNames.length) return "Todavía no has marcado productos en la pestaña <strong>Mercado</strong>. Marca lo que ya tienes y vuelve a pulsar esta función para recomendarte recetas con esos ingredientes.";
+      var scored = RECIPES.map(function (r) {
+        var n = r.ingredients.filter(function (ing) {
+          var ingL = ing.toLowerCase();
+          return haveNames.some(function (h) { return h.indexOf(ingL) !== -1 || ingL.indexOf(h) !== -1; });
+        }).length;
+        return { r: r, have: n, total: r.ingredients.length };
+      }).sort(function (a, b) { return (b.have / b.total) - (a.have / a.total); });
+      var top = scored.slice(0, 3);
+      return "<strong>Recetas según lo que ya tienes en tu mercado:</strong><ul>" +
+        top.map(function (s) {
+          return "<li><strong>" + escapeHtml(s.r.name) + "</strong> — tienes " + s.have + " de " + s.total + " ingredientes. <em>" + escapeHtml(s.r.purpose) + "</em></li>";
+        }).join('') + "</ul>Marca más productos en <strong>Mercado</strong> para afinar la recomendación y asigna la elegida en el <strong>Calendario</strong>.";
+    }
+    if (kind === "sintomas") {
+      var syms = getSymptoms().slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+      if (!syms.length) return "Aún no tienes registros en <strong>Síntomas</strong>. Registra tu dolor de hoy y te propongo recetas según cómo estés.";
+      var s = syms[0];
+      var tips = [];
+      var f = s.flags || [];
+      if (f.indexOf("Ardor al orinar") !== -1 || f.indexOf("Urgencia urinaria") !== -1 || f.indexOf("Orina turbia") !== -1) {
+        tips.push("Agua aromatizada de arándano y limón e infusión de jengibre (hidratación y prevención de ITU).");
+      }
+      if (s.dolor >= 6) tips.push("Salmón al horno con brócoli y cúrcuma (perfil antiinflamatorio).");
+      if (f.indexOf("Cansancio") !== -1) tips.push("Lentejas con pimiento y limón y batido de naranja (hierro + vitamina C).");
+      if (f.indexOf("Fiebre") !== -1 || (s.temp && s.temp >= 38)) tips.push("<strong>Tienes fiebre: prioriza acudir a urgencias por encima de la dieta.</strong>");
+      if (f.indexOf("Dolor lumbar") !== -1) tips.push("Evita ultraprocesados y azúcar; mantén omega-3 y cúrcuma (dolor lumbar).");
+      if (!tips.length) tips.push("Avena nocturna con arándano, chía y nueces, y yogur con linaza (fibra y base antiinflamatoria).");
+      return "<strong>Según tu último registro (" + escapeHtml(s.date) + ", dolor " + s.dolor + "/10):</strong><ul>" +
+        tips.map(function (t) { return "<li>" + t + "</li>"; }).join('') + "</ul>";
+    }
+    if (kind === "meds") {
+      var r = getReminders();
+      return "<strong>Recordatorio de medicamentos de hoy:</strong><ul>" + r.meds.map(function (m) {
+        return "<li><strong>" + escapeHtml(m.name) + " " + escapeHtml(m.dose) + "</strong> — " + m.times.join(", ") + ".<br><span class='hint'>" + escapeHtml(m.note || "") + "</span></li>";
+      }).join('') + "</ul>Los activé en el panel de <strong>Recordatorios</strong> de abajo. No suspendas ni cambies dosis sin tu médico.";
+    }
+    if (kind === "agua") {
+      var r2 = getReminders();
+      return "<strong>Recordatorio de agua:</strong> meta " + r2.water.goal + " L/día (8 vasos de 250 ml), con aviso cada " + r2.water.intervalMin + " min entre " + r2.water.start + " y " + r2.water.end + ".<br>Hoy llevas <strong>" + waterToday(r2) + " L</strong>. Marca cada vaso en el panel de <strong>Recordatorios</strong> (pestaña Calendario).";
+    }
+    if (kind === "verCalendario") return calendarReport();
+    if (kind === "verMercado") return marketReport();
+    if (kind === "medProgress") return medProgressReport();
+    if (kind === "verSintomas") return symptomReport();
+    if (kind === "actualizarRecetario") return planWeekFromAvailable();
+    return "";
+  }
+
+  var FUNCTION_PROMPTS = {
+    mercado: "El usuario pidió recetas según el mercado. Usa el contexto dinámico (productos disponibles y pendientes) para recomendar 2 o 3 recetas de este proyecto, indicando qué ingredientes ya tiene y cuáles le faltan, y cómo asignarlas al calendario.",
+    sintomas: "El usuario pidió recetas según sus síntomas. Usa el último registro de síntomas del contexto dinámico para recomendar recetas y ajustes, y recuérdale cuándo acudir a urgencias.",
+    meds: "El usuario pidió un recordatorio de medicamentos. Resume su esquema a partir del contexto del proyecto (órdenes del 01/10/2026) con horarios sugeridos, sin cambiar dosis ni indicar suspender nada.",
+    agua: "El usuario pidió un recordatorio de toma de agua. Propón un plan de hidratación distribuido en el día según su meta (1,5-2 L salvo restricción médica)."
+  };
+
+  var LOCAL_ONLY_FN = { verCalendario: 1, verMercado: 1, medProgress: 1, verSintomas: 1, actualizarRecetario: 1, agua: 1 };
+
+  function runFunction(kind, label) {
+    pushChat("user", escapeHtml(label));
+    if (kind === "medProgress" || kind === "agua") renderReminders();
+    var localHtml = localFunction(kind);
+
+    var ai = store.get(AI_KEY, {});
+    var useWorker = ai.use !== false && (ai.workerUrl || DEFAULT_WORKER_URL).trim();
+    if (!useWorker || LOCAL_ONLY_FN[kind] || !FUNCTION_PROMPTS[kind]) {
+      setTimeout(function () { pushChat("bot", localHtml); }, 160);
+      return;
+    }
+    setStatus("Consultando worker…");
+    callWorker(FUNCTION_PROMPTS[kind])
+      .then(function (out) {
+        pushChat("bot", escapeHtml(out).replace(/\n/g, "<br>"));
+        setStatus("Worker de IA activo");
+      })
+      .catch(function () {
+        pushChat("bot", localHtml);
+        setStatus("Motor local (el worker no respondió)");
+      });
+  }
+
+  /* =========================================================
+     Agente local: acciones reales sobre calendario, mercado,
+     medicamentos, síntomas y recetario
+  ========================================================= */
+  var DAY_KEYS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
+  var DAY_DISPLAY = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+  var pendingAssign = null;
+
+  function normalize(s) {
+    return String(s == null ? "" : s).toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[¿?¡!.,;:()"']/g, " ")
+      .replace(/\s+/g, " ").trim();
+  }
+
+  function findDay(norm) {
+    for (var i = 0; i < DAY_KEYS.length; i++) { if (norm.indexOf(DAY_KEYS[i]) !== -1) return DAY_DISPLAY[i]; }
+    return null;
+  }
+
+  function findMeal(norm) {
+    if (norm.indexOf("media manana") !== -1 || norm.indexOf("medias nueve") !== -1 || norm.indexOf("snack") !== -1) return "Media mañana";
+    if (norm.indexOf("desayuno") !== -1 || norm.indexOf("desayunar") !== -1) return "Desayuno";
+    if (norm.indexOf("almuerzo") !== -1 || norm.indexOf("almorzar") !== -1) return "Almuerzo";
+    if (norm.indexOf("cena") !== -1 || norm.indexOf("cenar") !== -1) return "Cena";
+    return null;
+  }
+
+  var RECIPE_HINTS = {
+    r1: ["arandano", "limon", "agua aromatizada"],
+    r2: ["jengibre", "manzanilla", "infusion"],
+    r3: ["avena", "chia", "nueces", "nocturna"],
+    r4: ["salmon", "brocoli", "curcuma"],
+    r5: ["lentejas", "pimiento"],
+    r6: ["garbanzo", "espinaca", "ensalada", "citricos"],
+    r7: ["yogur", "linaza"],
+    r8: ["batido", "naranja", "zanahoria"]
+  };
+
+  function matchRecipe(norm) {
+    var best = null, bestScore = 0;
+    allRecipes().forEach(function (r) {
+      var score = 0;
+      (RECIPE_HINTS[r.id] || []).forEach(function (h) { if (norm.indexOf(h) !== -1) score += h.length; });
+      if (r.id.charAt(0) === "c") {
+        normalize(r.name).split(" ").forEach(function (t) { if (t.length > 4 && norm.indexOf(t) !== -1) score += t.length; });
+      }
+      if (score > bestScore) { bestScore = score; best = r; }
+    });
+    return bestScore > 0 ? best : null;
+  }
+
+  function setCalendarSlot(day, meal, recipeId) {
+    var cal = getCal();
+    cal[day + "|" + meal] = recipeId;
+    saveCal(cal);
+    renderCalendar();
+  }
+
+  function removeRecipeFromCalendar(recipeId) {
+    var cal = getCal(), removed = 0;
+    Object.keys(cal).forEach(function (k) { if (cal[k] === recipeId) { delete cal[k]; removed++; } });
+    saveCal(cal);
+    renderCalendar();
+    return removed;
+  }
+
+  function calendarReport() {
+    var cal = getCal();
+    var out = DAYS.map(function (day) {
+      var parts = MEALS.map(function (meal) {
+        var r = recipeById(cal[day + "|" + meal]);
+        return meal + ": " + (r ? r.name : "—");
+      });
+      return "<strong>" + day + "</strong> — " + parts.join(" · ");
+    });
+    var any = Object.keys(cal).length > 0;
+    return "<strong>Tu calendario de la semana:</strong>" +
+      (any ? "<ul><li>" + out.join("</li><li>") + "</li></ul>" : " está vacío. Puedes asignar con una función o pidiéndomelo, por ejemplo: «asigna la avena al desayuno del lunes».");
+  }
+
+  function detectMarketItem(norm) {
+    var STOP = { de: 1, con: 1, la: 1, el: 1, los: 1, las: 1, del: 1, y: 1, al: 1, a: 1, en: 1, sin: 1 };
+    var list = getMarket(), best = null, bestScore = 0;
+    list.forEach(function (it) {
+      var toks = normalize(it.name).split(" ").filter(function (t) { return t.length > 3 && !STOP[t]; });
+      if (!toks.length) return;
+      var hit = toks.filter(function (t) { return norm.indexOf(t) !== -1; }).length;
+      if (hit === toks.length && hit > bestScore) { best = it.name; bestScore = hit; }
+    });
+    return best;
+  }
+
+  function markMarketItem(name, done) {
+    var l = getMarket();
+    l.forEach(function (it) { if (normalize(it.name) === normalize(name)) it.done = done; });
+    saveMarket(l);
+    renderMarket();
+  }
+
+  function marketReport() {
+    var list = getMarket();
+    var have = list.filter(function (i) { return i.done; }).map(function (i) { return i.name; });
+    var missing = list.filter(function (i) { return !i.done; }).map(function (i) { return i.name; });
+    return "<strong>Tu mercado</strong> — " + have.length + " comprados y " + missing.length + " pendientes.<br>" +
+      "<strong>Ya tienes:</strong> " + (have.join(", ") || "nada marcado") + ".<br>" +
+      "<strong>Por comprar:</strong> " + (missing.join(", ") || "nada pendiente") + ".";
+  }
+
+  function isoLocal(d) {
+    var m = String(d.getMonth() + 1).padStart(2, "0");
+    var day = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + m + "-" + day;
+  }
+
+  function medProgressReport() {
+    var r = getReminders();
+    var today = todayISO();
+    var lines = r.meds.map(function (m) {
+      var total = m.times.length;
+      var doneToday = m.times.filter(function (t) { return m.done && m.done[today + "@" + t]; }).length;
+      var sched = 0, taken = 0;
+      for (var i = 0; i < 7; i++) {
+        var d = new Date(); d.setDate(d.getDate() - i);
+        var ds = isoLocal(d);
+        m.times.forEach(function (t) {
+          sched++;
+          if (m.done && m.done[ds + "@" + t]) taken++;
+        });
+      }
+      var pct = sched ? Math.round((taken / sched) * 100) : 0;
+      return "<li><strong>" + escapeHtml(m.name) + " " + escapeHtml(m.dose) + "</strong> — hoy " + doneToday + "/" + total + " tomas · adherencia 7 días: " + pct + "%</li>";
+    }).join('');
+    var totalToday = r.meds.reduce(function (s, m) { return s + m.times.length; }, 0);
+    var doneTodayAll = r.meds.reduce(function (s, m) {
+      return s + m.times.filter(function (t) { return m.done && m.done[today + "@" + t]; }).length;
+    }, 0);
+    return "<strong>Cómo vas con los medicamentos hoy:</strong> " + doneTodayAll + " de " + totalToday + " tomas registradas.<ul>" +
+      lines + "</ul>Marca cada toma en el panel de <strong>Recordatorios</strong> (pestaña Calendario). No suspendas ni cambies dosis sin tu médico.";
+  }
+
+  function symptomReport() {
+    var list = getSymptoms().slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
+    if (!list.length) return "Aún no tienes registros en <strong>Síntomas</strong>. Registra tu dolor de hoy para poder analizarlo.";
+    var last = list[0];
+    var d = new Date(); d.setDate(d.getDate() - 6);
+    var cutoff = isoLocal(d);
+    var last7 = list.filter(function (e) { return e.date >= cutoff; });
+    var avg = last7.length ? (last7.reduce(function (s, e) { return s + e.dolor; }, 0) / last7.length).toFixed(1) : "—";
+    var fevers = list.filter(function (e) { return (e.flags || []).indexOf("Fiebre") !== -1 || (e.temp && e.temp >= 38); }).length;
+    var burns = list.filter(function (e) { return (e.flags || []).indexOf("Ardor al orinar") !== -1; }).length;
+    return "<strong>Resumen de tus síntomas:</strong><ul>" +
+      "<li>Último registro (" + escapeHtml(last.date) + "): dolor " + last.dolor + "/10" +
+        (last.flags && last.flags.length ? ", " + escapeHtml(last.flags.join(", ")) : "") + ".</li>" +
+      "<li>Dolor promedio últimos 7 días: " + avg + "/10.</li>" +
+      "<li>Días con fiebre registrados: " + fevers + ". Días con ardor: " + burns + ".</li></ul>" +
+      "Puedes ver la gráfica en la pestaña <strong>Síntomas</strong>.";
+  }
+
+  function planWeekFromAvailable() {
+    var have = getMarket().filter(function (i) { return i.done; }).map(function (i) { return normalize(i.name); });
+    function avail(r) {
+      if (!have.length) return 0;
+      var n = r.ingredients.filter(function (ing) {
+        var x = normalize(ing);
+        return have.some(function (h) { return h.indexOf(x) !== -1 || x.indexOf(h) !== -1; });
+      }).length;
+      return n / r.ingredients.length;
+    }
+    var pools = { "Desayuno": activeRecipePool(["r3", "r7"]), "Media mañana": activeRecipePool(["r1", "r8"]), "Almuerzo": activeRecipePool(["r4", "r5", "r6"]), "Cena": activeRecipePool(["r5", "r6", "r2"]) };
+    var cal = {};
+    DAYS.forEach(function (day, i) {
+      MEALS.forEach(function (meal) {
+        var pool = pools[meal].map(recipeById).sort(function (a, b) { return avail(b) - avail(a); });
+        cal[day + "|" + meal] = pool[i % pool.length].id;
+      });
+    });
+    saveCal(cal);
+    renderCalendar();
+    marketFromCalendar();
+    return "<strong>Recetario actualizado.</strong> Asigné una semana " +
+      (have.length ? "priorizando las recetas con ingredientes que ya tienes" : "con variedad equilibrada") +
+      " y actualicé tu lista de mercado con los ingredientes faltantes. Revisa las pestañas <strong>Calendario</strong> y <strong>Mercado</strong>.";
+  }
+
+  function handleUserIntent(text) {
+    var norm = normalize(text);
+
+    if (pendingAssign) {
+      var d0 = findDay(norm), m0 = findMeal(norm);
+      if (d0 && m0) {
+        var rec0 = recipeById(pendingAssign);
+        setCalendarSlot(d0, m0, pendingAssign);
+        pendingAssign = null;
+        return "Listo: asigné <strong>" + escapeHtml(rec0.name) + "</strong> a <strong>" + m0 + " del " + d0 + "</strong>.";
+      }
+      if (d0 || m0) {
+        var recP = recipeById(pendingAssign);
+        return "Perfecto: <strong>" + escapeHtml(recP.name) + "</strong> el " + (d0 || "___") + " en " + (m0 || "___") +
+          ". Solo me falta " + (!d0 && !m0 ? "el día y la comida" : (!d0 ? "el día" : "la comida")) + ".";
+      }
+    }
+
+    var day = findDay(norm), meal = findMeal(norm), rec = matchRecipe(norm);
+    var mentionsCal = norm.indexOf("calendario") !== -1 || norm.indexOf("semana") !== -1;
+    var mentionsMarket = /(mercado|lista de compras|lista del mercado|lista de mercado)/.test(norm);
+
+    // Ver calendario
+    if (/(muestra|muestrame|ver|dime|que hay|que tengo)/.test(norm) && mentionsCal) return calendarReport();
+    if (/(vaciar|vacia|limpia|limpiar|borra|borrar) (el )?calendario/.test(norm) || /(vaciar|vacia) (la )?semana/.test(norm)) {
+      saveCal({}); renderCalendar(); return "Vacié el calendario. ¿Quieres que genere o actualice una semana?";
+    }
+    if (/(genera|generar|sugiere|sugerir|arma|actualiza) (la |una )?semana/.test(norm)) { suggestWeek(); return "Generé una semana sugerida. Revisa la pestaña <strong>Calendario</strong>."; }
+
+    // Quitar receta del calendario
+    if (/(quita|quitar|elimina|eliminar|borra|borrar)/.test(norm) && mentionsCal && rec) {
+      var nrem = removeRecipeFromCalendar(rec.id);
+      return nrem ? "Quité <strong>" + escapeHtml(rec.name) + "</strong> del calendario (" + nrem + " casilla(s))." : "No encontré esa receta en tu calendario.";
+    }
+
+    // Asignar receta
+    var assignVerb = /(asigna|asignar|pon|poner|agrega|agregar|anade|añade|programa|programar|coloca|colocar|ponme)/.test(norm);
+    if (rec && !mentionsMarket && (assignVerb || (day && meal))) {
+      if (day && meal) {
+        setCalendarSlot(day, meal, rec.id);
+        return "Listo: asigné <strong>" + escapeHtml(rec.name) + "</strong> a <strong>" + meal + " del " + day + "</strong>.";
+      }
+      pendingAssign = rec.id;
+      return "Entendí que quieres <strong>" + escapeHtml(rec.name) + "</strong>." +
+        (day ? "" : " ¿Qué día?") + (meal ? "" : " ¿Qué comida (desayuno, media mañana, almuerzo o cena)?") +
+        " Responde, por ejemplo: «" + (day || "lunes") + " " + (meal || "almuerzo") + "».";
+    }
+
+    // Mercado: ver
+    if (/(muestra|muestrame|ver|dime|que tengo|que hay)/.test(norm) && mentionsMarket && !/(agrega|anade|añade|marca)/.test(norm)) return marketReport();
+
+    // Mercado: actualizar desde calendario
+    if (/(actualiza|genera|generar) (la )?(lista|mercado)/.test(norm) && mentionsCal) {
+      marketFromCalendar(); return "Actualicé tu lista de mercado con los ingredientes del calendario.";
+    }
+
+    // Mercado: marcar comprado
+    if (/(ya compre|compre|marca|marcar|tengo|consigue|consegui)/.test(norm) && /(comprado|compre|tengo|listo|consegui)/.test(norm)) {
+      var it1 = detectMarketItem(norm);
+      if (it1) { markMarketItem(it1, true); return "Marqué <strong>" + escapeHtml(it1) + "</strong> como comprado."; }
+    }
+    // Mercado: marcar pendiente
+    if (/(no he comprado|falta|pendiente|sin comprar|no tengo|se acabo|se acabo)/.test(norm)) {
+      var it2 = detectMarketItem(norm);
+      if (it2) { markMarketItem(it2, false); return "Marqué <strong>" + escapeHtml(it2) + "</strong> como pendiente."; }
+    }
+    // Mercado: agregar
+    if (/(agrega|agregar|anade|añade|suma)/.test(norm) && /(mercado|lista|comprar)/.test(norm)) {
+      var addName = text.replace(/^.*?(agrega|agregar|anade|añade|suma)/i, "").replace(/(al|a la|en la|en el) (mercado|lista).*$/i, "").trim();
+      if (addName) { addMarketItem(addName, "Despensa"); return "Agregué <strong>" + escapeHtml(addName) + "</strong> a tu lista de mercado."; }
+    }
+    // Mercado: quitar
+    if (/(quita|quitar|elimina|eliminar|borra|borrar)/.test(norm) && /(mercado|lista|compra)/.test(norm)) {
+      var it3 = detectMarketItem(norm);
+      if (it3) { saveMarket(getMarket().filter(function (i) { return i.name !== it3; })); renderMarket(); return "Quité <strong>" + escapeHtml(it3) + "</strong> de la lista."; }
+    }
+
+    // Medicamentos
+    if (/(medicamento|medicamentos|pastilla|pastillas|medicacion|dosis|tomas registradas|adherencia)/.test(norm)) return medProgressReport();
+
+    // Síntomas
+    if (/(sintoma|sintomas|como van mis|resumen de sintomas|ultimo registro|como me siento)/.test(norm)) return symptomReport();
+
+    // Recetario
+    if (/(actualiza|actualizar|renueva|genera|sugiere|sugerir).*(recetario|receta|recetas|menu|comidas)/.test(norm)) return planWeekFromAvailable();
+
+    return null;
+  }
+
   function getChat() { return store.get(CHAT_KEY, []); }
   function saveChat(msgs) { store.set(CHAT_KEY, msgs); }
 
@@ -1659,21 +2526,26 @@
 
   function setStatus(txt) { var el = $("#ai-status"); if (el) el.textContent = txt; }
 
-  function callWorker(text) {
+  function callWorker(promptText) {
     var ai = store.get(AI_KEY, {});
     var url = (ai.workerUrl || DEFAULT_WORKER_URL).trim();
     if (!url) return Promise.reject(new Error("sin-url"));
 
-    var history = getChat().slice(-8).map(function (m) {
+    var hist = getChat().slice(-8);
+    if (hist.length && hist[hist.length - 1].role === "user") hist = hist.slice(0, -1);
+
+    var messages = [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: "CONTEXTO DINÁMICO ACTUAL:\n" + buildDynamicContext() }
+    ].concat(hist.map(function (m) {
       return { role: m.role === "user" ? "user" : "assistant", content: m.html.replace(/<[^>]+>/g, " ") };
-    });
+    }));
+    if (promptText) messages.push({ role: "user", content: promptText });
 
     return fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        messages: [{ role: "system", content: SYSTEM_PROMPT }].concat(history)
-      })
+      body: JSON.stringify({ messages: messages })
     })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
       .then(function (res) {
@@ -1692,6 +2564,12 @@
     if (!text) return;
     pushChat("user", escapeHtml(text));
     input.value = "";
+
+    var action = handleUserIntent(text);
+    if (action) {
+      setTimeout(function () { pushChat("bot", action); }, 160);
+      return;
+    }
 
     var ai = store.get(AI_KEY, {});
     var useWorker = ai.use !== false && (ai.workerUrl || DEFAULT_WORKER_URL).trim();
@@ -1753,24 +2631,38 @@
   }
 
   function initChips() {
+    var funcs = [
+      { kind: "verCalendario", label: "Ver mi calendario" },
+      { kind: "verMercado", label: "Ver mi mercado" },
+      { kind: "mercado", label: "Recetas con lo que tengo" },
+      { kind: "sintomas", label: "Recetas según mis síntomas" },
+      { kind: "verSintomas", label: "Resumen de síntomas" },
+      { kind: "medProgress", label: "Medicamentos: cómo voy" },
+      { kind: "actualizarRecetario", label: "Actualizar recetario" },
+      { kind: "agua", label: "Recordatorio de agua" }
+    ];
     var chips = [
       "¿Qué ayuda a subir el hierro?",
       "Tengo ardor al orinar",
-      "Dame una receta antiinflamatoria",
       "¿Qué suplementos debo evitar?",
       "Resumen de mis órdenes",
       "¿Cómo manejo el dolor lumbar?"
     ];
     var host = $("#chat-chips");
     if (!host) return;
-    host.innerHTML = chips.map(function (c) {
-      return '<button type="button">' + escapeHtml(c) + '</button>';
-    }).join('');
-    $$("button", host).forEach(function (b) {
-      b.addEventListener("click", function () {
-        $("#chat-input").value = b.textContent;
-        sendChat();
-      });
+    host.innerHTML =
+      '<span class="chips-label">Funciones</span>' +
+      funcs.map(function (f) {
+        return '<button type="button" class="fn" data-fn="' + f.kind + '">' + escapeHtml(f.label) + '</button>';
+      }).join('') +
+      '<span class="chips-label">Preguntas</span>' +
+      chips.map(function (c) { return '<button type="button">' + escapeHtml(c) + '</button>'; }).join('');
+
+    $$("button[data-fn]", host).forEach(function (b) {
+      b.addEventListener("click", function () { runFunction(b.getAttribute("data-fn"), b.textContent); });
+    });
+    $$("button:not([data-fn])", host).forEach(function (b) {
+      b.addEventListener("click", function () { $("#chat-input").value = b.textContent; sendChat(); });
     });
   }
 
@@ -1783,6 +2675,8 @@
     initChips();
     renderChat();
     loadAISettings();
+    renderReminders();
+    initReminderEngine();
 
     $("#sym-date").value = todayISO();
     $("#sym-dolor").addEventListener("input", function () {
@@ -1795,7 +2689,10 @@
       if (confirm("¿Borrar todos los registros de síntomas?")) { saveSymptoms([]); renderSymptoms(); toast("Registros borrados"); }
     });
 
-    $("#cal-suggest").addEventListener("click", suggestWeek);
+    var calAiAll = $("#cal-ai-all");
+    if (calAiAll) calAiAll.addEventListener("click", function () { manageCalendar("all"); this.closest("details").open = false; });
+    var calAiMissing = $("#cal-ai-missing");
+    if (calAiMissing) calAiMissing.addEventListener("click", function () { manageCalendar("missing"); this.closest("details").open = false; });
     $("#cal-clear").addEventListener("click", function () { saveCal({}); renderCalendar(); toast("Calendario vaciado"); });
     $("#cal-print-btn").addEventListener("click", function () { window.print(); });
 
@@ -1821,6 +2718,8 @@
     $("#chat-clear").addEventListener("click", function () { saveChat([]); renderChat(); toast("Conversación borrada"); });
     $("#ai-save").addEventListener("click", saveAISettings);
     $("#ai-test").addEventListener("click", testWorker);
+    var recAi = $("#rec-ai");
+    if (recAi) recAi.addEventListener("click", generateRecipesWithAI);
 
     window.addEventListener("resize", function () {
       if ($("#page-sintomas").classList.contains("active")) renderSymChart(getSymptoms());
